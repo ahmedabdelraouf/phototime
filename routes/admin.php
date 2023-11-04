@@ -1,0 +1,67 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Admin\AlbumsController;
+use \App\Http\Controllers\Admin\AuthenticationController;
+use \App\Http\Controllers\Admin\CategoriesController;
+use \App\Http\Controllers\Admin\TopMenuController;
+use \App\Http\Controllers\Admin\SliderBannersController;
+use \App\Http\Controllers\Admin\PagesController;
+use \App\Http\Controllers\Admin\MeController;
+
+
+Route::get("/", [MeController::class, "homepage"])->middleware("should_login")->name("home");
+
+Route::as("auth.")->group(function(){
+    Route::get("logout", [AuthenticationController::class, "logout"])
+        ->middleware("should_login")->name("logout");
+    Route::get("login", [AuthenticationController::class, "login"])
+        ->middleware("should_guest")->name("login");
+    Route::post("login", [AuthenticationController::class, "doLogin"])
+        ->middleware("should_guest")->name("do_login");
+});
+
+Route::prefix("categories")->as("categories.")->middleware("should_login")->group(function(){
+    Route::get("/", [CategoriesController::class, "listData"])->name("list");
+    Route::get("create", [CategoriesController::class, "create"])->name("create");
+    Route::post("create", [CategoriesController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [CategoriesController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [CategoriesController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [CategoriesController::class, "updateStatus"])->name("update_status");
+});
+
+Route::prefix("albums")->as("albums.")->middleware("should_login")->group(function(){
+    Route::get("/", [AlbumsController::class, "listData"])->name("list");
+    Route::get("create", [AlbumsController::class, "create"])->name("create");
+    Route::post("create", [AlbumsController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [AlbumsController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [AlbumsController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [AlbumsController::class, "updateStatus"])->name("update_status");
+});
+
+Route::prefix("top-menu")->as("menus.")->middleware("should_login")->group(function(){
+    Route::get("/", [TopMenuController::class, "listData"])->name("list");
+    Route::get("create", [TopMenuController::class, "create"])->name("create");
+    Route::post("create", [TopMenuController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [TopMenuController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [TopMenuController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [TopMenuController::class, "updateStatus"])->name("update_status");
+});
+
+Route::prefix("slider-banners")->as("sliders.")->middleware("should_login")->group(function(){
+    Route::get("/", [SliderBannersController::class, "listData"])->name("list");
+    Route::get("create", [SliderBannersController::class, "create"])->name("create");
+    Route::post("create", [SliderBannersController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [SliderBannersController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [SliderBannersController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [SliderBannersController::class, "updateStatus"])->name("update_status");
+});
+
+Route::prefix("pages")->as("pages.")->middleware("should_login")->group(function(){
+    Route::get("/", [PagesController::class, "listData"])->name("list");
+    Route::get("create", [PagesController::class, "create"])->name("create");
+    Route::post("create", [PagesController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [PagesController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [PagesController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [PagesController::class, "updateStatus"])->name("update_status");
+});
