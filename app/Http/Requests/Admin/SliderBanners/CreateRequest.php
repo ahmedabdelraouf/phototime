@@ -24,7 +24,8 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "language" => "required",
+            "language" => "nullable",
+            "btn_title" => "required",
             "title" => "required",
             "description" => "required",
             "image" => "required",
@@ -40,6 +41,7 @@ class CreateRequest extends FormRequest
         $this->merge([
             'is_active' => !empty($this->is_active) ? 1 : 0,
             'order' => $order + 1,
+            'language' => "ar",
         ]);
     }
 }

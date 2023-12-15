@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Tajawal;
+}
+#blog .navbar-light .navbar-nav .nav-link{
+  color: #fff;
+}
+.search-icon .fa{
+  color: #fff;
+}
+#blog .home-main{
+    background-image:url('../images/Rectangle 1313.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height:500px ;
+    position: relative;
+}
+
+#blog .home-main .content{
+  background: rgba(0, 0, 0, 0.39);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.home-main .head {
+  padding: 0 2rem; 
+  color: #fff;
+  z-index: 1;
+}
+#blog .all-blogs .blog{
+  height: 350px;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+}
+#blog .all-blogs .show-more{
+  text-align: start;
+}
+#blog .all-blogs .show-more a{
+  color: #0950AA;
+  font-family: Tajawal;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border-bottom: 3px solid #007AB9;
+  border-image: linear-gradient(#20B15A,#007AB9);
+  border-image-slice: 1;
+  width:100%;
+}
+
+#blog .all-blogs .show-all {
+  position: relative;
+  background-color: transparent;
+  padding: 1rem 2rem;
+}
+#blog .all-blogs .show-all::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50px; 
+  padding: 5px; 
+  background:linear-gradient(45deg,#20B15A,#007AB9); 
+  -webkit-mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude; 
+}
+#blog .blog-details .blog-content{
+  color: #000;
+  font-family: Tajawal;
+  font-style: normal;
+  font-weight: 400;
+}
+@media (max-width:728px){
+  #blog .home-main{
+    min-height: 500px;
+  }
+  .home-main .head {
+    padding: 0 2rem;
+  }
+  #blog .navbar-light .navbar-nav .nav-link{
+    color: #000;
+  }
+  .search-icon .fa{
+    color: #000
+  }
+}

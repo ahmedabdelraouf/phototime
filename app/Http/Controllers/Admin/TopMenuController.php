@@ -20,7 +20,7 @@ class TopMenuController extends AdminBaseController
     function listData(Request $request)
     {
         $menus = TopMenu::with("parent")->cursorPaginate(20,
-            ["title_ar", "url_ar", "is_active", "id", "parent_id", "a_title_ar"], "topMenus");
+            ["title", "url", "is_active", "id", "parent_id", "a_title"], "topMenus");
         return view("admin.modules.topMenus.list_data", get_defined_vars());
     }
 
@@ -29,7 +29,7 @@ class TopMenuController extends AdminBaseController
      */
     function create()
     {
-        $parents = TopMenu::where("parent_id", 0)->pluck("title_ar", "id");
+        $parents = TopMenu::where("parent_id", 0)->pluck("title", "id");
         return view("admin.modules.topMenus.create", get_defined_vars());
     }
 
@@ -87,7 +87,7 @@ class TopMenuController extends AdminBaseController
         if (empty($menu)) {
             return redirect()->route("admin.menus.list")->with("error", "TopMenu not exist in system");
         }
-        $parents = TopMenu::where("parent_id", 0)->where("id", "!=", $id)->pluck("title_ar", "id");
+        $parents = TopMenu::where("parent_id", 0)->where("id", "!=", $id)->pluck("title", "id");
         return view("admin.modules.topMenus.edit", get_defined_vars());
     }
 

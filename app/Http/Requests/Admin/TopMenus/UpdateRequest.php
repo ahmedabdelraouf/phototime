@@ -24,12 +24,9 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title_ar" => "required",
-            "title_en" => "required",
-            "a_title_en" => "required",
-            "a_title_ar" => "required",
-            "url_en" => "required",
-            "url_ar" => "required",
+            "title" => "required",
+            "a_title" => "required",
+            "url" => "required",
             "is_active" => "nullable",
             "parent_id" => "nullable",
         ];

@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('top_menus', function (Blueprint $table) {
             $table->id();
             $table->integer("parent_id")->index();
-            $table->string("title_en")->nullable();
-            $table->string("title_ar");
-            $table->string("a_title_en")->nullable();
-            $table->string("a_title_ar");
-            $table->string("url_en", 500)->nullable();
-            $table->string("url_ar", 500);
+            $table->string("title");
+            $table->string("a_title");
+            $table->string("url", 500);
             $table->boolean("is_active")->index()->default(1);
             $table->timestamps();
         });

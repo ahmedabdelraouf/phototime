@@ -29,23 +29,6 @@
             </div>
             <div class="x_content" style="padding-top: 0.2rem !important;border-bottom: 1px solid #9a9da0;margin-bottom: 1%;">
                 <div class="row mt-2">
-                    <div class="col-12 col-lg-6 col-md-6">
-                        <div class="form-group">
-                            <label for="language" class="form-label @if ($errors->has("language")) is-invalid @endif">Language</label>
-                            <select class="form-control @if ($errors->has("language")) is-invalid @endif"
-                                    id="language" name="language" data-placeholder="Choose one thing"
-                                    @if ($errors->has("language"))
-                                        aria-describedby="language-error"
-                                    aria-invalid="true"
-                                @endif >
-                                <option value="ar" @if($slider->language == "ar") selected @endif>Arabic</option>
-                                <option value="en" @if($slider->language == "en") selected @endif>English</option>
-                            </select>
-                            @if ($errors->has("language"))
-                                <div id="language-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("language") }}</div>
-                            @endif
-                        </div>
-                    </div>
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
                             <label for="order" class="form-label @if ($errors->has("order")) is-invalid @endif">Banner order</label>
@@ -64,7 +47,7 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="title" class="form-label @if ($errors->has("title")) is-invalid @endif">Title</label>
                             <input type='text' name='title' id='title' value='{{old("title", $slider->title)}}' placeholder="Title"
@@ -79,7 +62,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="url" class="form-label @if ($errors->has("url")) is-invalid @endif">Banner Link</label>
                             <input type='text' name='url' id='url' value='{{old("url", $slider->url)}}' placeholder="Banner Link"
@@ -91,6 +74,21 @@
                             />
                             @if ($errors->has("url"))
                                 <div id="url-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("url") }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label for="btn_title" class="form-label @if ($errors->has("btn_title")) is-invalid @endif">Button Title</label>
+                            <input type='text' name='btn_title' id='btn_title' value='{{old("btn_title", $slider->btn_title)}}' placeholder="Button title"
+                                   class='form-control @if ($errors->has("btn_title")) is-invalid @endif'
+                                   @if ($errors->has("btn_title"))
+                                       aria-describedby="btn_title-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("btn_title"))
+                                <div id="btn_title-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("btn_title") }}</div>
                             @endif
                         </div>
                     </div>

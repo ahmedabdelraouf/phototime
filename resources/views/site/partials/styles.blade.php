@@ -1,19 +1,11 @@
-<link href="{{url("resources/dashboard/vendors/bootstrap/dist/css/bootstrap.min.css")}}" rel="stylesheet">
-<link href="{{url("resources/dashboard/vendors/font-awesome/css/font-awesome.min.css")}}" rel="stylesheet">
-<link href="{{url("resources/dashboard/vendors/nprogress/nprogress.css")}}" rel="stylesheet">
-<link href="{{url("resources/dashboard/vendors/animate.css/animate.min.css")}}" rel="stylesheet">
-<link href="{{url("resources/dashboard/vendors/switchery/dist/switchery.min.css")}}" rel="stylesheet">
-<link href="{{url("resources/dashboard/vendors/sweetalert/sweetalert.min.css")}}" rel="stylesheet">
-<link href="{{url("resources/dashboard/build/css/custom.css")}}" rel="stylesheet">
-<style>
-    .nav-md .site_title img{
-        width: 12rem;
-    }
-    .nav-sm .site_title img{
-        width: 10rem;
-    }
-    .nav-sm .nav_title{
-        padding-left: 0px !important;
-    }
-</style>
+<link rel="apple-touch-icon" sizes="180x180" href="{{asset("resources/site/img/fav.png")}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{asset("resources/site/css/bootstrap.min.css")}}">
+<link rel="stylesheet" type="text/css" href="{{asset("resources/site/css/slick.css")}}" />
+<link rel="stylesheet" type="text/css" href="{{asset("resources/site/css/slick-theme.css")}}" />
+<script src="{{asset("resources/site/scripts/swiper-bundle.min.js")}}"></script>
+<link href="{{asset("resources/site/css/swiper-bundle.min.css")}}" rel="stylesheet">
+<link rel="stylesheet" href="{{asset("resources/site/css/header.css")}}">
+<link rel="stylesheet" href="{{asset("resources/site/css/footer.css")}}">
+<link href="{{url("resources/site/css/sweetalert/sweetalert.min.css")}}" rel="stylesheet">
 @stack("styles")

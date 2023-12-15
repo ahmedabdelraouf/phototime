@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("description", 255)->nullable();
             $table->string("image", 255);
             $table->string("url", 255)->nullable();
+            $table->string("btn_title", 255)->nullable();
             $table->integer("order")->default(1);
             $table->boolean("is_active")->index()->default(1);
             $table->timestamps();

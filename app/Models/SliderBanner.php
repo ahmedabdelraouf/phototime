@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class SliderBanner extends Model
 {
     protected $table = "slider_banners";
-    protected $fillable = ["language","title", "description", "url", "image", "order", "is_active"];
+    protected $fillable = ["language","title", "description", "url", "image", "order", "is_active", "btn_title"];
 
     const MODULE_NAME = "banner";
 }

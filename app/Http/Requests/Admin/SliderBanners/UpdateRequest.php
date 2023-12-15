@@ -24,11 +24,12 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "language" => "required",
+            "language" => "nullable",
             "title" => "required",
             "description" => "required",
             "image" => "nullable",
             "url" => "required",
+            "btn_title" => "required",
             "order" => "required",
             "is_active" => "nullable",
         ];
@@ -38,6 +39,7 @@ class UpdateRequest extends FormRequest
     {
         $this->merge([
             'is_active' => !empty($this->is_active) ? 1 : 0,
+            'language' => "ar",
         ]);
     }
 }

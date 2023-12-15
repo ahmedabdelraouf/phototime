@@ -28,7 +28,7 @@
                         <thead>
                         <tr>
                             <th style="width: 5%">#</th>
-                            <th style='width: 35%'>Title (AR)</th>
+                            <th style='width: 35%'>Title</th>
                             <th style='width: 15%'>Parent</th>
                             <th style='width: 25%'>Url tag title</th>
                             <th style='width: 10%'>Status</th>
@@ -39,9 +39,9 @@
                         @forelse($menus as $menu)
                             <tr>
                                 <td> {{ $loop->index +1 }} </td>
-                                <td> {{ $menu->title_ar }} <br />{{ $menu->url_ar }}</td>
-                                <td> {{ $menu->parent_id > 0 ? $menu->parent->title_ar : "Is Parent" }} </td>
-                                <td>{{ $menu->a_title_ar }}</td>
+                                <td> {{ $menu->title }} <br />{{ $menu->url }}</td>
+                                <td> {{ $menu->parent_id > 0 ? $menu->parent->title : "Is Parent" }} </td>
+                                <td>{{ $menu->a_title }}</td>
                                 <td>
                                     @if(empty($menu->is_active))
                                         <span class="badge badge-danger">Not Active</span>
@@ -54,13 +54,13 @@
                                         @if(empty($menu->is_active))
                                             <a href="{{route("admin.menus.update_status", ["type" => "activate", "id" => $menu->id])}}" class="mx-2 activate_item" data-bs-toggle="tooltip" data-bs-original-title="Activate menu"
                                                title="Activate menu"
-                                               data-title="{{$menu->title_ar}}">
+                                               data-title="{{$menu->title}}">
                                                 <i class="fa fa-check-circle text-secondary"></i>
                                             </a>
                                         @else
                                             <a href="{{route("admin.menus.update_status", ["type" => "deactivate", "id" => $menu->id])}}" class="mx-2 deactivate_item" data-bs-toggle="tooltip" data-bs-original-title="De-Activate menu"
                                                title="De-Activate menu"
-                                               data-title="{{$menu->title_ar}}">
+                                               data-title="{{$menu->title}}">
                                                 <i class="fa fa-ban text-secondary"></i>
                                             </a>
                                         @endif

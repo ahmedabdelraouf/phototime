@@ -32,7 +32,7 @@
                     <div class="col-6 col-md-6">
                         <div class="form-group">
                             <label for="parent_id" class="mt-4 form-label @if ($errors->has("parent_id")) is-invalid @endif">Parent Menu</label>
-                            <select class="form-control select2_single @if ($errors->has("posts[]")) is-invalid @endif"
+                            <select class="form-control select2_single @if ($errors->has("parent_id")) is-invalid @endif"
                                     id="parent_id" name="parent_id" data-placeholder="Choose one thing"
                                     @if ($errors->has("parent_id"))
                                         aria-describedby="parent_id-error"
@@ -49,36 +49,53 @@
                         </div>
                     </div>
                 </div>
-                <ul class="nav nav-tabs" id="multi-lang-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="ar-tab" data-toggle="tab" href="#ar"
-                           role="tab" aria-controls="ar" aria-selected="true">
-                            <img width="15px" style="margin-top: -5px" src="{{url("resources/dashboard/images/ar.png")}}" alt="Arabic" /> <b>Arabic</b>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="en-tab" data-toggle="tab" href="#en"
-                           role="tab" aria-controls="en" aria-selected="true">
-                            <img width="25px" style="margin-top: -5px" src="{{url("resources/dashboard/images/en.png")}}" alt="English" /> <b>English</b>
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="multi-lang-tabsContent">
-                    <div class="tab-pane fade show active" id="ar" role="tabpanel" aria-labelledby="ar-tab">
-                        <h4>
-                            <img width="25px" style="margin-top: -4px" src="{{url("resources/dashboard/images/ar.png")}}" alt="Arabic" />
-                            <b>Manage Arabic Language content</b>
-                        </h4>
-                        <hr style="border: 1px solid #b8bcc0;margin-bottom: 1.5rem" />
-                        @include("admin.modules.topMenus.create_form", ['form_lang' => "ar"])
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="title" class="form-label @if ($errors->has("title")) is-invalid @endif">Menu Title</label>
+                            <input type='text' name='title' id='title' value='{{old("title")}}' placeholder="Menu Title"
+                                   class='form-control @if ($errors->has("title")) is-invalid @endif' required
+                                   @if ($errors->has("title"))
+                                       aria-describedby="title-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("title"))
+                                <div id="title-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("title") }}</div>
+                            @endif
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="en" role="tabpanel" aria-labelledby="en-tab">
-                        <h4>
-                            <img width="35px" style="margin-top: -4px" src="{{url("resources/dashboard/images/en.png")}}" alt="English" />
-                            <b>Manage English Language content</b>
-                        </h4>
-                        <hr style="border: 1px solid #b8bcc0;margin-bottom: 1.5rem" />
-                        @include("admin.modules.topMenus.create_form", ['form_lang' => "en"])
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="a_title" class="form-label @if ($errors->has("a_title")) is-invalid @endif">Menu URL Tag Title</label>
+                            <input type='text' name='a_title' id='a_title' value='{{old("a_title")}}' placeholder="Menu URL Tag Title"
+                                   class='form-control @if($errors->has("a_title")) is-invalid @endif' required
+                                   @if ($errors->has("a_title"))
+                                       aria-describedby="a_title-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("a_title"))
+                                <div id="a_title-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("a_title") }}</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-9 col-lg-9">
+                        <div class="form-group">
+                            <label for="url" class="form-label @if ($errors->has("url")) is-invalid @endif">Menu Link</label>
+                            <input type='text' name='url' id='url' value='{{old("url")}}' placeholder="Menu Link"
+                                   class='form-control @if ($errors->has("url")) is-invalid @endif' required
+                                   @if ($errors->has("url"))
+                                       aria-describedby="url-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("url"))
+                                <div id="url-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("url") }}</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

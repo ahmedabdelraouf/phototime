@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Http\Requests\Site\ContactUsRequest;
 use App\Models\Album;
+use App\Models\Page;
 use App\Models\SliderBanner;
+use App\Models\UserMessage;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class HomeController extends SiteBaseController
@@ -17,8 +21,6 @@ class HomeController extends SiteBaseController
     {
         $sliders = SliderBanner::where("language", app()->getLocale())
             ->where("is_active", 1)->orderBy("order", "ASC")->get();
-        $services = Album::where("is_active", 1)->orderBy(\DB::raw('RAND()'))
-            ->has("slugData")->with("slugData")->get();
         return view("site.modules.homepage", get_defined_vars());
     }
     /**
@@ -27,8 +29,29 @@ class HomeController extends SiteBaseController
      */
     function aboutUs(Request $request): View
     {
-        $sliders = SliderBanner::where("language", app()->getLocale())
-            ->where("is_active", 1)->orderBy("order", "ASC")->get();
-        return view("site.modules.homepage", get_defined_vars());
+        $content = Page::where("url", "about-us")
+            ->where("is_active", 1)->first();
+        return view("site.modules.static_page", get_defined_vars());
+    }
+    /**
+     * @param Request $request
+     * @return View
+     */
+    function contactUs(Request $request): View
+    {
+        $content = Page::where("url", "contact-us")
+            ->where("is_active", 1)->first();
+        $request->session()->regenerateToken();
+        return view("site.modules.contact_us", get_defined_vars());
+    }
+
+    /**
+     * @param ContactUsRequest $request
+     * @return RedirectResponse
+     */
+    function postContactUs(ContactUsRequest $request): RedirectResponse
+    {
+        UserMessage::create($request->validated());
+        return redirect()->route("site.contact")->with("success", "لقد تم ارسال رسالتكم بنجاح وسيقوم احد افراد خدمة العملاء بالاتصال بكم قريبا");
     }
 }
