@@ -25,26 +25,16 @@ class UpdateRequest extends FormRequest
     {
         $id = $this->route("id");
         return [
-            "title_ar" => "required",
-            "slug_ar" => [
+            "title" => "required",
+            "slug" => [
                 'required',
                 Rule::unique('slug_aliases',"slug")->ignore($id, "module_id"),
             ],
-            "short_desc_ar" => "required",
-            "meta_keywords_ar" => "required",
-            "meta_title_ar" => "required",
-            "meta_description_ar" => "required",
-            "content_ar" => "required",
-            "title_en" => "required",
-            "slug_en" => [
-                'required',
-                Rule::unique('slug_aliases',"slug")->ignore($id, "module_id"),
-            ],
-            "short_desc_en" => "required",
-            "meta_keywords_en" => "required",
-            "meta_title_en" => "required",
-            "meta_description_en" => "required",
-            "content_en" => "required",
+            "short_desc" => "required",
+            "meta_keywords" => "required",
+            "meta_title" => "required",
+            "meta_description" => "required",
+            "content" => "required",
             "is_active" => "nullable",
             "posts" => "nullable",
         ];

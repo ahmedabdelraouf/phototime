@@ -36,12 +36,13 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->routes(function () {
-            Route::middleware('web')->as("site.")
-                ->group(base_path('routes/web.php'));
 
             Route::prefix(config("app.admin_prefix"))
                 ->as("admin.")->middleware('admin')
                 ->group(base_path('routes/admin.php'));
+
+            Route::middleware('web')->as("site.")
+                ->group(base_path('routes/web.php'));
         });
     }
 }

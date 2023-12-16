@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Pages;
 
+use App\Models\Page;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,22 +24,16 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title_ar" => "required",
-            "slug_ar" => "required|unique:slug_aliases,slug",
-            "short_desc_ar" => "required",
-            "meta_keywords_ar" => "required",
-            "meta_title_ar" => "required",
-            "meta_description_ar" => "required",
-            "content_ar" => "required",
-            "title_en" => "required",
-            "slug_en" => "required|unique:slug_aliases,slug",
-            "short_desc_en" => "required",
-            "meta_keywords_en" => "required",
-            "meta_title_en" => "required",
-            "meta_description_en" => "required",
-            "content_en" => "required",
+            "language" => "nullable",
+            "type" => "nullable",
+            "title" => "required",
+            "slug" => "required|unique:slug_aliases,slug",
+            "short_desc" => "required",
+            "meta_keywords" => "required",
+            "meta_title" => "required",
+            "meta_description" => "required",
+            "content" => "required",
             "is_active" => "nullable",
-            "posts" => "nullable",
         ];
     }
 
@@ -46,6 +41,8 @@ class CreateRequest extends FormRequest
     {
         $this->merge([
             'is_active' => !empty($this->is_active) ? 1 : 0,
+            'language' => "ar",
+            'type' => Page::PAGE_TYPE_SLUG
         ]);
     }
 }

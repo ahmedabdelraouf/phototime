@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "site_title" => "مصور",
+    "site_title" => "فوتوتايم",
     "footer_about" => "مصور ابوت",
     "top_menu" => [
         "home" => "الرئيسية"

@@ -19,14 +19,6 @@ class Page extends Model
 
     function slugData(): HasOne
     {
-        return $this->hasOne(SlugAlias::class, "module_id", "id")->where("module", self::MODULE_NAME."_".strtolower(app()->getLocale()));
-    }
-    function slugDataEn(): HasOne
-    {
-        return $this->hasOne(SlugAlias::class, "module_id", "id")->where("module", self::MODULE_NAME."_en");
-    }
-    function slugDataAr(): HasOne
-    {
-        return $this->hasOne(SlugAlias::class, "module_id", "id")->where("module", self::MODULE_NAME."_ar");
+        return $this->hasOne(SlugAlias::class, "module_id", "id")->where("module", self::MODULE_NAME);
     }
 }

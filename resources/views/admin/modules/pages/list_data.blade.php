@@ -39,9 +39,9 @@
                         @forelse($pages as $page)
                             <tr>
                                 <td> {{ $loop->index +1 }} </td>
-                                <td> {{ $page->title_ar }} </td>
-                                <td>{{ $page->short_desc_ar }}</td>
-                                <td>{{$page->slugDataAr->slug}}</td>
+                                <td> {{ $page->title }} </td>
+                                <td>{{ $page->short_desc }}</td>
+                                <td>{{$page->slugData->slug}}</td>
                                 <td>
                                     @if(empty($page->is_active))
                                         <span class="badge badge-danger">Not Active</span>
@@ -54,13 +54,13 @@
                                         @if(empty($page->is_active))
                                             <a href="{{route("admin.pages.update_status", ["type" => "activate", "id" => $page->id])}}" class="mx-2 activate_item" data-bs-toggle="tooltip" data-bs-original-title="Activate page"
                                                title="Activate page"
-                                               data-title="{{$page->title_ar}}">
+                                               data-title="{{$page->title}}">
                                                 <i class="fa fa-check-circle text-secondary"></i>
                                             </a>
                                         @else
                                             <a href="{{route("admin.pages.update_status", ["type" => "deactivate", "id" => $page->id])}}" class="mx-2 deactivate_item" data-bs-toggle="tooltip" data-bs-original-title="De-Activate page"
                                                title="De-Activate page"
-                                               data-title="{{$page->title_ar}}">
+                                               data-title="{{$page->title}}">
                                                 <i class="fa fa-ban text-secondary"></i>
                                             </a>
                                         @endif

@@ -6,6 +6,7 @@ use App\Http\Requests\Site\ContactUsRequest;
 use App\Models\Album;
 use App\Models\Page;
 use App\Models\SliderBanner;
+use App\Models\SlugAlias;
 use App\Models\UserMessage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -23,16 +24,18 @@ class HomeController extends SiteBaseController
             ->where("is_active", 1)->orderBy("order", "ASC")->get();
         return view("site.modules.homepage", get_defined_vars());
     }
+
     /**
      * @param Request $request
      * @return View
      */
     function aboutUs(Request $request): View
     {
-        $content = Page::where("url", "about-us")
-            ->where("is_active", 1)->first();
+        $slug_data = SlugAlias::where("slug", "about-us")->firstOrFail();
+        $page = Page::where("is_active", 1)->find($slug_data->module_id);
         return view("site.modules.static_page", get_defined_vars());
     }
+
     /**
      * @param Request $request
      * @return View

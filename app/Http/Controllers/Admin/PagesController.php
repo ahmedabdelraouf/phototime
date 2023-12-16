@@ -43,9 +43,7 @@ class PagesController extends AdminBaseController
     {
         $page = Page::create($request->validated());
         if (!empty($page->id)) {
-            SlugAlias::create(["module_id" => $page->id, "slug" => $request->slug_en, "module" => Page::MODULE_NAME . "_en"]);
-            SlugAlias::create(["module_id" => $page->id, "slug" => $request->slug_ar, "module" => Page::MODULE_NAME . "_ar"]);
-            $page->posts()->sync($request->posts);
+            SlugAlias::create(["module_id" => $page->id, "slug" => $request->slug, "module" => Page::MODULE_NAME]);
             return redirect()->route("admin.pages.list")->with("success", "Page Created successfully");
         }
         return redirect()->route("admin.pages.create")->with("error", "No data saved please try again")->withInput();
