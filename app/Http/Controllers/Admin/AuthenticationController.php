@@ -19,9 +19,6 @@ class AuthenticationController extends AdminBaseController
      */
     function login()
     {
-//        Admin::create(
-//                ["email" => "admin@kb-solutions.com", "password" => system_encryption("Welcome@123"), 'name' => "Super Admin", "is_active" => "1"]
-//        );
         return view("admin.modules.authentication.login", get_defined_vars());
     }
 
