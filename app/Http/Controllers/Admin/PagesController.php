@@ -31,7 +31,6 @@ class PagesController extends AdminBaseController
      */
     function create()
     {
-        $posts = Category::pluck("title_ar", "id");
         return view("admin.modules.pages.create", get_defined_vars());
     }
 
@@ -90,8 +89,6 @@ class PagesController extends AdminBaseController
         if (empty($page)) {
             return redirect()->route("admin.pages.list")->with("error", "Page not exist in system");
         }
-        $posts = Page::pluck("title_ar", "id");
-        $linked_posts = $page->posts()->pluck("post_id")->toArray();
         return view("admin.modules.pages.edit", get_defined_vars());
     }
 
@@ -108,17 +105,11 @@ class PagesController extends AdminBaseController
         }
 
         $page->update($request->validated());
-        $en_slug = $page->slugDataEn;
-        if(!empty($en_slug)){
-            $en_slug->slug = $request->slug_en;
-            $en_slug->save();
+        $slug = $page->slugData;
+        if(!empty($slug)){
+            $slug->slug = $request->slug;
+            $slug->save();
         }
-        $ar_slug = $page->slugDataAr;
-        if(!empty($ar_slug)){
-            $ar_slug->slug = $request->slug_ar;
-            $ar_slug->save();
-        }
-        $page->posts()->sync($request->posts);
         return redirect()->route("admin.pages.list")->with("success", "Page Created successfully");
     }
 }

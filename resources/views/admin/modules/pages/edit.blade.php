@@ -15,9 +15,9 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>Edit Page ({{ $page->title }})</h2>
-                    <a class="btn btn-danger btn-round btn-xs pull-right" title="Cancel Edit page" href="{{route("admin.pages.list")}}">
-                        <i class="fa fa-angle-double-right"></i>
-                    </a>
+                <a class="btn btn-danger btn-round btn-xs pull-right" title="Cancel Edit page" href="{{route("admin.pages.list")}}">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
                 <div class="pull-right mt-2 mr-2">
                     <div class="">
                         <label>
@@ -28,58 +28,125 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="padding-top: 0.2rem !important;">
-                <div class="row" style="margin-bottom: 3%">
-                    <div class="col-6 col-md-6">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
-                            <label for="posts" class="mt-4 form-label @if ($errors->has("posts[]")) is-invalid @endif">Posts</label>
-                            <select class="form-control select2_multiple @if ($errors->has("posts[]")) is-invalid @endif"
-                                    id="posts" name="posts[]" multiple data-placeholder="Choose one thing"
-                                    @if ($errors->has("posts[]"))
-                                        aria-describedby="posts-error"
-                                    aria-invalid="true"
-                                @endif >
-                                @foreach($posts as $post_id => $post_title)
-                                    <option value="{{$post_id}}" @if(in_array($post_id, $linked_posts)) selected @endif>{{$post_title}}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has("posts[]"))
-                                <div id="posts-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("posts[]") }}</div>
+                            <label for="title" class="form-label @if ($errors->has("title")) is-invalid @endif">Page Title</label>
+                            <input type='text' name='title' id='title' value='{{old("title",$page->title)}}' placeholder="Page Title"
+                                   class='form-control @if ($errors->has("title")) is-invalid @endif' required
+                                   @if ($errors->has("title"))
+                                       aria-describedby="title-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("title"))
+                                <div id="title-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("title") }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="slug" class="form-label @if ($errors->has("slug")) is-invalid @endif">Page slug</label>
+                            <input type='text' name='slug' id='slug' value='{{old("slug",$page->slugData->slug)}}' placeholder="Page unique slug"
+                                   class='form-control slug_input @if ($errors->has("slug")) is-invalid @endif'
+                                   @if ($errors->has("slug"))
+                                       aria-describedby="slug-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("slug"))
+                                <div id="slug-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("slug") }}</div>
                             @endif
                         </div>
                     </div>
                 </div>
-                <ul class="nav nav-tabs" id="multi-lang-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="ar-tab" data-toggle="tab" href="#ar"
-                           role="tab" aria-controls="ar" aria-selected="true">
-                            <img width="15px" style="margin-top: -5px" src="{{url("resources/dashboard/images/ar.png")}}" alt="Arabic" /> <b>Arabic</b>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="en-tab" data-toggle="tab" href="#en"
-                           role="tab" aria-controls="en" aria-selected="true">
-                            <img width="25px" style="margin-top: -5px" src="{{url("resources/dashboard/images/en.png")}}" alt="English" /> <b>English</b>
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="multi-lang-tabsContent">
-                    <div class="tab-pane fade show active" id="ar" role="tabpanel" aria-labelledby="ar-tab">
-                        <h4>
-                            <img width="25px" style="margin-top: -4px" src="{{url("resources/dashboard/images/ar.png")}}" alt="Arabic" />
-                            <b>Manage Arabic Language content</b>
-                        </h4>
-                        <hr style="border: 1px solid #b8bcc0;margin-bottom: 1.5rem" />
-                        @include("admin.modules.pages.edit_form", ['form_lang' => "ar"])
+
+                <div class="row" style="margin-top: 2%">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="short_desc" class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Short description</label>
+                            <textarea name="short_desc" id="short_desc"
+                                      class='form-control @if ($errors->has("short_desc")) is-invalid @endif'
+                                      rows="3" required
+                                      @if ($errors->has("short_desc"))
+                                          aria-describedby="short_desc-error"
+                                      aria-invalid="true"
+                @endif
+            >{{old("short_desc", $page->short_desc)}}</textarea>
+                            @if ($errors->has("short_desc"))
+                                <div id="short_desc-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("short_desc") }}</div>
+                            @endif
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="en" role="tabpanel" aria-labelledby="en-tab">
-                        <h4>
-                            <img width="35px" style="margin-top: -4px" src="{{url("resources/dashboard/images/en.png")}}" alt="English" />
-                            <b>Manage English Language content</b>
-                        </h4>
-                        <hr style="border: 1px solid #b8bcc0;margin-bottom: 1.5rem" />
-                        @include("admin.modules.pages.edit_form", ['form_lang' => "en"])
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="meta_keywords" class="form-label @if ($errors->has("meta_keywords")) is-invalid @endif">Meta Keywords</label>
+                            <textarea name="meta_keywords" id="meta_keywords"
+                                      class='form-control tags @if ($errors->has("meta_keywords")) is-invalid @endif'
+                                      rows="3" required
+                                      @if ($errors->has("meta_keywords"))
+                                          aria-describedby="meta_keywords-error"
+                                      aria-invalid="true"
+                @endif
+            >{{old("meta_keywords", $page->meta_keywords)}}</textarea>
+                            @if ($errors->has("meta_keywords"))
+                                <div id="meta_keywords-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_keywords") }}</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
+
+                <div class="row" style="margin-top: 2%">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="meta_title" class="form-label @if ($errors->has("meta_title")) is-invalid @endif">Meta Title for the page</label>
+                            <input type='text' name='meta_title' id='meta_title' value='{{old("meta_title", $page->meta_title)}}' placeholder="Page Meta Title"
+                                   class='form-control @if ($errors->has("meta_title")) is-invalid @endif' required
+                                   @if ($errors->has("meta_title"))
+                                       aria-describedby="meta_title-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("meta_title"))
+                                <div id="meta_title-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_title") }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="meta_description" class="form-label @if ($errors->has("meta_description")) is-invalid @endif">Meta description</label>
+                            <textarea name="meta_description" id="meta_description"
+                                      class='form-control @if ($errors->has("meta_description")) is-invalid @endif'
+                                      rows="2" required
+                                      @if ($errors->has("meta_description"))
+                                          aria-describedby="meta_description-error"
+                                      aria-invalid="true"
+                @endif
+            >{{old("meta_description", $page->meta_description)}}</textarea>
+                            @if ($errors->has("meta_description"))
+                                <div id="meta_description-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_description") }}</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            <label for="content" class="form-label @if ($errors->has("content")) is-invalid @endif">Page full description</label>
+                            <textarea name="content" id="content"
+                                      class="form-control editor @if ($errors->has("content")) is-invalid @endif"
+                                      @if ($errors->has("content"))
+                                          aria-describedby="content-error"
+                                      aria-invalid="true"
+                @endif
+            >{!! old("content", $page->content) !!}</textarea>
+                            @if ($errors->has("content"))
+                                <div id="content-error" class="invalid-feedback animated fadeInDown">{{ $errors->first("content") }}</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="tab-footer" style="padding: 2% 0 0 0;width: 100%;">
