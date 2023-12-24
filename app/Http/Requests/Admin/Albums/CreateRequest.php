@@ -23,24 +23,18 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "menu_title" => "required",
-            "title_ar" => "required",
-            "slug_ar" => "required|unique:slug_aliases,slug",
-            "short_desc_ar" => "required",
-            "meta_keywords_ar" => "required",
-            "meta_title_ar" => "required",
-            "meta_description_ar" => "required",
-            "content_ar" => "required",
-            "title_en" => "nullable",
-            "slug_en" => "nullable",
-            "short_desc_en" => "nullable",
-            "meta_keywords_en" => "nullable",
-            "meta_title_en" => "nullable",
-            "meta_description_en" => "nullable",
-            "content_en" => "nullable",
+            "title" => "required",
+            "slug" => "required|unique:slug_aliases,slug",
+            "short_desc" => "required",
+            "meta_keywords" => "required",
+            "meta_title" => "required",
+            "meta_description" => "required",
+            "content" => "required",
+            "photo_date" => "required|date",
+            "photo_owner_name" => "required",
+            "photo_place" => "required",
             "is_active" => "nullable",
-            "posts" => "nullable",
-            "image" => "required",
+            "categories" => "required",
         ];
     }
 

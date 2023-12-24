@@ -56,8 +56,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  border-bottom: 3px solid #007AB9;
-  border-image: linear-gradient(#20B15A,#007AB9);
   border-image-slice: 1;
   width:100%;
 }

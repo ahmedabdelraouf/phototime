@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title p-3" style="border: 0;">
-            <img src="{{url("resources/dashboard/images/logo.png")}}" alt="Sagr EL-Bashayer" style="max-width: 200px" />
+            <img src="{{url("resources/dashboard/images/logo.svg")}}" alt="PhotoTime فوتوتايم" style="max-width: 200px" />
         </div>
 
         <div class="clearfix"></div>

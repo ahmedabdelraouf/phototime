@@ -11,21 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('albums');
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string("title_ar", 255);
-            $table->string("title_en")->nullable();
-            $table->string("short_desc_ar", 255);
-            $table->string("short_desc_en", 255)->nullable();
+            $table->string("title", 255);
+            $table->string("short_desc", 255);
             $table->date("photo_date");
             $table->string("photo_owner_name", 255);
             $table->string("photo_place", 255);
-            $table->string("meta_title_ar")->nullable();
-            $table->string("meta_title_en")->nullable();
-            $table->string("meta_description_ar")->nullable();
-            $table->string("meta_description_en")->nullable();
-            $table->text("meta_keywords_ar")->fulltext()->nullable();
-            $table->text("meta_keywords_en")->fulltext()->nullable();
+            $table->string("meta_title")->nullable();
+            $table->string("meta_description")->nullable();
+            $table->text("meta_keywords")->fulltext()->nullable();
             $table->boolean("is_active")->index()->default(1);
             $table->timestamps();
         });
@@ -36,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('albums');
+        //
     }
 };

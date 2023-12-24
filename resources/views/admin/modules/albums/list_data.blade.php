@@ -28,9 +28,9 @@
                         <thead>
                         <tr>
                             <th style="width: 5%">#</th>
-                            <th style='width: 25%'>Title (AR)</th>
+                            <th style='width: 25%'>Title</th>
                             <th style='width: 25%'>Short Description</th>
-                            <th style='width: 25%'>Slug</th>
+                            <th style='width: 25%'>Album Details</th>
                             <th style='width: 10%'>Status</th>
                             <th style='width: 10%'></th>
                         </tr>
@@ -39,9 +39,12 @@
                         @forelse($albums as $album)
                             <tr>
                                 <td> {{ $loop->index +1 }} </td>
-                                <td> {{ $album->title_ar }} </td>
-                                <td>{{ $album->short_desc_ar }}</td>
-                                <td>{{$album->slugDataAr->slug}}</td>
+                                <td> {{ $album->title }} </td>
+                                <td>{{ $album->short_desc }}</td>
+                                <td>
+                                    <div><b>Date</b> {{date("D, d M Y", strtotime($album->photo_date))}}</div>
+                                    <div><b>Owner name</b> {{$album->photo_owner_name}}</div>
+                                </td>
                                 <td>
                                     @if(empty($album->is_active))
                                         <span class="badge badge-danger">Not Active</span>
@@ -54,13 +57,13 @@
                                         @if(empty($album->is_active))
                                             <a href="{{route("admin.albums.update_status", ["type" => "activate", "id" => $album->id])}}" class="mx-2 activate_item" data-bs-toggle="tooltip" data-bs-original-title="Activate album"
                                                title="Activate album"
-                                               data-title="{{$album->title_ar}}">
+                                               data-title="{{$album->title}}">
                                                 <i class="fa fa-check-circle text-secondary"></i>
                                             </a>
                                         @else
                                             <a href="{{route("admin.albums.update_status", ["type" => "deactivate", "id" => $album->id])}}" class="mx-2 deactivate_item" data-bs-toggle="tooltip" data-bs-original-title="De-Activate album"
                                                title="De-Activate album"
-                                               data-title="{{$album->title_ar}}">
+                                               data-title="{{$album->title}}">
                                                 <i class="fa fa-ban text-secondary"></i>
                                             </a>
                                         @endif

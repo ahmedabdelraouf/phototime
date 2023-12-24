@@ -23,18 +23,12 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title_ar" => "required",
-            "slug_ar" => "required|unique:slug_aliases,slug",
-            "short_desc_ar" => "required",
-            "meta_keywords_ar" => "required",
-            "meta_title_ar" => "required",
-            "meta_description_ar" => "required",
-            "title_en" => "nullable",
-            "slug_en" => "nullable|unique:slug_aliases,slug",
-            "short_desc_en" => "nullable",
-            "meta_keywords_en" => "nullable",
-            "meta_title_en" => "nullable",
-            "meta_description_en" => "nullable",
+            "title" => "required",
+            "slug" => "required|unique:slug_aliases,slug",
+            "short_desc" => "required",
+            "meta_keywords" => "required",
+            "meta_title" => "required",
+            "meta_description" => "required",
             "is_active" => "nullable",
             "image" => "nullable",
         ];

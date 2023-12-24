@@ -20,8 +20,8 @@ class CategoriesController extends AdminBaseController
      */
     function listData(Request $request): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
-        $categories = Category::with("slugDataAr")->with("albums")->cursorPaginate(20,
-            ["title_ar", "short_desc_ar", "is_active", "id"], "categories");
+        $categories = Category::with("slugData")->with("albums")->cursorPaginate(20,
+            ["title", "short_desc", "is_active", "id"], "categories");
         return view("admin.modules.categories.list_data", get_defined_vars());
     }
 
@@ -43,10 +43,7 @@ class CategoriesController extends AdminBaseController
         $category_data["image"] = store_image($request->image, "categories", $request->image_name);
         $category = Category::create($category_data);
         if (!empty($category->id)) {
-            if(!empty($request->slug_en)){
-                SlugAlias::create(["module_id" => $category->id, "slug" => $request->slug_en, "module" => Category::MODULE_NAME . "_en"]);
-            }
-            SlugAlias::create(["module_id" => $category->id, "slug" => $request->slug_ar, "module" => Category::MODULE_NAME . "_ar"]);
+            SlugAlias::create(["module_id" => $category->id, "slug" => $request->slug, "module" => Category::MODULE_NAME]);
             return redirect()->route("admin.categories.list")->with("success", "Category Created successfully");
         }
         return redirect()->route("admin.categories.create")->with("error", "No data saved please try again")->withInput();
@@ -112,24 +109,12 @@ class CategoriesController extends AdminBaseController
             $category_data["image"] = store_image($request->image, "categories", $request->image_name);
         }
         $category->update($category_data);
-        $ar_slug = $category->slugDataAr;
-        if(!empty($ar_slug)){
-            $ar_slug->slug = $request->slug_ar;
-            $ar_slug->save();
+        $slug = $category->slugData;
+        if(!empty($slug)){
+            $slug->slug = $request->slug;
+            $slug->save();
         }
 
-        $en_slug = $category->slugDataEn;
-        if(!empty($request->slug_en)){
-            if(empty($en_slug)){
-                SlugAlias::create(["module_id" => $category->id, "slug" => $request->slug_en, "module" => Category::MODULE_NAME . "_en"]);
-            }else{
-                $en_slug->slug = $request->slug_en;
-                $en_slug->save();
-            }
-
-        }elseif(empty($request->title_en) && !empty($en_slug)){
-            $en_slug->delete();
-        }
-        return redirect()->route("admin.categories.list")->with("success", "Post Created successfully");
+        return redirect()->route("admin.categories.list")->with("success", "Category Created successfully");
     }
 }

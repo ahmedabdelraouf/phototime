@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Requests\Site\ContactUsRequest;
 use App\Models\Album;
+use App\Models\Category;
 use App\Models\Page;
 use App\Models\SliderBanner;
 use App\Models\SlugAlias;
@@ -23,6 +24,19 @@ class HomeController extends SiteBaseController
         $sliders = SliderBanner::where("language", app()->getLocale())
             ->where("is_active", 1)->orderBy("order", "ASC")->get();
         return view("site.modules.homepage", get_defined_vars());
+    }
+
+    /**
+     * @return View
+     */
+    function categories(): View
+    {
+        $slug_data = SlugAlias::where("slug", "categories")->first();
+        if(!empty($slug_data)){
+            $page = Page::where("is_active", 1)->find($slug_data->module_id);
+        }
+        $categories = Category::where("is_active", 1)->with("slugData")->get();
+        return view("site.modules.categories", get_defined_vars());
     }
 
     /**

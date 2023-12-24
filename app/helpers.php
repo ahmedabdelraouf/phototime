@@ -25,7 +25,7 @@ if(!function_exists("store_image")){
     function store_image($image_request, $image_path = null, $image_name = null): string
     {
         if(empty($image_name)){
-            $image_name = $image_request->getClientOriginalName();
+            $image_name = str_replace(".".$image_request->extension(), "", $image_request->getClientOriginalName());
         }
         $image_name .= '.'.$image_request->extension();
         $full_path = "public/images";

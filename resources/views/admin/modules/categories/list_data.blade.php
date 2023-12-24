@@ -28,7 +28,7 @@
                         <thead>
                         <tr>
                             <th style="width: 5%">#</th>
-                            <th style='width: 20%'>Title (AR)</th>
+                            <th style='width: 20%'>Title</th>
                             <th style='width: 20%'>Short Description</th>
                             <th style='width: 20%'>Slug</th>
                             <th style='width: 20%'>Total Albums</th>
@@ -40,9 +40,9 @@
                         @forelse($categories as $category)
                             <tr>
                                 <td> {{ $loop->index +1 }} </td>
-                                <td> {{ $category->title_ar }} </td>
-                                <td>{{ $category->short_desc_ar }}</td>
-                                <td>{{!empty($category->slugDataAr) ? $category->slugDataAr->slug : ""}}</td>
+                                <td> {{ $category->title }} </td>
+                                <td>{{ $category->short_desc }}</td>
+                                <td>{{!empty($category->slugData) ? $category->slugData->slug : ""}}</td>
                                 <td>{{!empty($category->albums) ? $category->albums->count() : "0"}}</td>
                                 <td>
                                     @if(empty($category->is_active))
@@ -56,13 +56,13 @@
                                         @if(empty($category->is_active))
                                             <a href="{{route("admin.categories.update_status", ["type" => "activate", "id" => $category->id])}}" class="mx-2 activate_item" data-bs-toggle="tooltip" data-bs-original-title="Activate Category"
                                                title="Activate category"
-                                               data-title="{{$category->title_ar}}">
+                                               data-title="{{$category->title}}">
                                                 <i class="fa fa-check-circle text-secondary"></i>
                                             </a>
                                         @else
                                             <a href="{{route("admin.categories.update_status", ["type" => "deactivate", "id" => $category->id])}}" class="mx-2 deactivate_item" data-bs-toggle="tooltip" data-bs-original-title="De-Activate category"
                                                title="De-Activate category"
-                                               data-title="{{$category->title_ar}}">
+                                               data-title="{{$category->title}}">
                                                 <i class="fa fa-ban text-secondary"></i>
                                             </a>
                                         @endif
