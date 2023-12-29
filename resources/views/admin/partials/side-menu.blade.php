@@ -30,7 +30,7 @@
                     </li>
                     <li class="@yield('blog-active')">
                         <a href="{{route('admin.blog.list')}}">
-                            <i class="fa fa-link"></i> Blog</a>
+                            <i class="fa fa-arrow-circle-down"></i> Blog</a>
                     </li>
                     <li class="@yield('socila-media')">
                         <a href="{{route('admin.socialMedia.list')}}">
@@ -38,7 +38,7 @@
                     </li>
                     <li class="@yield('success-partners')">
                         <a href="{{route('admin.successPartners.list')}}">
-                            <i class="fa fa-link"></i>Success Partners</a>
+                            <i class="fa fa-heart"></i>Success Partners</a>
                     </li>
                     <li class="@yield('menus-active')">
                         <a href="{{route('admin.menus.list')}}">
