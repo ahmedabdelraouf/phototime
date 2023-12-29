@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\MeController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SliderBannersController;
 use App\Http\Controllers\Admin\SocialMediaLinkController;
 use App\Http\Controllers\Admin\SuccessPartnersController;
@@ -98,3 +99,9 @@ Route::prefix("blog")->as("blog.")->middleware("should_login")->group(function (
     Route::post("edit/{id}", [BlogController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [BlogController::class, "updateStatus"])->name("update_status");
 });
+
+Route::prefix("settings")->as("settings.")->middleware("should_login")->group(function () {
+    Route::get('/', [SettingsController::class, 'index'])->name('index');
+    Route::post('/', [SettingsController::class, 'update'])->name('update');
+});
+

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Category extends Model
 {
     protected $table = "categories";
-    protected $fillable = ["title", "short_desc", "meta_title", "meta_description", "meta_keywords", "is_active", "image"];
+    protected $fillable = ["title", "short_desc", "meta_title", "meta_description", "meta_keywords", "is_active", "image", "order"];
 
     const MODULE_NAME = "categories";
 

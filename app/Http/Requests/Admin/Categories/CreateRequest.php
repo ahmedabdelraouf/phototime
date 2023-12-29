@@ -31,6 +31,7 @@ class CreateRequest extends FormRequest
             "meta_description" => "required",
             "is_active" => "nullable",
             "image" => "nullable",
+            "order" => "nullable",
         ];
     }
 

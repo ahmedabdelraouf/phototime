@@ -36,6 +36,7 @@ class UpdateRequest extends FormRequest
             "meta_description" => "nullable",
             "is_active" => "nullable",
             "image" => "nullable",
+            "order" => "nullable",
         ];
     }
 

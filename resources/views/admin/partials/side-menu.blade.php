@@ -40,6 +40,10 @@
                         <a href="{{route('admin.successPartners.list')}}">
                             <i class="fa fa-heart"></i>Success Partners</a>
                     </li>
+                    <li class="@yield('settings')">
+                        <a href="{{route('admin.settings.index')}}">
+                            <i class="fa fa-cogs"></i>Settings</a>
+                    </li>
                     <li class="@yield('menus-active')">
                         <a href="{{route('admin.menus.list')}}">
                             <i class="fa fa-bars"></i> Top Menus</a>
