@@ -10,24 +10,28 @@
 
 
 @section('content')
-    <form action="" method="POST" enctype="multipart/form-data" id="example">
-        <input type="submit" value="save"/>
-    </form>
         <div class="x_panel">
             <div class="x_title">
                 <h2>Add images for Album ({{$album->title}})</h2>
+
                 <a class="btn btn-danger btn-round btn-xs pull-right" title="Cancel Add album" href="{{route("admin.albums.list")}}">
                     <i class="fa fa-angle-double-right"></i>
                 </a>
                 <div class="clearfix"></div>
             </div>
+
             <div class="x_content" style="padding-top: 0.2rem !important;">
+                <form action="" method="POST" enctype="multipart/form-data" id="example">
+                        <button type="submit" class="btn btn-primary pull-left btn-lg" style="width: 25%">
+                            <i class="fa fa-fw mr-2 fa-plus"></i> Upload Images
+                        </button>
+                </form>
                 <div class="row" style="margin-top: 2%">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="multiple-uploader" id="multiple-uploader">
                             <div class="mup-msg">
                                 <span class="mup-main-msg">click to upload images.</span>
-                                <span class="mup-msg" id="max-upload-number">Upload up to 10 images per time</span>
+                                <span class="mup-msg" id="max-upload-number">Upload up to 500 images per time</span>
                                 <span class="mup-msg">Only images are allowed for upload</span>
                             </div>
                         </div>
@@ -90,7 +94,7 @@
     <script type="text/javascript">
         let multipleUploader = new MultipleUploader('#multiple-uploader').init({
             filesInpName:'images',
-            maxUpload: 10,
+            maxUpload: 100,
             formSelector: '#example',
         });
     </script>

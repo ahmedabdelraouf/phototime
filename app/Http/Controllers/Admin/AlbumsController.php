@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\Albums\CreateRequest;
 use App\Http\Requests\Admin\Albums\UpdateRequest;
+use App\Models\Album;
 use App\Models\AlbumImages;
 use App\Models\Category;
-use App\Models\Album;
 use App\Models\SlugAlias;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,8 +22,7 @@ class AlbumsController extends AdminBaseController
      */
     function listData(Request $request): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
-        $albums = Album::with("slugData")->cursorPaginate(20,
-            ["title", "short_desc", "is_active", "id"], "albums");
+        $albums = Album::with("slugData")->paginate(50);
         return view("admin.modules.albums.list_data", get_defined_vars());
     }
 
@@ -104,8 +103,8 @@ class AlbumsController extends AdminBaseController
     function uploadImages(Request $request, int $id)
     {
         $album = Album::findOrFail($id);
-        if($request->hasFile("images")){
-            foreach ($request->images as $index => $image){
+        if ($request->hasFile("images")) {
+            foreach ($request->images as $index => $image) {
                 $one = store_image($image, "albums/$id");
                 $album_images = new AlbumImages;
                 $album_images->album_id = $id;
@@ -141,16 +140,16 @@ class AlbumsController extends AdminBaseController
     function update(UpdateRequest $request, $id): RedirectResponse
     {
         $album = Album::find($id);
-        if(empty($album)){
+        if (empty($album)) {
             return redirect()->route("admin.albums.list")->with("error", "Album not exist in system");
         }
         $album_data = $request->validated();
-        if(!empty($request->image)){
+        if (!empty($request->image)) {
             $album_data["image"] = store_image($request->image, "albums", $request->image_name);
         }
         $album->update($album_data);
         $ar_slug = $album->slugDataAr;
-        if(!empty($ar_slug)){
+        if (!empty($ar_slug)) {
             $ar_slug->slug = $request->slug;
             $ar_slug->save();
         }

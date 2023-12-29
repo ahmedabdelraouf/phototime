@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Admin\Albums;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -29,12 +28,14 @@ class CreateRequest extends FormRequest
             "meta_keywords" => "required",
             "meta_title" => "required",
             "meta_description" => "required",
-            "content" => "required",
             "photo_date" => "required|date",
             "photo_owner_name" => "required",
             "photo_place" => "required",
             "is_active" => "nullable",
+            "is_featured" => "nullable",
+            "youtube_url" => "nullable",
             "categories" => "required",
+            "owner_phone" => "nullable",
         ];
     }
 
