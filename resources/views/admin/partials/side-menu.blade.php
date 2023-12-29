@@ -1,12 +1,13 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title p-3" style="border: 0;">
-            <img src="{{url("resources/dashboard/images/logo.svg")}}" alt="PhotoTime فوتوتايم" style="max-width: 200px" />
+            <img src="{{url("resources/dashboard/images/logo.svg")}}" alt="PhotoTime فوتوتايم"
+                 style="max-width: 200px"/>
         </div>
 
         <div class="clearfix"></div>
 
-        <br />
+        <br/>
 
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
@@ -26,6 +27,10 @@
                     <li class="@yield('banners-active')">
                         <a href="{{route('admin.sliders.list')}}">
                             <i class="fa fa-file-image-o"></i> Slider banners</a>
+                    </li>
+                    <li class="@yield('socila-media')">
+                        <a href="{{route('admin.socialMedia.list')}}">
+                            <i class="fa fa-link"></i>Social media Links</a>
                     </li>
                     <li class="@yield('menus-active')">
                         <a href="{{route('admin.menus.list')}}">

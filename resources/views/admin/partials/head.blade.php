@@ -4,11 +4,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="KB &amp; Solutions">
-    <meta name="author" content="KB Solutions">
+    <meta name="author" content="Phototime">
     <meta name="robots" content="noindex, nofollow">
     @stack("metas")
 
-    <title>@stack("browser_title")Photographer CMS</title>
+    <title>@stack("browser_title")Phototime21</title>
 
     <link rel="shortcut icon" href="{{url("resources/dashboard/images/fav.png")}}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{url("resources/dashboard/images/fav.png")}}">

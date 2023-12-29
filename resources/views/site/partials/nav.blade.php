@@ -40,10 +40,9 @@
                             </a>
                         </li>
                         <li class="nav-item search-icon">
-                            <a href="#search">
-
-                                <i class="fa fa-search"></i>
-                            </a>
+{{--                            <a href="#search">--}}
+{{--                                <i class="fa fa-search"></i>--}}
+{{--                            </a>--}}
                         </li>
                     </ul>
                 </div>

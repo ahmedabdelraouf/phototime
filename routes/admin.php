@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\SocialMediaLinkController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\Admin\AlbumsController;
-use \App\Http\Controllers\Admin\AuthenticationController;
-use \App\Http\Controllers\Admin\CategoriesController;
-use \App\Http\Controllers\Admin\TopMenuController;
-use \App\Http\Controllers\Admin\SliderBannersController;
-use \App\Http\Controllers\Admin\PagesController;
-use \App\Http\Controllers\Admin\MeController;
+use App\Http\Controllers\Admin\AlbumsController;
+use App\Http\Controllers\Admin\AuthenticationController;
+use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\TopMenuController;
+use App\Http\Controllers\Admin\SliderBannersController;
+use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\MeController;
 
 
 Route::get("/", [MeController::class, "homepage"])->middleware("should_login")->name("home");
@@ -67,4 +68,14 @@ Route::prefix("pages")->as("pages.")->middleware("should_login")->group(function
     Route::get("edit/{id}", [PagesController::class, "edit"])->name("edit");
     Route::post("edit/{id}", [PagesController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [PagesController::class, "updateStatus"])->name("update_status");
+});
+
+
+Route::prefix("social-media")->as("socialMedia.")->middleware("should_login")->group(function(){
+    Route::get("/", [SocialMediaLinkController::class, "listData"])->name("list");
+    Route::get("create", [SocialMediaLinkController::class, "create"])->name("create");
+    Route::post("create", [SocialMediaLinkController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [SocialMediaLinkController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [SocialMediaLinkController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [SocialMediaLinkController::class, "updateStatus"])->name("update_status");
 });

@@ -8,7 +8,7 @@
     <section class="login_content">
         <form action='{{route("admin.auth.do_login")}}' method="post" enctype="multipart/form-data">
             @csrf
-            <img src="{{url("resources/dashboard/images/login-logo.png")}}" style="width: 55%;"  alt="Bashayer"/>
+            <img src="{{url("resources/dashboard/images/logo.svg")}}" style="width: 55%;"  alt="Bashayer"/>
             <div class="row" style="background-color: #FFFFFF;padding: 8% 0">
                 <div class="col-12">
                     <div class="form-group">
