@@ -35,6 +35,10 @@
                         <a href="{{route('admin.pages.list')}}">
                             <i class="fa fa-link"></i> Pages & Links data</a>
                     </li>
+                    <li class="@yield('blog-active')">
+                        <a href="{{route('admin.blog.list')}}">
+                            <i class="fa fa-link"></i> Blog</a>
+                    </li>
                 </ul>
             </div>
         </div>

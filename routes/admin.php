@@ -7,6 +7,7 @@ use \App\Http\Controllers\Admin\CategoriesController;
 use \App\Http\Controllers\Admin\TopMenuController;
 use \App\Http\Controllers\Admin\SliderBannersController;
 use \App\Http\Controllers\Admin\PagesController;
+use \App\Http\Controllers\Admin\BlogController;
 use \App\Http\Controllers\Admin\MeController;
 
 
@@ -67,4 +68,13 @@ Route::prefix("pages")->as("pages.")->middleware("should_login")->group(function
     Route::get("edit/{id}", [PagesController::class, "edit"])->name("edit");
     Route::post("edit/{id}", [PagesController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [PagesController::class, "updateStatus"])->name("update_status");
+});
+
+Route::prefix("blog")->as("blog.")->middleware("should_login")->group(function(){
+    Route::get("/", [BlogController::class, "listData"])->name("list");
+    Route::get("create", [BlogController::class, "create"])->name("create");
+    Route::post("create", [BlogController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [BlogController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [BlogController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [BlogController::class, "updateStatus"])->name("update_status");
 });
