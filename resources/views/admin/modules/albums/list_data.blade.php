@@ -34,6 +34,7 @@
                             <th style='width: 25%'>Short Description</th>
                             <th style='width: 25%'>Album Details</th>
                             <th style='width: 10%'>Views</th>
+                            <th style='width: 10%'>Images</th>
                             <th style='width: 10%'>Status</th>
                             <th style='width: 10%'></th>
                         </tr>
@@ -51,6 +52,7 @@
                                     <div><b>Owner name</b> {{$album->photo_owner_name}}</div>
                                 </td>
                                 <td>{{ $album->views_count }}</td>
+                                <td><a class="btn btn-primary" href='{{route("admin.albums.addImages", ["id" => $album->id])}}'>Images</a></td>
                                 <td>
                                     @if(empty($album->is_active))
                                         <span class="badge badge-danger">Not Active</span>
