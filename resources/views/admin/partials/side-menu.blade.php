@@ -28,6 +28,10 @@
                         <a href="{{route('admin.sliders.list')}}">
                             <i class="fa fa-file-image-o"></i> Slider banners</a>
                     </li>
+                    <li class="@yield('blog-active')">
+                        <a href="{{route('admin.blog.list')}}">
+                            <i class="fa fa-link"></i> Blog</a>
+                    </li>
                     <li class="@yield('socila-media')">
                         <a href="{{route('admin.socialMedia.list')}}">
                             <i class="fa fa-link"></i>Social media Links</a>

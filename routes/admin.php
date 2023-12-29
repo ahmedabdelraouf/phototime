@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AlbumsController;
 use App\Http\Controllers\Admin\AuthenticationController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\MeController;
 use App\Http\Controllers\Admin\PagesController;
@@ -87,4 +88,13 @@ Route::prefix("success-partners")->as("successPartners.")->middleware("should_lo
     Route::get("edit/{id}", [SuccessPartnersController::class, "edit"])->name("edit");
     Route::post("edit/{id}", [SuccessPartnersController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [SuccessPartnersController::class, "updateStatus"])->name("update_status");
+});
+
+Route::prefix("blog")->as("blog.")->middleware("should_login")->group(function () {
+    Route::get("/", [BlogController::class, "listData"])->name("list");
+    Route::get("create", [BlogController::class, "create"])->name("create");
+    Route::post("create", [BlogController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [BlogController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [BlogController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [BlogController::class, "updateStatus"])->name("update_status");
 });
