@@ -32,6 +32,10 @@
                         <a href="{{route('admin.socialMedia.list')}}">
                             <i class="fa fa-link"></i>Social media Links</a>
                     </li>
+                    <li class="@yield('success-partners')">
+                        <a href="{{route('admin.successPartners.list')}}">
+                            <i class="fa fa-link"></i>Success Partners</a>
+                    </li>
                     <li class="@yield('menus-active')">
                         <a href="{{route('admin.menus.list')}}">
                             <i class="fa fa-bars"></i> Top Menus</a>

@@ -38,9 +38,9 @@
                         <div class="form-group">
                             <label for="title"
                                    class="form-label @if ($errors->has("title")) is-invalid @endif">Title</label>
-                            <select name='title' id='social_media' required
-                                    class='form-control @if ($errors->has("social_media")) is-invalid @endif' required
-                                    @if ($errors->has("social_media"))
+                            <select name='title' id='title' required
+                                    class='form-control @if ($errors->has("title")) is-invalid @endif' required
+                                    @if ($errors->has("title"))
                                         aria-describedby="social_media-error"
                                     aria-invalid="true"
                                     @endif>

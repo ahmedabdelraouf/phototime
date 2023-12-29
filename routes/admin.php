@@ -1,19 +1,20 @@
 <?php
 
-use App\Http\Controllers\Admin\SocialMediaLinkController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AlbumsController;
 use App\Http\Controllers\Admin\AuthenticationController;
 use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Controllers\Admin\TopMenuController;
-use App\Http\Controllers\Admin\SliderBannersController;
-use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\MeController;
+use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\SliderBannersController;
+use App\Http\Controllers\Admin\SocialMediaLinkController;
+use App\Http\Controllers\Admin\SuccessPartnersController;
+use App\Http\Controllers\Admin\TopMenuController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get("/", [MeController::class, "homepage"])->middleware("should_login")->name("home");
 
-Route::as("auth.")->group(function(){
+Route::as("auth.")->group(function () {
     Route::get("logout", [AuthenticationController::class, "logout"])
         ->middleware("should_login")->name("logout");
     Route::get("login", [AuthenticationController::class, "login"])
@@ -22,7 +23,7 @@ Route::as("auth.")->group(function(){
         ->middleware("should_guest")->name("do_login");
 });
 
-Route::prefix("categories")->as("categories.")->middleware("should_login")->group(function(){
+Route::prefix("categories")->as("categories.")->middleware("should_login")->group(function () {
     Route::get("/", [CategoriesController::class, "listData"])->name("list");
     Route::get("create", [CategoriesController::class, "create"])->name("create");
     Route::post("create", [CategoriesController::class, "store"])->name("do_create");
@@ -31,7 +32,7 @@ Route::prefix("categories")->as("categories.")->middleware("should_login")->grou
     Route::get("update-status/{type}/{id}", [CategoriesController::class, "updateStatus"])->name("update_status");
 });
 
-Route::prefix("albums")->as("albums.")->middleware("should_login")->group(function(){
+Route::prefix("albums")->as("albums.")->middleware("should_login")->group(function () {
     Route::get("/", [AlbumsController::class, "listData"])->name("list");
     Route::get("create", [AlbumsController::class, "create"])->name("create");
     Route::post("create", [AlbumsController::class, "store"])->name("do_create");
@@ -43,7 +44,7 @@ Route::prefix("albums")->as("albums.")->middleware("should_login")->group(functi
     Route::get("update-status/{type}/{id}", [AlbumsController::class, "updateStatus"])->name("update_status");
 });
 
-Route::prefix("top-menu")->as("menus.")->middleware("should_login")->group(function(){
+Route::prefix("top-menu")->as("menus.")->middleware("should_login")->group(function () {
     Route::get("/", [TopMenuController::class, "listData"])->name("list");
     Route::get("create", [TopMenuController::class, "create"])->name("create");
     Route::post("create", [TopMenuController::class, "store"])->name("do_create");
@@ -52,7 +53,7 @@ Route::prefix("top-menu")->as("menus.")->middleware("should_login")->group(funct
     Route::get("update-status/{type}/{id}", [TopMenuController::class, "updateStatus"])->name("update_status");
 });
 
-Route::prefix("slider-banners")->as("sliders.")->middleware("should_login")->group(function(){
+Route::prefix("slider-banners")->as("sliders.")->middleware("should_login")->group(function () {
     Route::get("/", [SliderBannersController::class, "listData"])->name("list");
     Route::get("create", [SliderBannersController::class, "create"])->name("create");
     Route::post("create", [SliderBannersController::class, "store"])->name("do_create");
@@ -61,7 +62,7 @@ Route::prefix("slider-banners")->as("sliders.")->middleware("should_login")->gro
     Route::get("update-status/{type}/{id}", [SliderBannersController::class, "updateStatus"])->name("update_status");
 });
 
-Route::prefix("pages")->as("pages.")->middleware("should_login")->group(function(){
+Route::prefix("pages")->as("pages.")->middleware("should_login")->group(function () {
     Route::get("/", [PagesController::class, "listData"])->name("list");
     Route::get("create", [PagesController::class, "create"])->name("create");
     Route::post("create", [PagesController::class, "store"])->name("do_create");
@@ -70,12 +71,20 @@ Route::prefix("pages")->as("pages.")->middleware("should_login")->group(function
     Route::get("update-status/{type}/{id}", [PagesController::class, "updateStatus"])->name("update_status");
 });
 
-
-Route::prefix("social-media")->as("socialMedia.")->middleware("should_login")->group(function(){
+Route::prefix("social-media")->as("socialMedia.")->middleware("should_login")->group(function () {
     Route::get("/", [SocialMediaLinkController::class, "listData"])->name("list");
     Route::get("create", [SocialMediaLinkController::class, "create"])->name("create");
     Route::post("create", [SocialMediaLinkController::class, "store"])->name("do_create");
     Route::get("edit/{id}", [SocialMediaLinkController::class, "edit"])->name("edit");
     Route::post("edit/{id}", [SocialMediaLinkController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [SocialMediaLinkController::class, "updateStatus"])->name("update_status");
+});
+
+Route::prefix("success-partners")->as("successPartners.")->middleware("should_login")->group(function () {
+    Route::get("/", [SuccessPartnersController::class, "listData"])->name("list");
+    Route::get("create", [SuccessPartnersController::class, "create"])->name("create");
+    Route::post("create", [SuccessPartnersController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [SuccessPartnersController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [SuccessPartnersController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [SuccessPartnersController::class, "updateStatus"])->name("update_status");
 });

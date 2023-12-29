@@ -1,29 +1,29 @@
 @extends("admin.layout.master")
 
 @push('browser_title')
-    Add Social Media Link ::
+    Add Success partners ::
 @endpush
 
-@section('sliders-active')
+@section('successPartners-active')
     active current-page
 @endsection
 
 
 @section('content')
-    <form action='{{route("admin.socialMedia.do_create")}}' method="post" enctype="multipart/form-data">
+    <form action='{{route("admin.successPartners.do_create")}}' method="post" enctype="multipart/form-data">
         @csrf
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Social Media Link</h2>
+                <h2>Add Success Partner</h2>
                 <a class="btn btn-danger btn-round btn-xs pull-right" title="Cancel Add slider"
-                   href="{{route("admin.socialMedia.list")}}">
+                   href="{{route("admin.successPartners.list")}}">
                     <i class="fa fa-angle-double-right"></i>
                 </a>
                 <div class="pull-right mt-2 mr-2">
                     <div class="">
                         <label>
                             <input type="checkbox" class="js-switch" name='is_active' id='is_active' value='1' checked/>
-                            Active Social Media Link
+                            Active Success Partner
                         </label>
                     </div>
                 </div>
@@ -36,17 +36,12 @@
                         <div class="form-group">
                             <label for="title"
                                    class="form-label @if ($errors->has("title")) is-invalid @endif">Title</label>
-                            <select name='title' id='social_media' required
-                                    class='form-control @if ($errors->has("title")) is-invalid @endif' required
-                                    @if ($errors->has("title"))
-                                        aria-describedby="title-error"
-                                    aria-invalid="true"
-                                    @endif>
-                                <option value=''>--Select Social Media--</option>
-                                @foreach ($socialMediaTypes as $media)
-                                    <option value="{{ $media }}">{{ $media }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" id="title" name="title" class="form-control
+                             @if ($errors->has("title")) is-invalid @endif" required
+                                   @if ($errors->has("title"))
+                                       aria-describedby="title-error"
+                                   aria-invalid="true"
+                                    @endif />
                             @if ($errors->has("title"))
                                 <div id="title-error"
                                      class="invalid-feedback animated fadeInDown">{{ $errors->first("title") }}</div>

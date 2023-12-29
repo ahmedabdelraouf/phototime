@@ -1,29 +1,30 @@
 @extends("admin.layout.master")
 
 @push('browser_title')
-    Add Social Media Link ::
+    Edit Success Partner ::
 @endpush
 
-@section('sliders-active')
+@section('successPartners-active')
     active current-page
 @endsection
 
 
 @section('content')
-    <form action='{{route("admin.socialMedia.do_create")}}' method="post" enctype="multipart/form-data">
+    <form action='{{route("admin.successPartners.do_edit", ["id" => $successPartner->id])}}' method="post"
+          enctype="multipart/form-data">
         @csrf
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Social Media Link</h2>
-                <a class="btn btn-danger btn-round btn-xs pull-right" title="Cancel Add slider"
-                   href="{{route("admin.socialMedia.list")}}">
+                <h2>Edit Success Partner ({{$successPartner->title}})</h2>
+                <a class="btn btn-danger btn-round btn-xs pull-right" title="Cancel Edit Social media link"
+                   href="{{route("admin.successPartners.list")}}">
                     <i class="fa fa-angle-double-right"></i>
                 </a>
                 <div class="pull-right mt-2 mr-2">
                     <div class="">
                         <label>
-                            <input type="checkbox" class="js-switch" name='is_active' id='is_active' value='1' checked/>
-                            Active Social Media Link
+                            <input type="checkbox" class="js-switch" name='is_active' id='is_active' value='1'
+                                   @if($successPartner->is_active) checked @endif /> Active Success Partner
                         </label>
                     </div>
                 </div>
@@ -31,22 +32,20 @@
             </div>
             <div class="x_content"
                  style="padding-top: 0.2rem !important;border-bottom: 1px solid #9a9da0;margin-bottom: 1%;">
-                <div class="row">
+
+                <div class="row mt-4">
                     <div class="col-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="title"
                                    class="form-label @if ($errors->has("title")) is-invalid @endif">Title</label>
-                            <select name='title' id='social_media' required
-                                    class='form-control @if ($errors->has("title")) is-invalid @endif' required
-                                    @if ($errors->has("title"))
-                                        aria-describedby="title-error"
-                                    aria-invalid="true"
-                                    @endif>
-                                <option value=''>--Select Social Media--</option>
-                                @foreach ($socialMediaTypes as $media)
-                                    <option value="{{ $media }}">{{ $media }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" id="title" name="title"
+                                   value=" {{$successPartner->title}}"
+                                   class="form-control
+                            @if ($errors->has("title")) is-invalid @endif" required
+                                   @if ($errors->has("title"))
+                                       aria-describedby="title-error"
+                                   aria-invalid="true"
+                                    @endif />
                             @if ($errors->has("title"))
                                 <div id="title-error"
                                      class="invalid-feedback animated fadeInDown">{{ $errors->first("title") }}</div>
@@ -57,8 +56,10 @@
                         <div class="form-group">
                             <label for="url" class="form-label @if ($errors->has("url")) is-invalid @endif">Social media
                                 Link</label>
-                            <input type='text' name='url' id='url' value='{{old("url")}}' placeholder="Banner Link"
+                            <input type='text' name='url' id='url' value='{{$successPartner->url}}'
+                                   placeholder="Banner Link"
                                    class='form-control @if ($errors->has("url")) is-invalid @endif'
+
                                    @if ($errors->has("url"))
                                        aria-describedby="url-error"
                                    aria-invalid="true"
@@ -70,15 +71,13 @@
                             @endif
                         </div>
                     </div>
-
                 </div>
-
-                <div class="row">
+                <div class="mt-4 row">
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="form-group">
                             <label for="image" class="form-label @if ($errors->has("image")) is-invalid @endif">Social
                                 media
-                                Logo</label>
+                                Image</label>
                             <input type='file' name='image' id='image' accept="image/*"
                                    class='form-control @if ($errors->has("image")) is-invalid @endif'
                                    @if ($errors->has("image"))
@@ -91,6 +90,12 @@
                                      class="invalid-feedback animated fadeInDown">{{ $errors->first("image") }}</div>
                             @endif
                         </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4" style="text-align: center">
+                        <a href="{{images_path($successPartner->image)}}" target="_blank">
+                            <img src="{{images_path($successPartner->image)}}" alt="{{$successPartner->title}}"
+                                 width="100%" style="max-height: 200px">
+                        </a>
                     </div>
                 </div>
             </div>
