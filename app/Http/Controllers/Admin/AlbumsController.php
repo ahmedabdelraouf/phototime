@@ -22,7 +22,7 @@ class AlbumsController extends AdminBaseController
      */
     function listData(Request $request): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
-        $albums = Album::with("slugData")->paginate(50);
+        $albums = Album::with("slugData")->paginate(1);
         return view("admin.modules.albums.list_data", get_defined_vars());
     }
 
@@ -79,6 +79,31 @@ class AlbumsController extends AdminBaseController
         }
         $album->save();
         return redirect()->back()->with("success", "Album Status updated successfully");
+    }
+ function updateFeaturedStatus(string $type, int $id): RedirectResponse
+    {
+        $album = Album::find($id);
+        if (empty($album)) {
+            return redirect()->back()->with("error", "Album not exist in system");
+        }
+        switch (strtolower($type)) {
+            case "featured":
+                if ($album->is_featured == 1) {
+                    return redirect()->back()->with("error", "Album Already Featured");
+                }
+                $album->is_featured = 1;
+                break;
+            case "not_featured":
+                if ($album->is_featured == 0) {
+                    return redirect()->back()->with("error", "Album Already not Featured");
+                }
+                $album->is_featured = 0;
+                break;
+            default:
+                return redirect()->back()->with("error", "Wrong type");
+        }
+        $album->save();
+        return redirect()->back()->with("success", "Album Featured Status updated successfully");
     }
 
     /**
@@ -146,6 +171,11 @@ class AlbumsController extends AdminBaseController
         $album_data = $request->validated();
         if (!empty($request->image)) {
             $album_data["image"] = store_image($request->image, "albums", $request->image_name);
+        }
+        if (!empty($album_data['is_featured']) && $album_data['is_featured'] == "on") {
+            $album_data['is_featured'] = 1;
+        } else {
+            $album_data['is_featured'] = 0;
         }
         $album->update($album_data);
         $ar_slug = $album->slugDataAr;

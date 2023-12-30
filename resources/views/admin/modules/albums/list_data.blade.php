@@ -31,12 +31,13 @@
                             <th style="width: 5%">#</th>
                             <th style='width: 25%'>defaultImage</th>
                             <th style='width: 25%'>Title</th>
-                            <th style='width: 25%'>Short Description</th>
+                            {{--                            <th style='width: 25%'>Short Description</th>--}}
                             <th style='width: 25%'>Album Details</th>
                             <th style='width: 10%'>Views</th>
                             <th style='width: 10%'>Images</th>
+                            <th style='width: 10%'>Featured</th>
                             <th style='width: 10%'>Status</th>
-                            <th style='width: 10%'></th>
+                            <th style='width: 10%'>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -46,13 +47,21 @@
                                 <td><img src="{{ images_path($album->defaultImage[0]->image) }}"
                                          style="width: 200px;max-height: 200px"></td>
                                 <td> {{ $album->title }} </td>
-                                <td>{{ $album->short_desc }}</td>
+                                {{--                                <td>{{ $album->short_desc }}</td>--}}
                                 <td>
                                     <div><b>Date</b> {{date("D, d M Y", strtotime($album->photo_date))}}</div>
                                     <div><b>Owner name</b> {{$album->photo_owner_name}}</div>
                                 </td>
                                 <td>{{ $album->views_count }}</td>
-                                <td><a class="btn btn-primary" href='{{route("admin.albums.addImages", ["id" => $album->id])}}'>Images</a></td>
+                                <td><a class="btn btn-primary"
+                                       href='{{route("admin.albums.addImages", ["id" => $album->id])}}'>Images</a></td>
+                                <td>
+                                    @if(empty($album->is_featured))
+                                        <span class="badge badge-danger">Not Featured</span>
+                                    @else
+                                        <span class="badge badge-success">Featured</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @if(empty($album->is_active))
                                         <span class="badge badge-danger">Not Active</span>
@@ -79,6 +88,25 @@
                                                 <i class="fa fa-ban text-secondary"></i>
                                             </a>
                                         @endif
+
+                                        @if(empty($album->is_featured))
+                                            <a href="{{route("admin.albums.update_featured_status", ["type" => "featured", "id" => $album->id])}}"
+                                               class="mx-2 activate_item" data-bs-toggle="tooltip"
+                                               data-bs-original-title="Feature album"
+                                               title="Feature album"
+                                               data-title="{{$album->title}}">
+                                                <i class="fa fa-star  text-secondary"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{route("admin.albums.update_featured_status",["type" => "not_featured", "id" => $album->id])}}"
+                                               class="mx-2 deactivate_item" data-bs-toggle="tooltip"
+                                               data-bs-original-title="Disable Featured album"
+                                               title="Disable Featured album"
+                                               data-title="{{$album->title}}">
+                                                <i class="fa fa-star text-warning"></i>
+                                            </a>
+                                        @endif
+
                                         <a href="{{route("admin.albums.edit", ["id" => $album->id])}}" class="mx-2"
                                            data-bs-toggle="tooltip" data-bs-original-title="Edit album"
                                            title="Edit album">

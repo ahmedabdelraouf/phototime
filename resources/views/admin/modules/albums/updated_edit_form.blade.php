@@ -9,7 +9,7 @@
             <div class="">
                 <label>
                     <input type="checkbox" class="js-switch" name='is_active' id='is_active'
-                    @if(old('is_active')??$album->is_active) checked @endif
+                           @if(old('is_active')??$album->is_active) checked @endif
                     /> Active
                     album
                 </label>
@@ -91,7 +91,8 @@
                     <label for="photo_date"
                            class="form-label @if ($errors->has("photo_date")) is-invalid @endif">Album
                         Date</label>
-                    <input type='date' name='photo_date' id='photo_date' value='{{old("photo_date")??$album->photo_date}}'
+                    <input type='date' name='photo_date' id='photo_date'
+                           value='{{old("photo_date")??$album->photo_date}}'
                            placeholder="Album Date"
                            class='form-control @if ($errors->has("photo_date")) is-invalid @endif' required
                            @if ($errors->has("photo_date"))
@@ -145,122 +146,144 @@
             </div>
         </div>
 
-        <div class="row" style="margin-top: 2%">
-            <div class="col-12 col-md-6 col-lg-6">
+
+        <div class="row">
+            <div class="col-12 col-md-12">
                 <div class="form-group">
-                    <label for="short_desc"
-                           class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Short
-                        description </label>
-                    <textarea name="short_desc" id="short_desc"
-                              class='form-control @if ($errors->has("short_desc")) is-invalid @endif'
-                              rows="3" required
+                    <label for="short_desc" class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Blog
+                        Page full description</label>
+                    <textarea name="short_desc" id="content"
+                              class="form-control editor @if ($errors->has("short_desc")) is-invalid @endif"
                               @if ($errors->has("short_desc"))
                                   aria-describedby="short_desc-error"
                               aria-invalid="true"
                 @endif
             >{{old("short_desc")??$album->short_desc}}</textarea>
                     @if ($errors->has("short_desc"))
-                        <div id="short_desc-error"
-                             class="invalid-feedback animated fadeInDown">{{ $errors->first("short_desc") }}</div>
+                        <div id="content-error"
+                             class="invalid-feedback animated fadeInDown">{{ $errors->first("content") }}</div>
                     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label for="meta_keywords"
-                           class="form-label @if ($errors->has("meta_keywords")) is-invalid @endif">Meta
-                        Keywords </label>
-                    <textarea name="meta_keywords" id="meta_keywords"
-                              class='form-control tags @if ($errors->has("meta_keywords")) is-invalid @endif'
-                              rows="3" required
-                              @if ($errors->has("meta_keywords"))
-                                  aria-describedby="meta_keywords-error"
-                              aria-invalid="true"
+        </div>
+        <div class="row" style="margin-top: 2%">
+
+            {{--            <div class="col-12 col-md-6 col-lg-6">--}}
+            {{--                <div class="form-group">--}}
+            {{--                    <label for="short_desc"--}}
+            {{--                           class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Short--}}
+            {{--                        description </label>--}}
+            {{--                    <textarea name="short_desc" id="short_desc"--}}
+            {{--                              class='form-control @if ($errors->has("short_desc")) is-invalid @endif'--}}
+            {{--                              rows="3" required--}}
+            {{--                              @if ($errors->has("short_desc"))--}}
+            {{--                                  aria-describedby="short_desc-error"--}}
+            {{--                              aria-invalid="true"--}}
+            {{--                @endif--}}
+            {{--            >{{old("short_desc")??$album->short_desc}}</textarea>--}}
+            {{--                    @if ($errors->has("short_desc"))--}}
+            {{--                        <div id="short_desc-error"--}}
+            {{--                             class="invalid-feedback animated fadeInDown">{{ $errors->first("short_desc") }}</div>--}}
+            {{--                    @endif--}}
+            {{--                </div>--}}
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="meta_keywords"
+                       class="form-label @if ($errors->has("meta_keywords")) is-invalid @endif">Meta
+                    Keywords </label>
+                <textarea name="meta_keywords" id="meta_keywords"
+                          class='form-control tags @if ($errors->has("meta_keywords")) is-invalid @endif'
+                          rows="3" required
+                          @if ($errors->has("meta_keywords"))
+                              aria-describedby="meta_keywords-error"
+                          aria-invalid="true"
                 @endif
             >{{old("meta_keywords")??$album->meta_keywords}}</textarea>
-                    @if ($errors->has("meta_keywords"))
-                        <div id="meta_keywords-error"
-                             class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_keywords") }}</div>
-                    @endif
-                </div>
+                @if ($errors->has("meta_keywords"))
+                    <div id="meta_keywords-error"
+                         class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_keywords") }}</div>
+                @endif
             </div>
         </div>
+    </div>
 
-        <div class="row" style="margin-top: 2%">
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label for="meta_title"
-                           class="form-label @if ($errors->has("meta_title")) is-invalid @endif">Meta Title for
-                        the album</label>
-                    <input type='text' name='meta_title' id='meta_title' value='{{old("meta_title")??$album->meta_title}}'
-                           placeholder="Album Meta Title "
-                           class='form-control @if ($errors->has("meta_title")) is-invalid @endif' required
-                           @if ($errors->has("meta_title"))
-                               aria-describedby="meta_title-error"
-                           aria-invalid="true"
-                            @endif
-                    />
-                    @if ($errors->has("meta_title"))
-                        <div id="meta_title-error"
-                             class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_title") }}</div>
-                    @endif
-                </div>
+    <div class="row" style="margin-top: 2%">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="meta_title"
+                       class="form-label @if ($errors->has("meta_title")) is-invalid @endif">Meta Title for
+                    the album</label>
+                <input type='text' name='meta_title' id='meta_title'
+                       value='{{old("meta_title")??$album->meta_title}}'
+                       placeholder="Album Meta Title "
+                       class='form-control @if ($errors->has("meta_title")) is-invalid @endif' required
+                       @if ($errors->has("meta_title"))
+                           aria-describedby="meta_title-error"
+                       aria-invalid="true"
+                        @endif
+                />
+                @if ($errors->has("meta_title"))
+                    <div id="meta_title-error"
+                         class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_title") }}</div>
+                @endif
             </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label for="meta_description"
-                           class="form-label @if ($errors->has("meta_description")) is-invalid @endif">Meta
-                        description </label>
-                    <textarea name="meta_description" id="meta_description"
-                              class='form-control @if ($errors->has("meta_description")) is-invalid @endif'
-                              rows="2" required
-                              @if ($errors->has("meta_description"))
-                                  aria-describedby="meta_description-error"
-                              aria-invalid="true"
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="meta_description"
+                       class="form-label @if ($errors->has("meta_description")) is-invalid @endif">Meta
+                    description </label>
+                <textarea name="meta_description" id="meta_description"
+                          class='form-control @if ($errors->has("meta_description")) is-invalid @endif'
+                          rows="2" required
+                          @if ($errors->has("meta_description"))
+                              aria-describedby="meta_description-error"
+                          aria-invalid="true"
                 @endif
             >{{old("meta_description")??$album->meta_description}}</textarea>
-                    @if ($errors->has("meta_description"))
-                        <div id="meta_description-error"
-                             class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_description") }}</div>
-                    @endif
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label for="youtube_url"
-                           class="form-label @if ($errors->has("youtube_url")) is-invalid @endif">Youtube
-                        URL </label>
-                    <input type="text" name="youtube_url" id="youtube_url"
-                           class='form-control @if ($errors->has("youtube_url")) is-invalid @endif'
-                           value="{{old("youtube_url")??$album->youtube_url}}"
-                           pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$"
-                           @if ($errors->has("youtube_url"))
-                               aria-describedby="youtube_url-error"
-                           aria-invalid="true"
-                            @endif>
-                    @if ($errors->has("youtube_url"))
-                        <div id="youtube_url-error"
-                             class="invalid-feedback animated fadeInDown">{{ $errors->first("youtube_url") }}</div>
-                    @endif
-                </div>
+                @if ($errors->has("meta_description"))
+                    <div id="meta_description-error"
+                         class="invalid-feedback animated fadeInDown">{{ $errors->first("meta_description") }}</div>
+                @endif
             </div>
         </div>
-        <div class="col-6 col-md-6">
+
+        <div class="col-12 col-md-6 col-lg-6">
             <div class="form-group">
-                <div class="">
-                    <label>
-                        <input type="checkbox" class="js-switch" name='is_featured' id='is_featured'
-                               @if(old('is_featured')??$album->is_featured) checked @endif/>
-                        Featured Album
-                    </label>
-                </div>
+                <label for="youtube_url"
+                       class="form-label @if ($errors->has("youtube_url")) is-invalid @endif">Youtube
+                    URL </label>
+                <input type="text" name="youtube_url" id="youtube_url"
+                       class='form-control @if ($errors->has("youtube_url")) is-invalid @endif'
+                       value="{{old("youtube_url")??$album->youtube_url}}"
+                       pattern="^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$"
+                       @if ($errors->has("youtube_url"))
+                           aria-describedby="youtube_url-error"
+                       aria-invalid="true"
+                        @endif>
+                @if ($errors->has("youtube_url"))
+                    <div id="youtube_url-error"
+                         class="invalid-feedback animated fadeInDown">{{ $errors->first("youtube_url") }}</div>
+                @endif
             </div>
-            <div class="clearfix"></div>
         </div>
-
-
     </div>
+    <div class="col-6 col-md-6">
+        <div class="form-group">
+            <div class="">
+                <label>
+                    <input type="checkbox" class="js-switch" name='is_featured' id='is_featured'
+                           @if(old('is_featured')??$album->is_featured) checked @endif/>
+                    Featured Album
+                </label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+</div>
 </div>
 
 <div class="tab-footer" style="padding: 2% 0 0 0;width: 100%;">
