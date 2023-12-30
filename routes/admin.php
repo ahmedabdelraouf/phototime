@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\SliderBannersController;
 use App\Http\Controllers\Admin\SocialMediaLinkController;
 use App\Http\Controllers\Admin\SuccessPartnersController;
 use App\Http\Controllers\Admin\TopMenuController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\AdminsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -99,6 +101,26 @@ Route::prefix("blog")->as("blog.")->middleware("should_login")->group(function (
     Route::post("edit/{id}", [BlogController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [BlogController::class, "updateStatus"])->name("update_status");
 });
+
+Route::prefix("roles")->as("roles.")->middleware("should_login")->group(function () {
+    Route::get("/", [RolesController::class, "listData"])->name("list");
+    Route::get("create", [RolesController::class, "create"])->name("create");
+    Route::post("create", [RolesController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [RolesController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [RolesController::class, "update"])->name("do_edit");
+});
+
+Route::prefix("admins")->as("admins.")->middleware("should_login")->group(function () {
+    Route::get("/", [AdminsController::class, "listData"])->name("list");
+    Route::get("create", [AdminsController::class, "create"])->name("create");
+    Route::post("create", [AdminsController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [AdminsController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [AdminsController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [AdminsController::class, "updateStatus"])->name("update_status");
+
+});
+
+
 
 Route::prefix("settings")->as("settings.")->middleware("should_login")->group(function () {
     Route::get('/', [SettingsController::class, 'index'])->name('index');
