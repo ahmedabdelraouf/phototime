@@ -30,7 +30,10 @@
 @section("body-class")
     class="text-right" dir="rtl"
 @endsection
+
 @section("footer")
+
+    @include("site.partials.footer")
 @endsection
 
 @section("content")

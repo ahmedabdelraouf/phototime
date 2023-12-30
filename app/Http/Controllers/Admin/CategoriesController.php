@@ -21,7 +21,7 @@ class CategoriesController extends AdminBaseController
     function listData(Request $request): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
         $categories = Category::with("slugData")->with("albums")->cursorPaginate(20,
-            ["title", "short_desc", "is_active", "id"], "categories");
+            ["title", "short_desc", "is_active", "id", "image"], "categories");
         return view("admin.modules.categories.list_data", get_defined_vars());
     }
 
@@ -101,16 +101,16 @@ class CategoriesController extends AdminBaseController
     function update(UpdateRequest $request, $id): RedirectResponse
     {
         $category = Category::find($id);
-        if(empty($category)){
+        if (empty($category)) {
             return redirect()->route("admin.categories.list")->with("error", "Category not exist in system");
         }
         $category_data = $request->validated();
-        if(!empty($request->image)){
+        if (!empty($request->image)) {
             $category_data["image"] = store_image($request->image, "categories", $request->image_name);
         }
         $category->update($category_data);
         $slug = $category->slugData;
-        if(!empty($slug)){
+        if (!empty($slug)) {
             $slug->slug = $request->slug;
             $slug->save();
         }

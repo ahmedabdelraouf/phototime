@@ -11,12 +11,11 @@ class SocialMediaLinkController extends AdminBaseController
 {
     public $socialMediaTypes = array(
         'Snapchat',
-        'Facebook',
         'Twitter',
-        'Instagram',
         'Youtube',
-        'Pinterest',
-        'TikTok'
+        'Whatsapp',
+        'Instagram',
+        'Pinterest'
     );
 
     /**

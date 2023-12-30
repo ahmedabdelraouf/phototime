@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Requests\Site\ContactUsRequest;
-use App\Models\Album;
 use App\Models\Category;
 use App\Models\Page;
+use App\Models\Setting;
 use App\Models\SliderBanner;
 use App\Models\SlugAlias;
+use App\Models\SocialMediaLink;
+use App\Models\SuccessPartner;
 use App\Models\UserMessage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -19,11 +21,41 @@ class HomeController extends SiteBaseController
      * @param Request $request
      * @return View
      */
-    function homePage(Request $request): View
+    function homePage(Request $request)
     {
         $sliders = SliderBanner::where("language", app()->getLocale())
             ->where("is_active", 1)->orderBy("order", "ASC")->get();
+        $groupedCategories = $this->getGroupedCategories();
+        $successPartners = SuccessPartner::where("is_active", 1)->get();
+        $settingsDB = Setting::select("key", "value")->get();
+        $settings = $this->getSettings();
         return view("site.modules.homepage", get_defined_vars());
+    }
+
+    public function getGroupedCategories()
+    {
+        $categoriesCount = Category::count();
+        if ($categoriesCount > 12) {
+            $categories = Category::where("is_active", 1)->orderBy("order", "ASC")->take(11)->get()->toArray();
+            $categories[] = [
+                "title" => "...المزيد",
+                "is_more" => 1,
+                "image" => "",
+            ];
+        } else {
+            $categories = Category::where("is_active", 1)->orderBy("order", "ASC")->get()->toArray();
+        }
+        return array_chunk($categories, 3);
+    }
+
+    public function getSettings()
+    {
+        $settingsDB = Setting::select("key", "value")->get();
+        $settings = new \stdClass();
+        foreach ($settingsDB as $setting) {
+            $settings->{$setting['key']} = $setting['value'];
+        }
+        return $settings;
     }
 
     /**
@@ -32,7 +64,7 @@ class HomeController extends SiteBaseController
     function categories(): View
     {
         $slug_data = SlugAlias::where("slug", "categories")->first();
-        if(!empty($slug_data)){
+        if (!empty($slug_data)) {
             $page = Page::where("is_active", 1)->find($slug_data->module_id);
         }
         $categories = Category::where("is_active", 1)->with("slugData")->get();
