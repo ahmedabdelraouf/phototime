@@ -52,6 +52,14 @@
                         <a href="{{route('admin.pages.list')}}">
                             <i class="fa fa-link"></i> Pages & Links data</a>
                     </li>
+                    <li class="@yield('roles-active')">
+                        <a href="{{route('admin.roles.list')}}">
+                            <i class="fa fa-link"></i> Roles</a>
+                    </li>
+                    <li class="@yield('admins-active')">
+                        <a href="{{route('admin.admins.list')}}">
+                            <i class="fa fa-link"></i> Admins</a>
+                    </li>
                 </ul>
             </div>
         </div>
