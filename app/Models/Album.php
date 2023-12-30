@@ -16,21 +16,41 @@ class Album extends Model
 
     const MODULE_NAME = "album";
 
+    /**
+     * Retrieve the slug data for this instance.
+     *
+     * @return HasOne The relationship between the current instance and the slug data.
+     */
     function slugData(): HasOne
     {
         return $this->hasOne(SlugAlias::class, "module_id", "id")->where("module", self::MODULE_NAME);
     }
 
+    /**
+     * Retrieve the categories for this instance.
+     *
+     * @return BelongsToMany The relationship between the current instance and the categories.
+     */
     function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, "album_categories", "album_id", "category_id");
     }
 
+    /**
+     * Retrieve the images associated with this album.
+     *
+     * @return HasMany The relationship between the current album and its images.
+     */
     function images(): HasMany
     {
         return $this->hasMany(AlbumImages::class, "album_id")->orderBy("is_default", "DESC");
     }
 
+    /**
+     * Retrieve the default image(s) for this instance.
+     *
+     * @return HasMany The relationship between the current instance and the default image(s).
+     */
     public function defaultImage(): HasMany
     {
         return $this->hasMany(AlbumImages::class, "album_id")

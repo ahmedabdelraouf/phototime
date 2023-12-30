@@ -44,7 +44,7 @@ class AlbumsController extends AdminBaseController
         $album = Album::create($request->validated());
         if (!empty($album->id)) {
             SlugAlias::create(["module_id" => $album->id, "slug" => $request->slug, "module" => Album::MODULE_NAME]);
-            $album->categories()->sync($request->posts);
+            $album->categories()->sync($request->categories);
             return redirect()->route("admin.albums.addImages", ["id" => $album->id])->with("success", "Album Created successfully");
         }
         return redirect()->route("admin.albums.create")->with("error", "No data saved please try again")->withInput();
@@ -127,8 +127,8 @@ class AlbumsController extends AdminBaseController
         if (empty($album)) {
             return redirect()->route("admin.albums.list")->with("error", "Album not exist in system");
         }
-        $posts = Album::pluck("title", "id");
-        $linked_posts = $album->posts()->pluck("post_id")->toArray();
+        $selectedCategories = $album->categories()->pluck('category_id')->toArray();
+        $categories = Category::pluck("title", "id");
         return view("admin.modules.albums.edit", get_defined_vars());
     }
 
@@ -153,7 +153,7 @@ class AlbumsController extends AdminBaseController
             $ar_slug->slug = $request->slug;
             $ar_slug->save();
         }
-        $album->posts()->sync($request->posts);
+        $album->categories()->sync($request->categories);
         return redirect()->route("admin.albums.list")->with("success", "Album Created successfully");
     }
 }
