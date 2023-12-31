@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\WebsiteController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, "homePage"])->name("home");
 Route::get('categories', [HomeController::class, "categories"])->name("categories");
+Route::get('album-details/{id}', [HomeController::class, "albumDetails"])->name("albumDetails");
 Route::get('about-us', [HomeController::class, "aboutUs"])->name("about");
 Route::get('contact-us', [HomeController::class, "contactUs"])->name("contact");
 Route::post('contact-us', [HomeController::class, "postContactUs"])->name("contactUsPost");

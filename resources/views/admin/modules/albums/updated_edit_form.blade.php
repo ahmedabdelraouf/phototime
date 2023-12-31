@@ -147,45 +147,43 @@
         </div>
 
 
-        <div class="row">
-            <div class="col-12 col-md-12">
-                <div class="form-group">
-                    <label for="short_desc" class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Blog
-                        Page full description</label>
-                    <textarea name="short_desc" id="content"
-                              class="form-control editor @if ($errors->has("short_desc")) is-invalid @endif"
-                              @if ($errors->has("short_desc"))
-                                  aria-describedby="short_desc-error"
-                              aria-invalid="true"
+{{--        <div class="row">--}}
+{{--            <div class="col-12 col-md-12">--}}
+{{--                <div class="form-group">--}}
+{{--                    <label for="short_desc" class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Blog--}}
+{{--                        Page full description</label>--}}
+{{--                    <textarea name="short_desc" id="content"--}}
+{{--                              class="form-control editor @if ($errors->has("short_desc")) is-invalid @endif"--}}
+{{--                              @if ($errors->has("short_desc"))--}}
+{{--                                  aria-describedby="short_desc-error"--}}
+{{--                              aria-invalid="true"--}}
+{{--                @endif--}}
+{{--            >{{old("short_desc")??$album->short_desc}}</textarea>--}}
+{{--                    @if ($errors->has("short_desc"))--}}
+{{--                        <div id="content-error"--}}
+{{--                             class="invalid-feedback animated fadeInDown">{{ $errors->first("content") }}</div>--}}
+{{--                    @endif--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="short_desc"
+                       class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Short
+                    description </label>
+                <textarea name="short_desc" id="short_desc"
+                          class='form-control @if ($errors->has("short_desc")) is-invalid @endif'
+                          rows="3" required
+                          @if ($errors->has("short_desc"))
+                              aria-describedby="short_desc-error"
+                          aria-invalid="true"
+                            @endif
+                        >{{old("short_desc")??$album->short_desc}}</textarea>
+                @if ($errors->has("short_desc"))
+                    <div id="short_desc-error"
+                         class="invalid-feedback animated fadeInDown">{{ $errors->first("short_desc") }}</div>
                 @endif
-            >{{old("short_desc")??$album->short_desc}}</textarea>
-                    @if ($errors->has("short_desc"))
-                        <div id="content-error"
-                             class="invalid-feedback animated fadeInDown">{{ $errors->first("content") }}</div>
-                    @endif
-                </div>
             </div>
-        </div>
-        <div class="row" style="margin-top: 2%">
-
-            {{--            <div class="col-12 col-md-6 col-lg-6">--}}
-            {{--                <div class="form-group">--}}
-            {{--                    <label for="short_desc"--}}
-            {{--                           class="form-label @if ($errors->has("short_desc")) is-invalid @endif">Short--}}
-            {{--                        description </label>--}}
-            {{--                    <textarea name="short_desc" id="short_desc"--}}
-            {{--                              class='form-control @if ($errors->has("short_desc")) is-invalid @endif'--}}
-            {{--                              rows="3" required--}}
-            {{--                              @if ($errors->has("short_desc"))--}}
-            {{--                                  aria-describedby="short_desc-error"--}}
-            {{--                              aria-invalid="true"--}}
-            {{--                @endif--}}
-            {{--            >{{old("short_desc")??$album->short_desc}}</textarea>--}}
-            {{--                    @if ($errors->has("short_desc"))--}}
-            {{--                        <div id="short_desc-error"--}}
-            {{--                             class="invalid-feedback animated fadeInDown">{{ $errors->first("short_desc") }}</div>--}}
-            {{--                    @endif--}}
-            {{--                </div>--}}
         </div>
         <div class="col-12 col-md-6 col-lg-6">
             <div class="form-group">

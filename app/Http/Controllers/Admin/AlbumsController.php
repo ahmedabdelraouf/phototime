@@ -22,7 +22,7 @@ class AlbumsController extends AdminBaseController
      */
     function listData(Request $request): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
-        $albums = Album::with("slugData")->paginate(1);
+        $albums = Album::with("slugData")->paginate(50);
         return view("admin.modules.albums.list_data", get_defined_vars());
     }
 

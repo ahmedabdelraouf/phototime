@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Requests\Site\ContactUsRequest;
+use App\Models\Album;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Setting;
 use App\Models\SliderBanner;
 use App\Models\SlugAlias;
-use App\Models\SocialMediaLink;
 use App\Models\SuccessPartner;
 use App\Models\UserMessage;
 use Illuminate\Contracts\View\View;
@@ -29,6 +29,7 @@ class HomeController extends SiteBaseController
         $successPartners = SuccessPartner::where("is_active", 1)->get();
         $settingsDB = Setting::select("key", "value")->get();
         $settings = $this->getSettings();
+        $featuredAlbums = Album::take(6)->get();
         return view("site.modules.homepage", get_defined_vars());
     }
 
@@ -102,5 +103,17 @@ class HomeController extends SiteBaseController
     {
         UserMessage::create($request->validated());
         return redirect()->route("site.contact")->with("success", "لقد تم ارسال رسالتكم بنجاح وسيقوم احد افراد خدمة العملاء بالاتصال بكم قريبا");
+    }
+
+    /**
+     * @param ContactUsRequest $request
+     * @return RedirectResponse
+     */
+    function albumDetails($id)
+    {
+        $album = Album::find($id);
+        $album->views_count += 1;
+        $album->save();
+        return view("site.modules.album_details", get_defined_vars());
     }
 }

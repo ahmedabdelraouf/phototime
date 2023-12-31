@@ -97,43 +97,29 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                        <div class="lastwork-img">
-                            <img src="{{asset("resources/site/images/unsplash_MTZTGvDsHFY.png")}}" class="img-fluid"
-                                 alt="">
-                            <p>qwertyuiop</p>
+                    @foreach($featuredAlbums as $album)
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-6">
+                            <a href="{{route('site.albumDetails',['id'=>$album->id])}}">
+                                <div class="lastwork-img">
+                                    @if(!empty($album->defaultImage)&&count($album->defaultImage)>0)
+                                        <img src="{{ images_path($album->defaultImage[0]->image) }}" class="img-fluid"
+                                             style="width: 30rem;height: 12rem"
+                                             alt="{{$album->title}}">
+                                    @elseif(!empty($album->images)&&count($album->images)>0)
+                                        <img src="{{ images_path($album->images[0]->image) }}" class="img-fluid"
+                                             style="width: 30rem;height: 12rem"
+                                             alt="{{$album->title}}">
+                                    @else
+                                        <img src="{{asset("resources/site/images/logo.svg")}}" class="img-fluid"
+                                             style="width: 30rem;height: 12rem"
+                                             alt="{{$album->title}}">
+                                    @endif
+                                </div>
+                                <p class="align-center text-center"><strong
+                                            style="color: #0b2e13">{{$album->title}}</strong></p>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                        <div class="lastwork-img">
-                            <img src="{{asset("resources/site/images/unsplash_MTZTGvDsHFY.png")}}" class="img-fluid"
-                                 alt="">
-                            <p>qwertyuiop</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                        <div class="lastwork-img">
-                            <img src="{{asset("resources/site/images/unsplash_MTZTGvDsHFY.png")}}" class="img-fluid"
-                                 alt="">
-                            <p>qwertyuiop</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                        <div class="lastwork-img">
-                            <img src="{{asset("resources/site/images/unsplash_MTZTGvDsHFY.png")}}" class="img-fluid"
-                                 alt="">
-                            <p>qwertyuiop</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                        <div class="lastwork-img">
-                            <img src="{{asset("resources/site/images/unsplash_MTZTGvDsHFY.png")}}" class="img-fluid"
-                                 alt="">
-                            <p>qwertyuiop</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="text-center show-more">
                     <button onclick="window.location.href='{{route("site.about")}}'">عرض المزيد</button>

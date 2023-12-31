@@ -29,7 +29,7 @@
                         <thead>
                         <tr>
                             <th style="width: 5%">#</th>
-                            <th style='width: 25%'>defaultImage</th>
+                            <th style='width: 25%'>Default Image</th>
                             <th style='width: 25%'>Title</th>
                             {{--                            <th style='width: 25%'>Short Description</th>--}}
                             <th style='width: 25%'>Album Details</th>
@@ -44,8 +44,16 @@
                         @forelse($albums as $album)
                             <tr>
                                 <td> {{ $loop->index +1 }} </td>
-                                <td><img src="{{ images_path($album->defaultImage[0]->image) }}"
-                                         style="width: 200px;max-height: 200px"></td>
+                                <td>
+                                    @if(!empty($album->defaultImage)&&count($album->defaultImage)>0)
+                                        <img src="{{ images_path($album->defaultImage[0]->image) }}"
+                                             style="width: 10rem;height: 5rem">
+                                    @else
+                                        {{--                                        @dd($album->images)--}}
+                                        {{--                                        <img src="{{ images_path($album->images[0]->image) }}"--}}
+                                        {{--                                             style="width: 200px;max-height: 200px">--}}
+                                    @endif
+                                </td>
                                 <td> {{ $album->title }} </td>
                                 {{--                                <td>{{ $album->short_desc }}</td>--}}
                                 <td>
