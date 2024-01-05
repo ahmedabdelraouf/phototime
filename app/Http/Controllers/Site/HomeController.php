@@ -32,25 +32,6 @@ class HomeController extends SiteBaseController
      */
     function homePage(Request $request)
     {
-        $adminRoutes = collect(Route::getRoutes())->filter(function ($route) {
-            return Str::contains($route->getName(), 'admin.');
-        });
-        $arr = [];
-        $adminRoutes->each(function ($route) use ($arr) {
-            $routeName = $this->getRouteName($route->getName());
-            $routeTitle = str_replace('.', ' ', $routeName);
-            $arr[] = array(
-                ['route_name' => $routeName],
-                ['title' => $routeTitle]
-            );
-            Role::updateOrCreate(
-                ['route_name' => $routeName],
-                ['title' => $routeTitle]
-            );
-        });
-        dd($arr);
-
-
         $sliders = SliderBanner::where("language", app()->getLocale())
             ->where("is_active", 1)->orderBy("order", "ASC")->get();
         $groupedCategories = $this->getGroupedCategories();
