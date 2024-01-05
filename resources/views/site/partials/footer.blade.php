@@ -1,5 +1,5 @@
 @section("footer")
-    <section id="footer" class="py-3">
+    <section  style="margin-top: 2rem" id="footer" class="py-3">
         <div class="container">
             <div class="row mx-0 footer-2 text-center">
                 <!-- Google Maps Column -->

@@ -14,15 +14,43 @@ use App\Models\UserMessage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends SiteBaseController
 {
+    private function getRouteName($fullRouteName)
+    {
+        // Extract the route name from the full route name
+        // For example, admin.dashboard becomes dashboard
+        return last(explode('.', $fullRouteName));
+    }
     /**
      * @param Request $request
      * @return View
      */
     function homePage(Request $request)
     {
+        $adminRoutes = collect(Route::getRoutes())->filter(function ($route) {
+            return Str::contains($route->getName(), 'admin.');
+        });
+        $arr = [];
+        $adminRoutes->each(function ($route) use ($arr) {
+            $routeName = $this->getRouteName($route->getName());
+            $routeTitle = str_replace('.', ' ', $routeName);
+            $arr[] = array(
+                ['route_name' => $routeName],
+                ['title' => $routeTitle]
+            );
+            Role::updateOrCreate(
+                ['route_name' => $routeName],
+                ['title' => $routeTitle]
+            );
+        });
+        dd($arr);
+
+
         $sliders = SliderBanner::where("language", app()->getLocale())
             ->where("is_active", 1)->orderBy("order", "ASC")->get();
         $groupedCategories = $this->getGroupedCategories();
@@ -116,4 +144,16 @@ class HomeController extends SiteBaseController
         $album->save();
         return view("site.modules.album_details", get_defined_vars());
     }
+
+    function albums(): View
+    {
+        $slug_data = SlugAlias::where("slug", "categories")->first();
+        if (!empty($slug_data)) {
+            $page = Page::where("is_active", 1)->find($slug_data->module_id);
+        }
+        $albums = Album::where("is_active", 1)->with("slugData")->get();
+        return view("site.modules.albums", get_defined_vars());
+    }
+
+
 }

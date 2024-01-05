@@ -17,7 +17,6 @@
 @endsection
 
 @section("footer")
-
     @include("site.partials.footer")
 @endsection
 
