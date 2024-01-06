@@ -50,7 +50,6 @@
                          style="width: 200px; height: 150px;margin: 0.2rem">
             @endforeach
         </div>
-
     </div>
     <br>
     <br>
