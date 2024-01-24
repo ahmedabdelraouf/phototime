@@ -12,6 +12,7 @@ use App\Models\SliderBanner;
 use App\Models\SlugAlias;
 use App\Models\SuccessPartner;
 use App\Models\UserMessage;
+use App\Models\YoutubeChannel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class HomeController extends SiteBaseController
         $successPartners = SuccessPartner::where("is_active", 1)->get();
         $settingsDB = Setting::select("key", "value")->get();
         $settings = $this->getSettings();
-        $featuredAlbums = Album::take(6)->get();
+        $featuredAlbums = Album::take(6)->where("is_featured",1)->get();
+        $youtubeLinks = YoutubeChannel::take(4)->get();
         return view("site.modules.homepage", get_defined_vars());
     }
 

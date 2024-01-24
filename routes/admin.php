@@ -1,18 +1,19 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\AlbumsController;
 use App\Http\Controllers\Admin\AuthenticationController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\MeController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SliderBannersController;
 use App\Http\Controllers\Admin\SocialMediaLinkController;
 use App\Http\Controllers\Admin\SuccessPartnersController;
 use App\Http\Controllers\Admin\TopMenuController;
-use App\Http\Controllers\Admin\RolesController;
-use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\YoutubeChannelController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -119,13 +120,18 @@ Route::prefix("admins")->as("admins.")->middleware("should_login")->group(functi
     Route::get("edit/{id}", [AdminsController::class, "edit"])->name("edit");
     Route::post("edit/{id}", [AdminsController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [AdminsController::class, "updateStatus"])->name("update_status");
-
 });
-
-
 
 Route::prefix("settings")->as("settings.")->middleware("should_login")->group(function () {
     Route::get('/', [SettingsController::class, 'index'])->name('index');
     Route::post('/', [SettingsController::class, 'update'])->name('update');
 });
 
+Route::prefix("youtube-channel")->as("youtubeChannel.")->middleware("should_login")->group(function () {
+    Route::get("/", [YoutubeChannelController::class, "listData"])->name("list");
+    Route::get("create", [YoutubeChannelController::class, "create"])->name("create");
+    Route::post("create", [YoutubeChannelController::class, "store"])->name("do_create");
+    Route::get("edit/{id}", [YoutubeChannelController::class, "edit"])->name("edit");
+    Route::post("edit/{id}", [YoutubeChannelController::class, "update"])->name("do_edit");
+    Route::get("update-status/{type}/{id}", [YoutubeChannelController::class, "updateStatus"])->name("update_status");
+});

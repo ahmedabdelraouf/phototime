@@ -24,6 +24,10 @@
                         <a href="{{route('admin.albums.list')}}">
                             <i class="fa fa-files-o"></i> Albums</a>
                     </li>
+                    <li class="@yield('youtubeChannel-active')">
+                        <a href="{{route('admin.youtubeChannel.list')}}">
+                            <i class="fa fa-files-o"></i> Youtube channel</a>
+                    </li>
                     <li class="@yield('banners-active')">
                         <a href="{{route('admin.sliders.list')}}">
                             <i class="fa fa-file-image-o"></i> Slider banners</a>

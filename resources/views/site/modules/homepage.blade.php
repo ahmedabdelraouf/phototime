@@ -100,42 +100,21 @@
             <div class="vid-slider-2">
                 <div id="craouselContainer" class="swiper-container">
                     <div class="swiper-wrapper" id="slideHolder">
-                        <div class="swiper-slide">
-                            <div class="ImgHolder">
-                                <iframe width="100%" height="315"
-                                        src="https://www.youtube.com/embed/mTCOyzyJdag?si=3v_jCSQj44FsQtJ1"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen></iframe>
+
+                        @foreach($youtubeLinks as $youtubeLink)
+                            <div class="swiper-slide">
+                                <div class="ImgHolder">
+                                    <iframe width="100%" height="315"
+                                            src="{{$youtubeLink->url}}"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen></iframe>
+                                </div>
+                                <div class="ContentHolder">
+                                    <h3>{{$youtubeLink->title}}</h3>
+                                </div>
                             </div>
-                            <div class="ContentHolder">
-                                <h3>Simonette Lindermann</h3>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="ImgHolder">
-                                <iframe width="100%" height="315"
-                                        src="https://www.youtube-nocookie.com/embed/Zf3BvhjWTKg?si=0dSCcci8jEYPt6Dl"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen></iframe>
-                            </div>
-                            <div class="ContentHolder">
-                                <h3>Simonette Lindermann 2</h3>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="ImgHolder">
-                                <iframe width="100%" height="315"
-                                        src="https://www.youtube-nocookie.com/embed/Zf3BvhjWTKg?si=0dSCcci8jEYPt6Dl"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen></iframe>
-                            </div>
-                            <div class="ContentHolder">
-                                <h3>Simonette Lindermann 2</h3>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -158,20 +137,21 @@
             <div class="d-md-block d-none">
 
                 <div class="row my-3" style=" justify-content:space-evenly">
-                    <div class="col-md-3">
-                        <img src="{{asset("resources/site/images/uber-eats.svg")}}" alt="logo" width="120" height="50">
-                    </div>
-                    <div class="col-md-3">
-                        <img src="{{asset("resources/site/images/google.svg")}}" alt="logo" width="120" height="50">
-                    </div>
-                    <div class="col-md-3">
-                        <img src="{{asset("resources/site/images/amazon.svg")}}" alt="logo" width="120" height="50">
-                    </div>
-
-                    <div class="col-md-3">
-                        <img src="{{asset("resources/site/images/airbnb.svg")}}" alt="logo" width="120" height="50">
-                    </div>
+                    @foreach($successPartners as $successPartner)
+                        <div class="col-md-3">
+                            <a href="{{$successPartner->url}}">
+                                <img src="{{images_path($successPartner->image)}}" alt="logo" width="120" height="50">
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
+
+                <div class="text-center show-more">
+                    <button onclick="window.location.href='{{route("site.view_any",["slug"=>"success-partners"])}}'">عرض
+                        المزيد
+                    </button>
+                </div>
+
             </div>
 
         </div>
