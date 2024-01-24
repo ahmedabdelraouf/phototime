@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('albums', function (Blueprint $table) {
-            $table->text("owner_phone")->nullable();
-            $table->text("youtube_url")->nullable();
-            $table->unsignedInteger("views_count")->nullable()->default(0);
-            $table->boolean("is_featured")->nullable()->default(0);
+            $table->boolean("is_blocked")->nullable()->default(0);
+            $table->string("default_image")->nullable();
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('albums', function (Blueprint $table) {});
+        Schema::table('albums', function (Blueprint $table) {
+            //
+        });
     }
 };

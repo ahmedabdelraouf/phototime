@@ -74,7 +74,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="100%"><h4 style="width: 100%;color:#ff0000;text-align: center">No Posts added</h4></td>
+                                <td colspan="100%"><h4 style="width: 100%;color:#ff0000;text-align: center">No Blogs added</h4></td>
                             </tr>
                         @endforelse
                         </tbody>

@@ -24,18 +24,19 @@ class CreateRequest extends FormRequest
         return [
             "title" => "required",
             "slug" => "required|unique:slug_aliases,slug",
-            "short_desc" => "required",
-            "meta_keywords" => "required",
-            "meta_title" => "required",
-            "meta_description" => "required",
+            "short_desc" => "nullable",
+            "meta_keywords" => "nullable",
+            "meta_title" => "nullable",
+            "meta_description" => "nullable",
             "photo_date" => "required|date",
-            "photo_owner_name" => "required",
-            "photo_place" => "required",
+            "photo_owner_name" => "nullable",
+            "photo_place" => "nullable",
             "is_active" => "nullable",
             "is_featured" => "nullable",
             "youtube_url" => "nullable",
-            "categories" => "required",
+            "categories" => "nullable",
             "owner_phone" => "nullable",
+            "default_image" => "required",
         ];
     }
 

@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Album extends Model
 {
+    use SoftDeletes;
+
     protected $table = "albums";
     protected $fillable = ["menu_title", "title", "short_desc", "meta_title", "photo_date",
-        "photo_owner_name", "photo_place", "meta_description", "meta_keywords",
-        "is_active", "image", "youtube_url", "is_featured", "owner_phone", "views_count"];
+        "photo_owner_name", "photo_place", "meta_description", "meta_keywords","default_image",
+        "is_active", "image", "youtube_url", "is_featured", "owner_phone", "views_count","is_blocked"];
 
     const MODULE_NAME = "album";
 
@@ -43,17 +46,7 @@ class Album extends Model
      */
     function images(): HasMany
     {
-        return $this->hasMany(AlbumImages::class, "album_id")->orderBy("is_default", "DESC");
+        return $this->hasMany(AlbumImages::class, "album_id")->orderBy("order", "ASC");
     }
 
-    /**
-     * Retrieve the default image(s) for this instance.
-     *
-     * @return HasMany The relationship between the current instance and the default image(s).
-     */
-    public function defaultImage(): HasMany
-    {
-        return $this->hasMany(AlbumImages::class, "album_id")
-            ->where("is_default", 1);
-    }
 }

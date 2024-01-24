@@ -8,7 +8,6 @@
     active current-page
 @endsection
 
-
 @section('content')
     <form action='{{route("admin.albums.do_edit", ["id" => $album->id])}}' method="post" enctype="multipart/form-data">
         @csrf

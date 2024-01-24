@@ -43,6 +43,7 @@ Route::prefix("albums")->as("albums.")->middleware("should_login")->group(functi
     Route::get("images/{id}", [AlbumsController::class, "addImages"])->name("addImages");
     Route::post("images/{id}", [AlbumsController::class, "uploadImages"])->name("uploadImages");
     Route::post("images/set-default/{album_id}/{id}", [AlbumsController::class, "uploadImages"])->name("update_image_default");
+    Route::post("update-images-order", [AlbumsController::class, "updateImagesOrder"])->name("update_images_order");
     Route::get("edit/{id}", [AlbumsController::class, "edit"])->name("edit");
     Route::post("edit/{id}", [AlbumsController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [AlbumsController::class, "updateStatus"])->name("update_status");

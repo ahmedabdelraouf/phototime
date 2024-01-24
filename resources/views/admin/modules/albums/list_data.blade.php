@@ -45,8 +45,8 @@
                             <tr>
                                 <td> {{ $loop->index +1 }} </td>
                                 <td>
-                                    @if(!empty($album->defaultImage)&&count($album->defaultImage)>0)
-                                        <img src="{{ images_path($album->defaultImage[0]->image) }}"
+                                    @if(isset($album->default_image))
+                                        <img src="{{ images_path($album->default_image) }}"
                                              style="width: 10rem;height: 5rem">
                                     @else
                                         {{--                                        @dd($album->images)--}}
@@ -54,11 +54,11 @@
                                         {{--                                             style="width: 200px;max-height: 200px">--}}
                                     @endif
                                 </td>
-                                <td> {{ $album->title }} </td>
+                                <td> <a href="{{route('site.albumDetails',['id'=>$album->id])}}">{{ $album->title }}</a>  </td>
                                 {{--                                <td>{{ $album->short_desc }}</td>--}}
                                 <td>
                                     <div><b>Date</b> {{date("D, d M Y", strtotime($album->photo_date))}}</div>
-                                    <div><b>Owner name</b> {{$album->photo_owner_name}}</div>
+{{--                                    <div><b>Owner name</b> {{$album->photo_owner_name}}</div>--}}
                                 </td>
                                 <td>{{ $album->views_count }}</td>
                                 <td><a class="btn btn-primary"
@@ -133,11 +133,17 @@
                     </table>
                 </div>
             </div>
-
-            <div class="tab-footer" style="padding: 2% 0 0 0;width: 100%;">
-                {{$albums->links()}}
-            </div>
         </div>
     </div>
+
+    <!-- resources/views/your_view.blade.php -->
+
+    <!-- Your content goes here -->
+
+    <!-- Custom Pagination -->
+{{--    @include('admin.layout.pagination', ['paginator' => $albums])--}}
+
+    {{$albums->links()}}
+
 
 @endsection

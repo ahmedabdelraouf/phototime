@@ -5,7 +5,8 @@
 @section("content")
     <div id="main-page" class="text-right">
         <section class="top-bar my-2">
-            <div id="magicCarousel" class="carousel slide my-2" data-ride="carousel">
+            <div id="magicCarousel" class="carousel slide my-2" data-ride="carousel"
+                 style="max-height: 50%;background-color: white">
                 <ol class="carousel-indicators">
                     @foreach($sliders as $index => $slider)
                         <li data-target="#magicCarousel" data-slide-to="{{$index}}"
@@ -14,27 +15,17 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     @foreach($sliders as $index => $slider)
-                        <div data-interval="10000"
-                             class="carousel-item {{$index == 0 ? " active" : ""}}">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-7 col-12">
-                                    <img src="{{images_path($slider->image)}}" class="img-fluid" style="height: 425px"/>
-                                </div>
-                                <div class="col-md-6 col-sm-7 col-12 order-lg-1">
-                                    <div class="caption" dir="rtl">
-                                        <h3>{{$slider->title}}</h3>
-                                        <p>{{$slider->description}}</p>
-                                        @if(!empty($slider->url))
-                                            <a href="{{$slider->url}}">{{$slider->btn_title}}</a>
-                                        @endif
-                                    </div>
-                                </div>
+                        <div data-interval="10000" class="carousel-item {{$index == 0 ? ' active' : ''}}">
+                            <div class="row" style="overflow: hidden;">
+                                <img src="{{images_path($slider->image)}}" class="img-fluid"
+                                     style="object-fit: contain; width: 100%; height: 100%;background-color: white"/>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
         </section>
+
         <div id="group" class=" w-90 ml-auto my-5" dir="rtl">
             <div class="text-center">
                 <h2 class="m-0 text-light pt-3">

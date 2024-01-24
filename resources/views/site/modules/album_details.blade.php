@@ -23,11 +23,14 @@
 @section("content")
     <div class="mt-1">
         <div class="container">
-            <h3 style="color: #0000FF;">{{$album->title}}</h3>
+            <img
+                    src="{{ images_path($album->default_image) }}"
+                    alt="Image {{ $album->title }}"
+                    class="img-fluid"
+                    loading="lazy"
+            />
             <br>
-            <p style="color: #0b2e13;width: 70%">{!! $album->short_desc !!}</p>
-
-            <div class="row">
+            <div class="row" style="align-content: center;margin-right: 1.5rem">
                 <!-- First date container for photo date -->
                 <span class="date-icon">📅</span>
                 <span class="image-date">{{ $album->photo_date }}</span>
@@ -43,6 +46,9 @@
                 <span class="views-icon">👁️</span>
                 <span class="view-count">{{ $album->views_count }}</span>
             </div>
+{{--            <h3 style="color: #0000FF;">{{$album->title}}</h3>--}}
+            <br>
+            <p style="color: #0b2e13;width: 70%">{!! $album->short_desc !!}</p>
         </div>
 
         <!-- album -->
@@ -54,7 +60,7 @@
                         alt="Image {{ $album->title }}"
                         class="img-fluid"
                         loading="lazy"
-                        style="width: 200px; height: 150px;margin: 0.2rem"
+                        style="width: 300px; height: 250px;margin: 0.2rem"
                     />
                 </a>
             @endforeach

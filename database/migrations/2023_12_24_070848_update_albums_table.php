@@ -13,13 +13,13 @@ return new class extends Migration {
         Schema::dropIfExists('albums');
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string("title", 255);
-            $table->longText("short_desc");
-            $table->date("photo_date");
-            $table->string("photo_owner_name", 255);
-            $table->string("photo_place", 255);
-            $table->string("meta_title")->nullable();
-            $table->string("meta_description")->nullable();
+            $table->text("title")->nullable();
+            $table->longText("short_desc")->nullable();
+            $table->date("photo_date")->nullable();
+            $table->text("photo_owner_name")->nullable();
+            $table->text("photo_place")->nullable();
+            $table->text("meta_title")->nullable();
+            $table->text("meta_description")->nullable();
             $table->text("meta_keywords")->fulltext()->nullable();
             $table->boolean("is_active")->index()->default(1);
             $table->timestamps();

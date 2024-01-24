@@ -15,5 +15,9 @@
     .nav-sm .nav_title{
         padding-left: 0px !important;
     }
+    label {
+        font-weight: bold;
+        color: #1e347b;
+    }
 </style>
 @stack("styles")

@@ -15,7 +15,8 @@ class SocialMediaLinkController extends AdminBaseController
         'Youtube',
         'Whatsapp',
         'Instagram',
-        'Pinterest'
+        'Pinterest',
+        'Tiktok',
     );
 
     /**
