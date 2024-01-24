@@ -106,12 +106,15 @@ class BlogController extends Controller
     function update(UpdateRequest $request, $id): RedirectResponse
     {
         $blog = Blog::find($id);
-        if(empty($blogPage)){
+        if(empty($blog)){
             return redirect()->route("admin.blog.list")->with("error", "blog page not exist in system");
         }
         $blogPage =$request->validated();
-        $image_name = store_image($request->image, "blog" );
-        $blogPage["image"] = $image_name;
+
+        if (isset($request->image)&&is_file($request->image)){
+            $image_name = store_image($request->image, "blog" );
+            $blogPage["image"] = $image_name;
+        }
         $blog->update($blogPage);
         $slug = $blog->slugData;
         if(!empty($slug)){

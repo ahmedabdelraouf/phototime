@@ -37,6 +37,10 @@
                                 @endif
                             </li>
                         @endforeach
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{{route("site.blogs")}}">{{__("site.top_menu.blog")}} @yield('home-active')</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item" id="call-number">

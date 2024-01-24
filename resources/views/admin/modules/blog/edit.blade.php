@@ -10,7 +10,7 @@
 
 
 @section('content')
-    <form action='{{route("admin.pages.do_edit", ["id" => $blogPage->id])}}' method="post" enctype="multipart/form-data">
+    <form action='{{route("admin.blog.do_edit", ["id" => $blogPage->id])}}' method="post" enctype="multipart/form-data">
         @csrf
         <div class="x_panel">
             <div class="x_title">

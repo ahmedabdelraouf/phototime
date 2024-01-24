@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Requests\Site\ContactUsRequest;
 use App\Models\Album;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Setting;
@@ -134,6 +135,23 @@ class HomeController extends SiteBaseController
         }
         $albums = Album::where("is_active", 1)->with("slugData")->get();
         return view("site.modules.albums", get_defined_vars());
+    }
+
+    function blogs(): View
+    {
+        $slug_data = SlugAlias::where("slug", "categories")->first();
+        $blogs = Blog::where("is_active", 1)->with("slugData")->get();
+        for($i=1;$i<30;$i++){
+            $blogs[] = $blogs[0];
+        }
+        return view("site.modules.blogs", get_defined_vars());
+    }
+
+    function blogDetails($id): View
+    {
+        $slug_data = SlugAlias::where("slug", "categories")->first();
+        $blog = Blog::where("id", $id)->with("slugData")->first();
+        return view("site.modules.blog_details", get_defined_vars());
     }
 
 
