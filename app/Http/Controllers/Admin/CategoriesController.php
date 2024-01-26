@@ -14,11 +14,7 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends AdminBaseController
 {
-    /**
-     * @param Request $request
-     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-     */
-    function listData(Request $request): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
+    function listData(Request $request)
     {
         $categories = Category::with("slugData")->with("albums")->cursorPaginate(20,
             ["title", "short_desc", "is_active", "id", "image"], "categories");
@@ -28,7 +24,7 @@ class CategoriesController extends AdminBaseController
     /**
      * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      */
-    function create(): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
+    function create()
     {
         return view("admin.modules.categories.create", get_defined_vars());
     }
@@ -37,7 +33,7 @@ class CategoriesController extends AdminBaseController
      * @param CreateRequest $request
      * @return RedirectResponse
      */
-    function store(CreateRequest $request): RedirectResponse
+    function store(CreateRequest $request)
     {
         $category_data = $request->validated();
         $category_data["image"] = store_image($request->image, "categories", $request->image_name);
@@ -54,7 +50,7 @@ class CategoriesController extends AdminBaseController
      * @param int $id
      * @return RedirectResponse
      */
-    function updateStatus(string $type, int $id): RedirectResponse
+    function updateStatus(string $type, int $id)
     {
         $post = Category::find($id);
         if (empty($post)) {
@@ -84,7 +80,7 @@ class CategoriesController extends AdminBaseController
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application|RedirectResponse
      */
-    function edit(int $id): Application|View|Factory|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    function edit(int $id)
     {
         $category = Category::find($id);
         if (empty($category)) {

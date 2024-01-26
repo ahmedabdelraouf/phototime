@@ -20,7 +20,7 @@ class AlbumsController extends AdminBaseController
      * @param Request $request
      * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      */
-    function listData(Request $request): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
+    function listData(Request $request)
     {
         $albums = Album::with("slugData")->latest()->paginate(100);
         return view("admin.modules.albums.list_data", get_defined_vars());
@@ -29,7 +29,7 @@ class AlbumsController extends AdminBaseController
     /**
      * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      */
-    function create(): Application|Factory|View|\Illuminate\Contracts\Foundation\Application
+    function create()
     {
         $categories = Category::pluck("title", "id");
         return view("admin.modules.albums.create", get_defined_vars());
