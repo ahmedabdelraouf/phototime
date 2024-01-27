@@ -34,12 +34,12 @@
                 </h2>
                 <img class="" src="{{asset("resources/site/images/hash-bottom.svg")}}"/>
             </div>
-            <img src="{{images_path($settings->site_bout_us_image) }}" class="group" alt="">
+            <img src="{{images_path($settings->site_bout_us_image??"") }}" class="group" alt="">
             <div class="row mx-0" dir="rtl">
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="content px-lg-5">
-                        <h3>{{$settings->site_about_us_title_ar}}</h3>
-                        <p style="width: 90%">{{$settings->site_about_us_desc_ar}}</p>
+                        <h3>{{$settings->site_about_us_title_ar??""}}</h3>
+                        <p style="width: 90%">{{$settings->site_about_us_desc_ar??""}}</p>
                     </div>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                 </div>
                 <div class="col-md-5 col-sm-12 order-lg-2  order-md-2">
                     <div class="head">
-                        <h2 class="head-title">{{$settings->site_services_title_ar}}</h2>
-                        <p class="head-des">{{$settings->site_services_desc_ar}}</p>
+                        <h2 class="head-title">{{$settings->site_services_title_ar??""}}</h2>
+                        <p class="head-des">{{$settings->site_services_desc_ar??""}}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
