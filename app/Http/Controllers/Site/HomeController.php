@@ -28,6 +28,7 @@ class HomeController extends SiteBaseController
         // For example, admin.dashboard becomes dashboard
         return last(explode('.', $fullRouteName));
     }
+
     /**
      * @param Request $request
      * @return View

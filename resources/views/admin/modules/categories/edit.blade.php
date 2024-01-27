@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <label for="slug" class="form-label @if ($errors->has("slug")) is-invalid @endif">Category
                                 slug</label>
-                            <input type='text' name='slug' id='slug' value='{{old("slug", $category->slugData?->slug)}}'
+                            <input type='text' name='slug' id='slug' value='{{old("slug", $category->slugData->slug)}}'
                                    placeholder="Category unique slug"
                                    class='form-control @if ($errors->has("slug")) is-invalid @endif' required
                                    @if ($errors->has("slug"))
