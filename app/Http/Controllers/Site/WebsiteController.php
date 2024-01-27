@@ -19,14 +19,20 @@ class WebsiteController extends SiteBaseController
     function view(Request $request, string $slug): View
     {
         $slug_data = SlugAlias::where("slug", $slug)->firstOrFail();
-        return match ($slug_data->module) {
-            Page::MODULE_NAME => $this->staticPages($request, $slug_data),
-            Category::MODULE_NAME => $this->category($request, $slug_data),
-            Album::MODULE_NAME => $this->albums($request, $slug_data),
-            default => view("site.modules.static_page", get_defined_vars()),
-        };
-    }
+        switch ($slug_data->module) {
+            case Page::MODULE_NAME:
+                return $this->staticPages($request, $slug_data);
 
+            case Category::MODULE_NAME:
+                return $this->category($request, $slug_data);
+
+            case Album::MODULE_NAME:
+                return $this->albums($request, $slug_data);
+
+            default:
+                return view("site.modules.static_page", get_defined_vars());
+        }
+    }
     /**
      * @param Request $request
      * @param SlugAlias $slug_data
