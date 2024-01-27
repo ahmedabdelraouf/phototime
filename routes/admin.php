@@ -49,6 +49,7 @@ Route::prefix("albums")->as("albums.")->middleware("should_login")->group(functi
     Route::post("edit/{id}", [AlbumsController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [AlbumsController::class, "updateStatus"])->name("update_status");
     Route::get("update-featured-status/{type}/{id}", [AlbumsController::class, "updateFeaturedStatus"])->name("update_featured_status");
+    Route::post('/dropzone/upload', [AlbumsController::class, 'uploadDropzone'])->name("albums.uploadDropzone");;
 });
 
 Route::prefix("top-menu")->as("menus.")->middleware("should_login")->group(function () {

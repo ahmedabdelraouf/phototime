@@ -7,6 +7,19 @@
 @section('albums-active')
     active current-page
 @endsection
+<!-- Add your custom styles here -->
+<style>
+
+    .dropzone {
+        border: 2px dashed #007bff;
+        border-radius: 8px;
+        background-color: #fafafa;
+        padding: 20px;
+        margin: 20px 0;
+        cursor: pointer;
+    }
+
+</style>
 
 @section('content')
     <div class="x_panel">
@@ -18,131 +31,39 @@
             </a>
             <div class="clearfix"></div>
         </div>
-        <form action="" method="POST" enctype="multipart/form-data" id="example">
-
-            <button type="submit" class="btn btn-primary pull-right btn-lg" style="width: 25%">
-                <i class="fa fa-fw mr-2 fa-plus"></i> Upload images
-            </button>
-        </form>
         <div class="x_content" style="padding-top: 0.2rem !important;">
-            <div class="row" style="margin-top: 2%">
-                <div class="col-12 col-md-12 col-lg-12">
-                    <div class="multiple-uploader" id="multiple-uploader">
-                        <div class="mup-msg">
-                            <span class="mup-main-msg">click to upload images.</span>
-                            <span class="mup-msg" id="max-upload-number">Upload up to 10 images per time</span>
-                            <span class="mup-msg">Only images are allowed for upload</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="table-responsive">
-                    <form action="{{route("admin.albums.update_images_order")}}" method="POST" id="updateOrder">
 
-                        <input type="hidden" name="album_id" value="{{$album->id}}">
+            <!-- Dropzone Form -->
+            <form action="{{route("admin.albums.albums.uploadDropzone")}}" method="POST" class="dropzone"
+                  id="my-dropzone">
+                <input type="hidden" name="albumId" value="{{$album->id}}">
+                @csrf
+            </form>
 
-                        <button type="submit" class="btn btn-primary pull-right btn-lg" style="width: 25%">
-                            <i class="fa fa-fw mr-2 fa-edit"></i> Update order
-                        </button>
-
-                        <table class="table table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th style="width: 5%">#</th>
-                                <th style='width: 25%'>Image</th>
-                                <th style='width: 25%'>Is Default</th>
-                                <th style='width: 25%'>Is Active</th>
-                                <th style='width: 25%'>Image Order</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @forelse($images as $image)
-                                <tr>
-                                    <td> {{ $loop->index +1 }} </td>
-                                    <td><a href="{{ images_path($image->image) }}" target="_blank"><img
-                                                    src="{{ images_path($image->image) }}"
-                                                    style="width: 200px;max-height: 200px"></a></td>
-                                    <td>
-                                        @if(empty($image->is_default))
-                                            <a href="{{route("admin.albums.update_image_default", ["album_id" => $image->album_id, "id" => $image->id])}}"
-                                               class="mx-2 activate_item" data-bs-toggle="tooltip"
-                                               data-bs-original-title="Image Default"
-                                               title="Make image default"
-                                               data-title="{{$image->album->title}}">
-                                                <i class="fa fa-check-circle text-secondary"></i>
-                                            </a>
-                                        @else
-                                            Yes
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(empty($image->is_active))
-                                            <span class="badge badge-danger">Not Active</span>
-                                        @else
-                                            <span class="badge badge-success">Active</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <style>
-                                            /* Style for the select element */
-                                            select {
-                                                width: 200px;
-                                                padding: 10px;
-                                                font-size: 16px;
-                                                border: 1px solid #ccc;
-                                                border-radius: 5px;
-                                                appearance: none; /* Remove default arrow in some browsers */
-                                                -moz-appearance: none;
-                                                -webkit-appearance: none;
-                                            }
-
-                                            /* Style for the options in the dropdown */
-                                            select option {
-                                                background-color: #fff;
-                                                color: #333;
-                                            }
-
-                                            /* Placeholder style for the select */
-                                            option[disabled]:first-child {
-                                                color: #999;
-                                            }
-                                        </style>
-                                        <select class="form-group" name="images[{{$image->id}}]">
-                                            @foreach($images as $index=>$im)
-                                                <option @if($image->order == $index+1)  selected @endif>{{$index+1}}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="100%"><h4 style="width: 100%;color:#ff0000;text-align: center">No
-                                            Images
-                                            added</h4></td>
-                                </tr>
-                            @endforelse
-                            </tbody>
-                        </table>
-                    </form>
-
-                </div>
-            </div>
+            @include("admin.modules.albums.images_table")
         </div>
     </div>
 @endsection
 
 @push("styles")
-    <link href="{{url("resources/dashboard/uploader/css/main.css")}}" rel="stylesheet"/>
+    <!-- Add this to your layout or view -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropzone@5.9.2/dist/dropzone.css">
+    <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.2"></script>
 @endpush
 
 @push("scripts")
-    <script src="{{url("resources/dashboard/uploader/js/multiple-uploader.js")}}"></script>
-    <script type="text/javascript">
-        let multipleUploader = new MultipleUploader('#multiple-uploader').init({
-            filesInpName: 'images',
-            maxUpload: 500,
-            formSelector: '#example',
-        });
+    <script>
+        Dropzone.options.myDropzone = {
+            maxFilesize: 50, // Set the maximum file size in MB
+            acceptedFiles: ".jpeg,.jpg,.png,.gif", // Specify accepted file types
+            success: function (file, response) {
+                // Handle success
+                console.log(response);
+            },
+            error: function (file, response) {
+                // Handle error
+                console.log(response);
+            }
+        };
     </script>
 @endpush

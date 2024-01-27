@@ -207,7 +207,7 @@ class AlbumsController extends AdminBaseController
         } else {
             $album_data['is_featured'] = 0;
         }
-        if (!empty($album_data['is_active']) && (($album_data['is_active'] == "on")||($album_data['is_active'] == "1"))) {
+        if (!empty($album_data['is_active']) && (($album_data['is_active'] == "on") || ($album_data['is_active'] == "1"))) {
             $album_data['is_active'] = 1;
         } else {
             $album_data['is_active'] = 0;
@@ -234,5 +234,23 @@ class AlbumsController extends AdminBaseController
             $album->categories()->sync($request->categories);
         }
         return redirect()->route("admin.albums.list")->with("success", "Album Created successfully");
+    }
+
+    public function uploadDropzone(Request $request)
+    {
+        $id = $request->albumId;
+        $album = Album::findOrFail($id);
+        $countAlbumImages = count($album->images);
+        $image = $request->file;
+        $one = store_image($image, "albums/$id");
+        $album_images = new AlbumImages;
+        $album_images->album_id = $id;
+        $album_images->image = $one;
+        $album_images->is_default = 0;
+        $album_images->is_active = 1;
+        $album_images->order = 1 + $countAlbumImages;
+        $album_images->save();
+        dd($album_images);
+        return response()->json(['message' => 'Image uploaded successfully.']);
     }
 }
