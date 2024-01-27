@@ -25,7 +25,6 @@ class WebsiteController extends SiteBaseController
             Album::MODULE_NAME => $this->albums($request, $slug_data),
             default => view("site.modules.static_page", get_defined_vars()),
         };
-
     }
 
     /**
@@ -36,7 +35,11 @@ class WebsiteController extends SiteBaseController
     private function staticPages(Request $request, SlugAlias $slug_data): View
     {
         $page = Page::where("is_active", 1)->find($slug_data->module_id);
-        return view("site.modules.static_page", get_defined_vars());
+        if(is_null($page))
+        {
+            abort(404);
+        }
+        return view("site.modules.static_page", ['page'=>$page]);
     }
 
     /**
