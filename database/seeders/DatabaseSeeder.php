@@ -13,8 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-//        $this->call(SettingsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(AdminsTableSeeder::class);
         $this->call(AdminSessionsTableSeeder::class);
@@ -32,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleHasPermissionsTableSeeder::class);
         $this->call(SliderBannersTableSeeder::class);
         $this->call(SlugAliasesTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
         $this->call(SocialMediaLinksTableSeeder::class);
         $this->call(SuccessPartnersTableSeeder::class);
         $this->call(TopMenusTableSeeder::class);
