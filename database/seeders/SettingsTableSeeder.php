@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use Illuminate\Database\Seeder;
 
 class SettingsTableSeeder extends Seeder
@@ -14,10 +15,7 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        
-
-        \DB::table('settings')->delete();
-        
+        Setting::truncate();
         \DB::table('settings')->insert(array (
             0 => 
             array (

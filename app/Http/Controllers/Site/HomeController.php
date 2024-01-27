@@ -42,6 +42,7 @@ class HomeController extends SiteBaseController
         $settings = $this->getSettings();
         $featuredAlbums = Album::take(6)->where("is_featured",1)->get();
         $youtubeLinks = YoutubeChannel::take(4)->get();
+        dd(get_defined_vars());
         return view("site.modules.homepage", get_defined_vars());
     }
 
