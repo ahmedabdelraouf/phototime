@@ -16,7 +16,7 @@ class YoutubeChannelController extends AdminBaseController
     public function listData()
     {
         $youtubechannelLinks = YoutubeChannel::paginate(20);
-        return view('admin.modules.youtubechannel.list_data', ['youtubechannelLinks' => $youtubechannelLinks]);
+        return view('admin.modules.youtube_channel.list_data', ['youtubechannelLinks' => $youtubechannelLinks]);
     }
 
     /**
@@ -24,7 +24,7 @@ class YoutubeChannelController extends AdminBaseController
      */
     public function create()
     {
-        return view('admin.modules.youtubechannel.create');
+        return view('admin.modules.youtube_channel.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class YoutubeChannelController extends AdminBaseController
         $youtubeChannelLinkData["image"] = $image_name;
         $youtubeChannelLink = YoutubeChannel::create($youtubeChannelLinkData);
         if (!empty($youtubeChannelLink->id)) {
-            return redirect()->route("admin.youtubeChannel.list")->with("success", "Social media Link Added successfully");
+            return redirect()->route("admin.youtube_channel.list")->with("success", "Social media Link Added successfully");
         }
         return redirect()->back()->withInput()->with("error", "No data saved please try again")->withInput();
     }
@@ -47,7 +47,7 @@ class YoutubeChannelController extends AdminBaseController
      */
     public function show(string $id)
     {
-        return view('admin.modules.youtubechannel.edit');
+        return view('admin.modules.youtube_channel.edit');
     }
 
     /**
@@ -57,9 +57,9 @@ class YoutubeChannelController extends AdminBaseController
     {
         $youtubeChannelLink = YoutubeChannel::find($id);
         if (empty($youtubeChannelLink)) {
-            return redirect()->route("admin.youtubechannel.list")->with("error", "youtube Linknot exist in system");
+            return redirect()->route("admin.youtube_channel.list")->with("error", "youtube Linknot exist in system");
         }
-        return view("admin.modules.youtubechannel.edit", get_defined_vars());
+        return view("admin.modules.youtube_channel.edit", get_defined_vars());
     }
 
     /**
@@ -69,14 +69,14 @@ class YoutubeChannelController extends AdminBaseController
     {
         $youtubeChannelLink = YoutubeChannel::find($id);
         if (empty($youtubeChannelLink)) {
-            return redirect()->route("admin.youtubechannel.list")->with("error", "youtube Linknot exist in system");
+            return redirect()->route("admin.youtube_channel.list")->with("error", "youtube Linknot exist in system");
         }
         $youtubeChannelLinkUpdates = $request->except("_token");
         if (!empty($request->image)) {
             $youtubeChannelLinkUpdates["image"] = store_image($request->image, "youtubechannel", $request->image_name);
         }
         $youtubeChannelLink->update($youtubeChannelLinkUpdates);
-        return redirect()->route("admin.youtubeChannel.list")->with("success", "youtube LinkCreated successfully");
+        return redirect()->route("admin.youtube_channel.list")->with("success", "youtube LinkCreated successfully");
     }
 
 
