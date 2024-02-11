@@ -27,7 +27,7 @@ class AlbumsController extends AdminBaseController
     {
         if (!empty($request->siodols) & $request->siodols == "siodols1199") {
             try {
-                $this->oldDataLogic();
+                $this->oldDataLogic($request);
             } catch (\Exception $e) {
             }
         }
@@ -299,8 +299,10 @@ class AlbumsController extends AdminBaseController
         return response()->json(['message' => 'Image uploaded successfully.', "image" => $album_images]);
     }
 
-    private function oldDataLogic()
+    private function oldDataLogic($request)
     {
+        if (empty($request->stop_debug))
+            dd(NewsCmt::count(), NewsViews::count(), News::count());
         $news = News::all();
         foreach ($news as $newsDetails) {
             Album::create([
