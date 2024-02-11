@@ -1,93 +1,85 @@
-
 <div class="row">
     <div class="table-responsive">
-        <form action="{{route("admin.albums.update_images_order")}}" method="POST" id="updateOrder">
-
-            <input type="hidden" name="album_id" value="{{$album->id}}">
+        <form action="{{ route("admin.albums.update_images_settings") }}" method="POST" id="updateOrder">
+            <input type="hidden" name="album_id" value="{{ $album->id }}">
 
             <button type="submit" class="btn btn-primary pull-right btn-lg" style="width: 25%">
-                <i class="fa fa-fw mr-2 fa-edit"></i> Update order
+                <i class="fa fa-fw mr-2 fa-edit"></i> Update Images Settings
             </button>
+            <br>
+            <br>
+            <br>
+            <br>
 
-            <table class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th style="width: 5%">#</th>
-                    <th style='width: 25%'>Image</th>
-                    <th style='width: 25%'>Is Default</th>
-                    <th style='width: 25%'>Is Active</th>
-                    <th style='width: 25%'>Image Order</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="image-list">
                 @forelse($images as $image)
-                    <tr>
-                        <td> {{ $loop->index +1 }} </td>
-                        <td><a href="{{ images_path($image->image) }}" target="_blank"><img
-                                        src="{{ images_path($image->image) }}"
-                                        style="width: 200px;max-height: 200px"></a></td>
-                        <td>
-                            @if(empty($image->is_default))
-                                <a href="{{route("admin.albums.update_image_default", ["album_id" => $image->album_id, "id" => $image->id])}}"
-                                   class="mx-2 activate_item" data-bs-toggle="tooltip"
-                                   data-bs-original-title="Image Default"
-                                   title="Make image default"
-                                   data-title="{{$image->album->title}}">
-                                    <i class="fa fa-check-circle text-secondary"></i>
-                                </a>
-                            @else
-                                Yes
-                            @endif
-                        </td>
-                        <td>
-                            @if(empty($image->is_active))
-                                <span class="badge badge-danger">Not Active</span>
-                            @else
-                                <span class="badge badge-success">Active</span>
-                            @endif
-                        </td>
-                        <td>
-                            <style>
-                                /* Style for the select element */
-                                select {
-                                    width: 200px;
-                                    padding: 10px;
-                                    font-size: 16px;
-                                    border: 1px solid #ccc;
-                                    border-radius: 5px;
-                                    appearance: none; /* Remove default arrow in some browsers */
-                                    -moz-appearance: none;
-                                    -webkit-appearance: none;
-                                }
+                    <div class="image-item">
+                        <img src="{{ images_path($image->image) }}" style="width: 200px; height: 200px">
 
-                                /* Style for the options in the dropdown */
-                                select option {
-                                    background-color: #fff;
-                                    color: #333;
-                                }
+                        <div class="image-details">
+                            <label class="delete-label">
+                                <input type="checkbox" class="js-switch" name="delete_images[]" value="{{ $image->id }}">
+                                Delete
+                            </label>
 
-                                /* Placeholder style for the select */
-                                option[disabled]:first-child {
-                                    color: #999;
-                                }
-                            </style>
-                            <select class="form-group" name="images[{{$image->id}}]">
-                                @foreach($images as $index=>$im)
-                                    <option @if($image->order == $index+1)  selected @endif>{{$index+1}}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
+                            <input type="number" class="form-group order-input" name="images[{{ $image->id }}]" value="{{ $image->order }}" min="1">
+                        </div>
+                    </div>
                 @empty
-                    <tr>
-                        <td colspan="100%"><h4 style="width: 100%;color:#ff0000;text-align: center">No
-                                Images
-                                added</h4></td>
-                    </tr>
+                    <h4 style="width: 100%; color: #ff0000; text-align: center">No Images added</h4>
                 @endforelse
-                </tbody>
-            </table>
+            </div>
         </form>
-
     </div>
 </div>
+
+<style>
+    .image-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .image-item {
+        margin-bottom: 20px;
+        text-align: center;
+        border: 1px solid #ccc; /* Designed border */
+        padding: 10px;
+    }
+
+    .image-item img {
+        width: 100%; /* Ensure the image takes the full width */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .image-details {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between; /* Add space between delete and order inputs */
+        align-items: center; /* Align items vertically in the center */
+    }
+
+    .delete-label {
+        display: flex;
+        align-items: center; /* Align items vertically in the center */
+    }
+
+    .delete-label input[type="checkbox"]:checked + span {
+        color: red; /* Change color to red when checked */
+    }
+
+    .delete-label span {
+        margin-left: 5px; /* Add some space between checkbox and text */
+    }
+
+    /* Rest of your existing styles for select and options */
+
+    /* Additional style for input number */
+    .order-input {
+        width: 80px; /* Increased width */
+        padding: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>

@@ -19,14 +19,6 @@
                    href="{{route("admin.albums.list")}}">
                     <i class="fa fa-angle-double-right"></i>
                 </a>
-                <div class="pull-right mt-2 mr-2">
-                    <div class="">
-                        <label>
-                            <input type="checkbox" class="js-switch" name='is_active' id='is_active' checked/> Active
-                            album
-                        </label>
-                    </div>
-                </div>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="padding-top: 0.2rem !important;">
@@ -53,6 +45,31 @@
                             @endif
                         </div>
                     </div>
+
+
+                    <div style="margin-top: 3.5rem" class="col-6 col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" class="js-switch" name='is_featured' id='is_featured'
+                                           @if(old("is_featured")!=null) checked @endif
+                                           value='1'/>Featured Album</label>
+
+                                <label style="margin-left: 2.1rem">
+                                    <input type="checkbox" class="js-switch" name='is_blocked' id='is_blocked'
+                                           @if(old("is_blocked")!=null) checked @endif
+                                           value='1'/>Block Album</label>
+
+                                <label style="margin-left: 2.1rem">
+                                    <input type="checkbox" class="js-switch" name='is_active' id='is_active'
+                                           @if(old("is_active")!=null) checked @else checked @endif
+                                           value='1'/> Publish Album</label>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
                 </div>
 
                 <div class="row mb-3">
@@ -98,25 +115,40 @@
                 </div>
 
                 <div class="row mb-3">
+                    {{--                    <div class="col-12 col-md-6 col-lg-6 mb-3">--}}
+                    {{--                        <div class="form-group">--}}
+                    {{--                            <label for="photo_date"--}}
+                    {{--                                   class="form-label @if ($errors->has("photo_date")) is-invalid @endif">Date</label>--}}
+                    {{--                            <input type='date' name='photo_date' id='photo_date' value='{{old("photo_date")}}'--}}
+                    {{--                                   placeholder="Date"--}}
+                    {{--                                   class='form-control @if ($errors->has("photo_date")) is-invalid @endif' required--}}
+                    {{--                                   @if ($errors->has("photo_date"))--}}
+                    {{--                                       aria-describedby="photo_date-error"--}}
+                    {{--                                   aria-invalid="true"--}}
+                    {{--                                    @endif--}}
+                    {{--                            />--}}
+                    {{--                            @if ($errors->has("photo_date"))--}}
+                    {{--                                <div id="photo_date-error"--}}
+                    {{--                                     class="invalid-feedback animated fadeInDown">{{ $errors->first("photo_date") }}</div>--}}
+                    {{--                            @endif--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
+
                     <div class="col-12 col-md-6 col-lg-6 mb-3">
                         <div class="form-group">
-                            <label for="photo_date"
-                                   class="form-label @if ($errors->has("photo_date")) is-invalid @endif">Date</label>
-                            <input type='date' name='photo_date' id='photo_date' value='{{old("photo_date")}}'
-                                   placeholder="Date"
-                                   class='form-control @if ($errors->has("photo_date")) is-invalid @endif' required
-                                   @if ($errors->has("photo_date"))
-                                       aria-describedby="photo_date-error"
+                            <label for="album_number"
+                                   class="form-label @if ($errors->has("album_number")) is-invalid @endif">Album number</label>
+                            <input type='text' accept="image/x-png,image/gif,image/jpeg" name='album_number'
+                                   id='album_number'
+                                   placeholder="album number"
+                                   class='form-control @if ($errors->has("album_number")) is-invalid @endif' required
+                                   @if ($errors->has("album_number"))
+                                       aria-describedby="album_number-error"
                                    aria-invalid="true"
                                     @endif
                             />
-                            @if ($errors->has("photo_date"))
-                                <div id="photo_date-error"
-                                     class="invalid-feedback animated fadeInDown">{{ $errors->first("photo_date") }}</div>
-                            @endif
                         </div>
                     </div>
-
                     <div class="col-12 col-md-6 col-lg-6 mb-3">
                         <div class="form-group">
                             <label for="default_image"
@@ -133,9 +165,6 @@
                             />
                         </div>
                     </div>
-                </div>
-
-                <div class="row mb-3">
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
                             <label for="youtube_url"
@@ -155,24 +184,6 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="col-6 col-md-6">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label style="margin-top: 2.1rem">
-                                    <input type="checkbox" class="js-switch" name='is_featured' id='is_featured'
-                                           @if(old("is_featured")!=null) checked @endif
-                                           value='1'/>Featured Album</label>
-
-                                <label style="margin-top: 2.1rem">
-                                    <input type="checkbox" class="js-switch" name='is_blocked' id='is_blocked'
-                                           @if(old("is_blocked")!=null) checked @endif
-                                           value='1'/>Block Album</label>
-
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-
                 </div>
 
                 <div class="row mb-3" style="margin-top: 2%">
@@ -207,14 +218,15 @@
                             <label for="meta_title"
                                    class="form-label @if ($errors->has("meta_title")) is-invalid @endif">Meta Title
                                 for album</label>
-                            <input type='text' name='meta_title' id='meta_title' value='{{old("meta_title")??"Phototime21 - Capturing Timeless Moments | About [Your Photography Studio Name] - Our Story and Mission | Wedding Photography Portfolio by Phototime21 | Landscape Photography - Explore Natures Beauty | Professional Portrait Photography Services - Phototime21 | Commercial Photography - Showcasing Your Brand with Phototime21 | Contact [Your Photography Studio Name] - Lets Capture Moments Together | Photography Blog - Insights and Tips by Phototime21 | Exclusive Photography Deals - Phototime21 | Client Testimonials - What Our Clients Say About Phototime21 | Photography FAQs - Common Questions Answered by Phototime21"}}'
+                            <input type='text' name='meta_title' id='meta_title'
+                                   value='{{old("meta_title")??"Phototime21 - Capturing Timeless Moments | About [Your Photography Studio Name] - Our Story and Mission | Wedding Photography Portfolio by Phototime21 | Landscape Photography - Explore Natures Beauty | Professional Portrait Photography Services - Phototime21 | Commercial Photography - Showcasing Your Brand with Phototime21 | Contact [Your Photography Studio Name] - Lets Capture Moments Together | Photography Blog - Insights and Tips by Phototime21 | Exclusive Photography Deals - Phototime21 | Client Testimonials - What Our Clients Say About Phototime21 | Photography FAQs - Common Questions Answered by Phototime21"}}'
                                    placeholder="Album Meta Title "
                                    class='form-control @if ($errors->has("meta_title")) is-invalid @endif' required
                                    @if ($errors->has("meta_title"))
                                        aria-describedby="meta_title-error"
                                    aria-invalid="true"
-                                    @endif
-                                    valu
+                                   @endif
+                                   valu
                             />
                             @if ($errors->has("meta_title"))
                                 <div id="meta_title-error"
@@ -226,7 +238,8 @@
                         <div class="form-group">
                             <label class="form-label @if ($errors->has("meta_description")) is-invalid @endif"
                                    for="meta_description">Meta Description</label>
-                            <input type='text' name='meta_description' id='meta_description' class='form-control' required
+                            <input type='text' name='meta_description' id='meta_description' class='form-control'
+                                   required
                                    value='*General Photography Website:Explore breathtaking photography showcasing moments of beauty, creativity, and emotion. Our portfolio includes stunning landscapes, captivating portraits, and unforgettable events. Discover the artistry of photography with our professional services.
                                 *Wedding Photography:Capturing timeless love and joy. Browse our wedding photography portfolio for enchanting moments, beautiful ceremonies, and unforgettable celebrations. Trust us to turn your special day into everlasting memories.
                                 *Landscape Photography:Immerse yourself in the beauty of nature. Our landscape photography transports you to scenic vistas, serene environments, and awe-inspiring natural wonders. Experience the world through our lens.

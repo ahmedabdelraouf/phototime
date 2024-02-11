@@ -22,8 +22,41 @@ class AlbumsController extends AdminBaseController
      */
     function listData(Request $request)
     {
-        $albums = Album::with("slugData")->latest()->paginate(100);
-        return view("admin.modules.albums.list_data", get_defined_vars());
+        $query = Album::query();
+
+        if ($request->filled('title')) {
+            $query->where('title', 'like', '%' . $request->input('title') . '%');
+        }
+
+        if ($request->filled('is_featured')) {
+            $query->where('is_featured', $request->input('is_featured'));
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('created_at', $request->input('date'));
+        }
+
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->input('is_active'));
+        }
+
+        if ($request->filled('album_number')) {
+            $query->where('album_number', $request->input('album_number'));
+        }
+
+        $albums = $query->paginate(100);
+
+        // Pass only necessary variables to the view
+        $data = [
+            'albums' => $albums,
+            'title' => $request->input('title'),
+            'date' => $request->input('date'),
+            'is_featured' => $request->input('is_featured'),
+            'is_active' => $request->input('is_active'),
+            'album_number' => $request->input('album_number'),
+        ];
+
+        return view("admin.modules.albums.list_data", $data);
     }
 
     /**
@@ -42,6 +75,7 @@ class AlbumsController extends AdminBaseController
     function store(CreateRequest $request)
     {
         $validatedInputs = $request->validated();
+        $validatedInputs["photo_date"] =  date("Y-m-d");
         unset($validatedInputs["default_image"]);
         $album = Album::create($validatedInputs);
         if (!empty($album->id)) {
@@ -126,7 +160,7 @@ class AlbumsController extends AdminBaseController
         if (empty($album)) {
             return redirect()->route("admin.albums.list")->with("error", "Album not exist in system");
         }
-        $images = $album->images;
+        $images = $album->images()->limit(1000)->get();
         return view("admin.modules.albums.images", get_defined_vars());
     }
 
@@ -161,9 +195,12 @@ class AlbumsController extends AdminBaseController
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application|RedirectResponse
      */
-    function updateImagesOrder(Request $request)
+    function updateImagesSettings(Request $request)
     {
         $album = Album::findOrFail($request->album_id);
+        if (!empty($request->delete_images) && is_array($request->delete_images) && count($request->delete_images) > 0) {
+            AlbumImages::whereIn('id', $request->delete_images)->delete();
+        }
         if (isset($request->images) && is_array($request->images) && count($request->images) > 0) {
             foreach ($request->images as $imageId => $imageOrder) {
                 AlbumImages::where('id', $imageId)->update(['order' => $imageOrder]);
@@ -250,7 +287,6 @@ class AlbumsController extends AdminBaseController
         $album_images->is_active = 1;
         $album_images->order = 1 + $countAlbumImages;
         $album_images->save();
-        dd($album_images);
-        return response()->json(['message' => 'Image uploaded successfully.']);
+        return response()->json(['message' => 'Image uploaded successfully.', "image" => $album_images]);
     }
 }
