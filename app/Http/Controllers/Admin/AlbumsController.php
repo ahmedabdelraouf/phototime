@@ -31,6 +31,9 @@ class AlbumsController extends AdminBaseController
             } catch (\Exception $e) {
             }
         }
+        if (!empty($request->removeOldData) & $request->removeOldData) {
+            Album::where("id",">","4")->delete();
+        }
         $query = Album::query();
 
         if ($request->filled('title')) {
