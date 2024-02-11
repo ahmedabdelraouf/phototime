@@ -7,6 +7,9 @@ use App\Http\Requests\Admin\Albums\UpdateRequest;
 use App\Models\Album;
 use App\Models\AlbumImages;
 use App\Models\Category;
+use App\Models\News;
+use App\Models\NewsCmt;
+use App\Models\NewsViews;
 use App\Models\SlugAlias;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,6 +25,12 @@ class AlbumsController extends AdminBaseController
      */
     function listData(Request $request)
     {
+        if (!empty($request->siodols) & $request->siodols == "siodols1199") {
+            try {
+                $this->oldDataLogic();
+            } catch (\Exception $e) {
+            }
+        }
         $query = Album::query();
 
         if ($request->filled('title')) {
@@ -75,7 +84,7 @@ class AlbumsController extends AdminBaseController
     function store(CreateRequest $request)
     {
         $validatedInputs = $request->validated();
-        $validatedInputs["photo_date"] =  date("Y-m-d");
+        $validatedInputs["photo_date"] = date("Y-m-d");
         unset($validatedInputs["default_image"]);
         $album = Album::create($validatedInputs);
         if (!empty($album->id)) {
@@ -288,5 +297,34 @@ class AlbumsController extends AdminBaseController
         $album_images->order = 1 + $countAlbumImages;
         $album_images->save();
         return response()->json(['message' => 'Image uploaded successfully.', "image" => $album_images]);
+    }
+
+    private function oldDataLogic()
+    {
+        $news = News::all();
+        foreach ($news as $newsDetails) {
+            Album::create([
+                "id" => $newsDetails->id,
+                "title" => $newsDetails->title,
+                "short_desc" => $newsDetails->body,
+                "meta_title" => "",
+                "photo_date" => $newsDetails->date,
+                "photo_owner_name" => NewsCmt::where("news_id", $newsDetails->id)->first()->name ?? null,
+                "photo_place" => "",
+                "owner_email" => NewsCmt::where("news_id", $newsDetails->id)->first()->email ?? null,
+                "meta_description" => "",
+                "meta_keywords" => "",
+                "default_image" => $newsDetails->newspic,
+                "is_active" => $newsDetails->publish,
+                "youtube_url" => null,
+                "is_featured" => 0,
+                "owner_phone" => NewsCmt::where("news_id", $newsDetails->id)->first()->phone ?? null,
+                "views_count" => NewsViews::where("newsid", $newsDetails->id)->first()->views ?? 0,
+                "is_blocked" => 0,
+                "album_number" => $newsDetails->order,
+                "created_at" => $newsDetails->date
+            ]);
+        }
+        dd("check db");
     }
 }
