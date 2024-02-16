@@ -10,7 +10,6 @@ use App\Models\Category;
 use App\Models\News;
 use App\Models\NewsCmt;
 use App\Models\NewsViews;
-use App\Models\SlugAlias;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
