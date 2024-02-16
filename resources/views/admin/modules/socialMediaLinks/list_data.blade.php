@@ -94,9 +94,7 @@
                 </div>
             </div>
 
-            <div class="tab-footer" style="padding: 2% 0 0 0;width: 100%;">
-                {{$socialMediaLinks->links()}}
-            </div>
+            @include('admin.layout.pagination', ['paginator' => $socialMediaLinks])
         </div>
     </div>
 

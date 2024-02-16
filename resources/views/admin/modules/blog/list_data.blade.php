@@ -83,7 +83,7 @@
             </div>
 
             <div class="tab-footer" style="padding: 2% 0 0 0;width: 100%;">
-                {{$blogPages->links()}}
+                @include('admin.layout.pagination', ['paginator' => $blogPages])
             </div>
         </div>
     </div>

@@ -96,10 +96,8 @@
                     </table>
                 </div>
             </div>
+            @include('admin.layout.pagination', ['paginator' => $youtubechannelLinks])
 
-            <div class="tab-footer" style="padding: 2% 0 0 0;width: 100%;">
-                {{$youtubechannelLinks->links()}}
-            </div>
         </div>
     </div>
 

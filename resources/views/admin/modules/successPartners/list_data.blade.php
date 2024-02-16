@@ -96,9 +96,8 @@
                 </div>
             </div>
 
-            <div class="tab-footer" style="padding: 2% 0 0 0;width: 100%;">
-                {{$successPartners->links()}}
-            </div>
+            @include('admin.layout.pagination', ['paginator' => $successPartners])
+
         </div>
     </div>
 
