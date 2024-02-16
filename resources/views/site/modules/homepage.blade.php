@@ -100,7 +100,6 @@
             <div class="vid-slider-2">
                 <div id="craouselContainer" class="swiper-container">
                     <div class="swiper-wrapper" id="slideHolder">
-
                         @foreach($youtubeLinks as $youtubeLink)
                             <div class="swiper-slide">
                                 <div class="ImgHolder">
@@ -119,8 +118,9 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
+
             <div class="text-center show-more">
-                <button>عرض المزيد</button>
+                <button onclick="window.location.href='{{route("site.youtubechannel")}}'">عرض المزيد</button>
             </div>
         </div>
     </div>

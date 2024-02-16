@@ -129,15 +129,34 @@ class HomeController extends SiteBaseController
         $album->save();
         return view("site.modules.album_details", get_defined_vars());
     }
+    /**
+     * @param ContactUsRequest $request
+     * @return RedirectResponse
+     */
+    function youtubeChannelDetails($id)
+    {
+        $YoutubeChannelUrl = YoutubeChannel::find($id);
+        return view("site.modules.youtube_channel_details", get_defined_vars());
+    }
 
     function albums(): View
     {
-        $slug_data = SlugAlias::where("slug", "categories")->first();
+        $slug_data = SlugAlias::where("slug", "albums")->first();
         if (!empty($slug_data)) {
             $page = Page::where("is_active", 1)->find($slug_data->module_id);
         }
         $albums = Album::where("is_active", 1)->with("slugData")->get();
         return view("site.modules.albums", get_defined_vars());
+    }
+
+    function youtubeChannel(): View
+    {
+        $slug_data = SlugAlias::where("slug", "categories")->first();
+        if (!empty($slug_data)) {
+            $page = Page::where("is_active", 1)->find($slug_data->module_id);
+        }
+        $youtubeChannelLinks = YoutubeChannel::all();
+        return view("site.modules.youtubeChannel", get_defined_vars());
     }
 
     function blogs(): View
