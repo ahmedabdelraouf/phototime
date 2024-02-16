@@ -91,7 +91,7 @@ class AlbumsController extends AdminBaseController
         unset($validatedInputs["default_image"]);
         $album = Album::create($validatedInputs);
         if (!empty($album->id)) {
-            SlugAlias::create(["module_id" => $album->id, "slug" => $request->slug, "module" => Album::MODULE_NAME]);
+//            SlugAlias::create(["module_id" => $album->id, "slug" => $request->slug, "module" => Album::MODULE_NAME]);
             if (isset($request->categories) && is_array($request->categories) && count($request->categories) > 0) {
                 $album->categories()->sync($request->categories);
             }

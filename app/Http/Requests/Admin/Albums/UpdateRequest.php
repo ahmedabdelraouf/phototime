@@ -4,7 +4,6 @@ namespace App\Http\Requests\Admin\Albums;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -26,10 +25,11 @@ class UpdateRequest extends FormRequest
         $id = $this->route("id");
         return [
             "title" => "required",
-            "slug" => [
-                'required',
-                Rule::unique('slug_aliases', "slug")->ignore($id, "module_id"),
-            ],
+//            "slug" => [
+//                'required',
+//                Rule::unique('slug_aliases', "slug")->ignore($id, "module_id"),
+//            ],
+            "slug" => "nullable",
             "short_desc" => "nullable",
             "meta_keywords" => "nullable",
             "meta_title" => "nullable",

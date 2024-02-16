@@ -23,7 +23,8 @@ class CreateRequest extends FormRequest
     {
         return [
             "title" => "required",
-            "slug" => "required|unique:slug_aliases,slug",
+//            "slug" => "required|unique:slug_aliases,slug",
+            "slug" => "nullable",
             "short_desc" => "nullable",
             "meta_keywords" => "nullable",
             "meta_title" => "nullable",
