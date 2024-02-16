@@ -79,8 +79,8 @@
                         <tr>
 {{--                            <th style="width: 5%">#</th>--}}
                             {{--                            <th style='width: 25%'>Default Image</th>--}}
-                            <th style='width: 25%'>Number</th>
                             <th style='width: 25%'>Title</th>
+                            <th style='width: 25%'>Number</th>
                             {{--                            <th style='width: 25%'>Short Description</th>--}}
                             <th style='width: 25%'>Album Details</th>
                             <th style='width: 10%'>Views</th>
@@ -105,8 +105,8 @@
                                 {{--                                    @endif--}}
                                 {{--                                </td>--}}
 
-                                <td>{{ $album->album_number }}</td>
                                 <td><a href="{{route('site.albumDetails',['id'=>$album->id])}}">{{ $album->title }}</a>
+                                <td>{{ $album->album_number }}</td>
                                 </td>
                                 {{--                                <td>{{ $album->short_desc }}</td>--}}
                                 <td>
