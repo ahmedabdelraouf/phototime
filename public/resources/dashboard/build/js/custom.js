@@ -1,12 +1,13 @@
-(function($,sr){
+(function ($, sr) {
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
     var debounce = function (func, threshold, execAsap) {
-      var timeout;
+        var timeout;
 
-        return function debounced () {
+        return function debounced() {
             var obj = this, args = arguments;
-            function delayed () {
+
+            function delayed() {
                 if (!execAsap)
                     func.apply(obj, args);
                 timeout = null;
@@ -22,9 +23,11 @@
     };
 
     // smartresize
-    jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+    jQuery.fn[sr] = function (fn) {
+        return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
+    };
 
-})(jQuery,'smartresize');
+})(jQuery, 'smartresize');
 /**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -106,7 +109,9 @@ function init_sidebar() {
 
         setContentHeight();
 
-        $('.dataTable').each(function () { $(this).dataTable().fnDraw(); });
+        $('.dataTable').each(function () {
+            $(this).dataTable().fnDraw();
+        });
     });
 
     // check active menu
@@ -130,10 +135,11 @@ function init_sidebar() {
         $('.menu_fixed').mCustomScrollbar({
             autoHideScrollbar: true,
             theme: 'minimal',
-            mouseWheel: { preventDefault: true }
+            mouseWheel: {preventDefault: true}
         });
     }
 }
+
 // /Sidebar
 
 // Panel toolbox
@@ -239,13 +245,14 @@ $('.bulk_action input#check-all').on('ifUnchecked', function () {
     countChecked();
 });
 
-function slugify(str){
+function slugify(str) {
     return str.toString().toLowerCase()
         .replace(/\s+/g, '-')
         .replace(/[^\w\u0621-\u064A0-9-]+/g, '')
         .replace(/\-\-+/g, '-')
         .replace(/^-+/, '').replace(/-+$/, '');
 }
+
 function countChecked() {
     if (checkState === 'all') {
         $(".bulk_action input[name='table_records']").iCheck('check');
@@ -332,7 +339,9 @@ function gd(year, month, day) {
 
 function init_flot_chart() {
 
-    if (typeof ($.plot) === 'undefined') { return; }
+    if (typeof ($.plot) === 'undefined') {
+        return;
+    }
     var randNum = function () {
         return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
     };
@@ -572,7 +581,8 @@ function init_flot_chart() {
             }
         }], chart_plot_03_settings);
 
-    };
+    }
+    ;
 
 }
 
@@ -581,7 +591,9 @@ function init_flot_chart() {
 
 function init_starrr() {
 
-    if (typeof (starrr) === 'undefined') { return; }
+    if (typeof (starrr) === 'undefined') {
+        return;
+    }
 
     $(".stars").starrr();
 
@@ -601,7 +613,9 @@ function init_starrr() {
 
 
 function init_JQVmap() {
-    if (typeof (jQuery.fn.vectorMap) === 'undefined') { return; }
+    if (typeof (jQuery.fn.vectorMap) === 'undefined') {
+        return;
+    }
 
     if ($('#world-map-gdp').length) {
 
@@ -642,11 +656,13 @@ function init_JQVmap() {
 
 function init_skycons() {
 
-    if (typeof (Skycons) === 'undefined') { return; }
+    if (typeof (Skycons) === 'undefined') {
+        return;
+    }
 
     var icons = new Skycons({
-        "color": "#73879C"
-    }),
+            "color": "#73879C"
+        }),
         list = [
             "clear-day", "clear-night", "partly-cloudy-day",
             "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
@@ -664,7 +680,9 @@ function init_skycons() {
 
 function init_chart_doughnut() {
 
-    if (typeof (Chart) === 'undefined') { return; }
+    if (typeof (Chart) === 'undefined') {
+        return;
+    }
 
     if ($('.canvasDoughnut').length) {
 
@@ -716,7 +734,9 @@ function init_chart_doughnut() {
 
 function init_gauge() {
 
-    if (typeof (Gauge) === 'undefined') { return; }
+    if (typeof (Gauge) === 'undefined') {
+        return;
+    }
 
 
     var chart_gauge_settings = {
@@ -777,7 +797,9 @@ function init_gauge() {
 
 function init_sparklines() {
 
-    if (typeof (jQuery.fn.sparkline) === 'undefined') { return; }
+    if (typeof (jQuery.fn.sparkline) === 'undefined') {
+        return;
+    }
 
 
     $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
@@ -894,9 +916,277 @@ function init_sparklines() {
 
 function init_autocomplete() {
 
-    if (typeof ($.fn.autocomplete) === 'undefined') { return; }
+    if (typeof ($.fn.autocomplete) === 'undefined') {
+        return;
+    }
 
-    var countries = { AD: "Andorra", A2: "Andorra Test", AE: "United Arab Emirates", AF: "Afghanistan", AG: "Antigua and Barbuda", AI: "Anguilla", AL: "Albania", AM: "Armenia", AN: "Netherlands Antilles", AO: "Angola", AQ: "Antarctica", AR: "Argentina", AS: "American Samoa", AT: "Austria", AU: "Australia", AW: "Aruba", AX: "Åland Islands", AZ: "Azerbaijan", BA: "Bosnia and Herzegovina", BB: "Barbados", BD: "Bangladesh", BE: "Belgium", BF: "Burkina Faso", BG: "Bulgaria", BH: "Bahrain", BI: "Burundi", BJ: "Benin", BL: "Saint Barthélemy", BM: "Bermuda", BN: "Brunei", BO: "Bolivia", BQ: "British Antarctic Territory", BR: "Brazil", BS: "Bahamas", BT: "Bhutan", BV: "Bouvet Island", BW: "Botswana", BY: "Belarus", BZ: "Belize", CA: "Canada", CC: "Cocos [Keeling] Islands", CD: "Congo - Kinshasa", CF: "Central African Republic", CG: "Congo - Brazzaville", CH: "Switzerland", CI: "Côte d’Ivoire", CK: "Cook Islands", CL: "Chile", CM: "Cameroon", CN: "China", CO: "Colombia", CR: "Costa Rica", CS: "Serbia and Montenegro", CT: "Canton and Enderbury Islands", CU: "Cuba", CV: "Cape Verde", CX: "Christmas Island", CY: "Cyprus", CZ: "Czech Republic", DD: "East Germany", DE: "Germany", DJ: "Djibouti", DK: "Denmark", DM: "Dominica", DO: "Dominican Republic", DZ: "Algeria", EC: "Ecuador", EE: "Estonia", EG: "Egypt", EH: "Western Sahara", ER: "Eritrea", ES: "Spain", ET: "Ethiopia", FI: "Finland", FJ: "Fiji", FK: "Falkland Islands", FM: "Micronesia", FO: "Faroe Islands", FQ: "French Southern and Antarctic Territories", FR: "France", FX: "Metropolitan France", GA: "Gabon", GB: "United Kingdom", GD: "Grenada", GE: "Georgia", GF: "French Guiana", GG: "Guernsey", GH: "Ghana", GI: "Gibraltar", GL: "Greenland", GM: "Gambia", GN: "Guinea", GP: "Guadeloupe", GQ: "Equatorial Guinea", GR: "Greece", GS: "South Georgia and the South Sandwich Islands", GT: "Guatemala", GU: "Guam", GW: "Guinea-Bissau", GY: "Guyana", HK: "Hong Kong SAR China", HM: "Heard Island and McDonald Islands", HN: "Honduras", HR: "Croatia", HT: "Haiti", HU: "Hungary", ID: "Indonesia", IE: "Ireland", IL: "Israel", IM: "Isle of Man", IN: "India", IO: "British Indian Ocean Territory", IQ: "Iraq", IR: "Iran", IS: "Iceland", IT: "Italy", JE: "Jersey", JM: "Jamaica", JO: "Jordan", JP: "Japan", JT: "Johnston Island", KE: "Kenya", KG: "Kyrgyzstan", KH: "Cambodia", KI: "Kiribati", KM: "Comoros", KN: "Saint Kitts and Nevis", KP: "North Korea", KR: "South Korea", KW: "Kuwait", KY: "Cayman Islands", KZ: "Kazakhstan", LA: "Laos", LB: "Lebanon", LC: "Saint Lucia", LI: "Liechtenstein", LK: "Sri Lanka", LR: "Liberia", LS: "Lesotho", LT: "Lithuania", LU: "Luxembourg", LV: "Latvia", LY: "Libya", MA: "Morocco", MC: "Monaco", MD: "Moldova", ME: "Montenegro", MF: "Saint Martin", MG: "Madagascar", MH: "Marshall Islands", MI: "Midway Islands", MK: "Macedonia", ML: "Mali", MM: "Myanmar [Burma]", MN: "Mongolia", MO: "Macau SAR China", MP: "Northern Mariana Islands", MQ: "Martinique", MR: "Mauritania", MS: "Montserrat", MT: "Malta", MU: "Mauritius", MV: "Maldives", MW: "Malawi", MX: "Mexico", MY: "Malaysia", MZ: "Mozambique", NA: "Namibia", NC: "New Caledonia", NE: "Niger", NF: "Norfolk Island", NG: "Nigeria", NI: "Nicaragua", NL: "Netherlands", NO: "Norway", NP: "Nepal", NQ: "Dronning Maud Land", NR: "Nauru", NT: "Neutral Zone", NU: "Niue", NZ: "New Zealand", OM: "Oman", PA: "Panama", PC: "Pacific Islands Trust Territory", PE: "Peru", PF: "French Polynesia", PG: "Papua New Guinea", PH: "Philippines", PK: "Pakistan", PL: "Poland", PM: "Saint Pierre and Miquelon", PN: "Pitcairn Islands", PR: "Puerto Rico", PS: "Palestinian Territories", PT: "Portugal", PU: "U.S. Miscellaneous Pacific Islands", PW: "Palau", PY: "Paraguay", PZ: "Panama Canal Zone", QA: "Qatar", RE: "Réunion", RO: "Romania", RS: "Serbia", RU: "Russia", RW: "Rwanda", SA: "Saudi Arabia", SB: "Solomon Islands", SC: "Seychelles", SD: "Sudan", SE: "Sweden", SG: "Singapore", SH: "Saint Helena", SI: "Slovenia", SJ: "Svalbard and Jan Mayen", SK: "Slovakia", SL: "Sierra Leone", SM: "San Marino", SN: "Senegal", SO: "Somalia", SR: "Suriname", ST: "São Tomé and Príncipe", SU: "Union of Soviet Socialist Republics", SV: "El Salvador", SY: "Syria", SZ: "Swaziland", TC: "Turks and Caicos Islands", TD: "Chad", TF: "French Southern Territories", TG: "Togo", TH: "Thailand", TJ: "Tajikistan", TK: "Tokelau", TL: "Timor-Leste", TM: "Turkmenistan", TN: "Tunisia", TO: "Tonga", TR: "Turkey", TT: "Trinidad and Tobago", TV: "Tuvalu", TW: "Taiwan", TZ: "Tanzania", UA: "Ukraine", UG: "Uganda", UM: "U.S. Minor Outlying Islands", US: "United States", UY: "Uruguay", UZ: "Uzbekistan", VA: "Vatican City", VC: "Saint Vincent and the Grenadines", VD: "North Vietnam", VE: "Venezuela", VG: "British Virgin Islands", VI: "U.S. Virgin Islands", VN: "Vietnam", VU: "Vanuatu", WF: "Wallis and Futuna", WK: "Wake Island", WS: "Samoa", YD: "People's Democratic Republic of Yemen", YE: "Yemen", YT: "Mayotte", ZA: "South Africa", ZM: "Zambia", ZW: "Zimbabwe", ZZ: "Unknown or Invalid Region" };
+    var countries = {
+        AD: "Andorra",
+        A2: "Andorra Test",
+        AE: "United Arab Emirates",
+        AF: "Afghanistan",
+        AG: "Antigua and Barbuda",
+        AI: "Anguilla",
+        AL: "Albania",
+        AM: "Armenia",
+        AN: "Netherlands Antilles",
+        AO: "Angola",
+        AQ: "Antarctica",
+        AR: "Argentina",
+        AS: "American Samoa",
+        AT: "Austria",
+        AU: "Australia",
+        AW: "Aruba",
+        AX: "Åland Islands",
+        AZ: "Azerbaijan",
+        BA: "Bosnia and Herzegovina",
+        BB: "Barbados",
+        BD: "Bangladesh",
+        BE: "Belgium",
+        BF: "Burkina Faso",
+        BG: "Bulgaria",
+        BH: "Bahrain",
+        BI: "Burundi",
+        BJ: "Benin",
+        BL: "Saint Barthélemy",
+        BM: "Bermuda",
+        BN: "Brunei",
+        BO: "Bolivia",
+        BQ: "British Antarctic Territory",
+        BR: "Brazil",
+        BS: "Bahamas",
+        BT: "Bhutan",
+        BV: "Bouvet Island",
+        BW: "Botswana",
+        BY: "Belarus",
+        BZ: "Belize",
+        CA: "Canada",
+        CC: "Cocos [Keeling] Islands",
+        CD: "Congo - Kinshasa",
+        CF: "Central African Republic",
+        CG: "Congo - Brazzaville",
+        CH: "Switzerland",
+        CI: "Côte d’Ivoire",
+        CK: "Cook Islands",
+        CL: "Chile",
+        CM: "Cameroon",
+        CN: "China",
+        CO: "Colombia",
+        CR: "Costa Rica",
+        CS: "Serbia and Montenegro",
+        CT: "Canton and Enderbury Islands",
+        CU: "Cuba",
+        CV: "Cape Verde",
+        CX: "Christmas Island",
+        CY: "Cyprus",
+        CZ: "Czech Republic",
+        DD: "East Germany",
+        DE: "Germany",
+        DJ: "Djibouti",
+        DK: "Denmark",
+        DM: "Dominica",
+        DO: "Dominican Republic",
+        DZ: "Algeria",
+        EC: "Ecuador",
+        EE: "Estonia",
+        EG: "Egypt",
+        EH: "Western Sahara",
+        ER: "Eritrea",
+        ES: "Spain",
+        ET: "Ethiopia",
+        FI: "Finland",
+        FJ: "Fiji",
+        FK: "Falkland Islands",
+        FM: "Micronesia",
+        FO: "Faroe Islands",
+        FQ: "French Southern and Antarctic Territories",
+        FR: "France",
+        FX: "Metropolitan France",
+        GA: "Gabon",
+        GB: "United Kingdom",
+        GD: "Grenada",
+        GE: "Georgia",
+        GF: "French Guiana",
+        GG: "Guernsey",
+        GH: "Ghana",
+        GI: "Gibraltar",
+        GL: "Greenland",
+        GM: "Gambia",
+        GN: "Guinea",
+        GP: "Guadeloupe",
+        GQ: "Equatorial Guinea",
+        GR: "Greece",
+        GS: "South Georgia and the South Sandwich Islands",
+        GT: "Guatemala",
+        GU: "Guam",
+        GW: "Guinea-Bissau",
+        GY: "Guyana",
+        HK: "Hong Kong SAR China",
+        HM: "Heard Island and McDonald Islands",
+        HN: "Honduras",
+        HR: "Croatia",
+        HT: "Haiti",
+        HU: "Hungary",
+        ID: "Indonesia",
+        IE: "Ireland",
+        IL: "Israel",
+        IM: "Isle of Man",
+        IN: "India",
+        IO: "British Indian Ocean Territory",
+        IQ: "Iraq",
+        IR: "Iran",
+        IS: "Iceland",
+        IT: "Italy",
+        JE: "Jersey",
+        JM: "Jamaica",
+        JO: "Jordan",
+        JP: "Japan",
+        JT: "Johnston Island",
+        KE: "Kenya",
+        KG: "Kyrgyzstan",
+        KH: "Cambodia",
+        KI: "Kiribati",
+        KM: "Comoros",
+        KN: "Saint Kitts and Nevis",
+        KP: "North Korea",
+        KR: "South Korea",
+        KW: "Kuwait",
+        KY: "Cayman Islands",
+        KZ: "Kazakhstan",
+        LA: "Laos",
+        LB: "Lebanon",
+        LC: "Saint Lucia",
+        LI: "Liechtenstein",
+        LK: "Sri Lanka",
+        LR: "Liberia",
+        LS: "Lesotho",
+        LT: "Lithuania",
+        LU: "Luxembourg",
+        LV: "Latvia",
+        LY: "Libya",
+        MA: "Morocco",
+        MC: "Monaco",
+        MD: "Moldova",
+        ME: "Montenegro",
+        MF: "Saint Martin",
+        MG: "Madagascar",
+        MH: "Marshall Islands",
+        MI: "Midway Islands",
+        MK: "Macedonia",
+        ML: "Mali",
+        MM: "Myanmar [Burma]",
+        MN: "Mongolia",
+        MO: "Macau SAR China",
+        MP: "Northern Mariana Islands",
+        MQ: "Martinique",
+        MR: "Mauritania",
+        MS: "Montserrat",
+        MT: "Malta",
+        MU: "Mauritius",
+        MV: "Maldives",
+        MW: "Malawi",
+        MX: "Mexico",
+        MY: "Malaysia",
+        MZ: "Mozambique",
+        NA: "Namibia",
+        NC: "New Caledonia",
+        NE: "Niger",
+        NF: "Norfolk Island",
+        NG: "Nigeria",
+        NI: "Nicaragua",
+        NL: "Netherlands",
+        NO: "Norway",
+        NP: "Nepal",
+        NQ: "Dronning Maud Land",
+        NR: "Nauru",
+        NT: "Neutral Zone",
+        NU: "Niue",
+        NZ: "New Zealand",
+        OM: "Oman",
+        PA: "Panama",
+        PC: "Pacific Islands Trust Territory",
+        PE: "Peru",
+        PF: "French Polynesia",
+        PG: "Papua New Guinea",
+        PH: "Philippines",
+        PK: "Pakistan",
+        PL: "Poland",
+        PM: "Saint Pierre and Miquelon",
+        PN: "Pitcairn Islands",
+        PR: "Puerto Rico",
+        PS: "Palestinian Territories",
+        PT: "Portugal",
+        PU: "U.S. Miscellaneous Pacific Islands",
+        PW: "Palau",
+        PY: "Paraguay",
+        PZ: "Panama Canal Zone",
+        QA: "Qatar",
+        RE: "Réunion",
+        RO: "Romania",
+        RS: "Serbia",
+        RU: "Russia",
+        RW: "Rwanda",
+        SA: "Saudi Arabia",
+        SB: "Solomon Islands",
+        SC: "Seychelles",
+        SD: "Sudan",
+        SE: "Sweden",
+        SG: "Singapore",
+        SH: "Saint Helena",
+        SI: "Slovenia",
+        SJ: "Svalbard and Jan Mayen",
+        SK: "Slovakia",
+        SL: "Sierra Leone",
+        SM: "San Marino",
+        SN: "Senegal",
+        SO: "Somalia",
+        SR: "Suriname",
+        ST: "São Tomé and Príncipe",
+        SU: "Union of Soviet Socialist Republics",
+        SV: "El Salvador",
+        SY: "Syria",
+        SZ: "Swaziland",
+        TC: "Turks and Caicos Islands",
+        TD: "Chad",
+        TF: "French Southern Territories",
+        TG: "Togo",
+        TH: "Thailand",
+        TJ: "Tajikistan",
+        TK: "Tokelau",
+        TL: "Timor-Leste",
+        TM: "Turkmenistan",
+        TN: "Tunisia",
+        TO: "Tonga",
+        TR: "Turkey",
+        TT: "Trinidad and Tobago",
+        TV: "Tuvalu",
+        TW: "Taiwan",
+        TZ: "Tanzania",
+        UA: "Ukraine",
+        UG: "Uganda",
+        UM: "U.S. Minor Outlying Islands",
+        US: "United States",
+        UY: "Uruguay",
+        UZ: "Uzbekistan",
+        VA: "Vatican City",
+        VC: "Saint Vincent and the Grenadines",
+        VD: "North Vietnam",
+        VE: "Venezuela",
+        VG: "British Virgin Islands",
+        VI: "U.S. Virgin Islands",
+        VN: "Vietnam",
+        VU: "Vanuatu",
+        WF: "Wallis and Futuna",
+        WK: "Wake Island",
+        WS: "Samoa",
+        YD: "People's Democratic Republic of Yemen",
+        YE: "Yemen",
+        YT: "Mayotte",
+        ZA: "South Africa",
+        ZM: "Zambia",
+        ZW: "Zimbabwe",
+        ZZ: "Unknown or Invalid Region"
+    };
 
     var countriesArray = $.map(countries, function (value, key) {
         return {
@@ -928,7 +1218,9 @@ function init_autosize() {
 
 function init_parsley() {
 
-    if (typeof (parsley) === 'undefined') { return; }
+    if (typeof (parsley) === 'undefined') {
+        return;
+    }
 
     $/*.listen*/('parsley:field:validate', function () {
         validateFront();
@@ -966,7 +1258,8 @@ function init_parsley() {
 
     try {
         hljs.initHighlightingOnLoad();
-    } catch (err) { }
+    } catch (err) {
+    }
 
 };
 
@@ -1001,7 +1294,7 @@ function init_TagsInput() {
 /* WYSIWYG EDITOR */
 
 function init_wysiwyg() {
-if(typeof(tinymce) === "undefined") return;
+    if (typeof (tinymce) === "undefined") return;
     const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
     tinymce.init({
@@ -1019,38 +1312,46 @@ if(typeof(tinymce) === "undefined") return;
         autosave_retention: '2m',
         image_advtab: true,
         link_list: [
-            { title: 'My page 1', value: 'https://www.tiny.cloud' },
-            { title: 'My page 2', value: 'http://www.moxiecode.com' }
+            {title: 'My page 1', value: 'https://www.tiny.cloud'},
+            {title: 'My page 2', value: 'http://www.moxiecode.com'}
         ],
         image_list: [
-            { title: 'My page 1', value: 'https://www.tiny.cloud' },
-            { title: 'My page 2', value: 'http://www.moxiecode.com' }
+            {title: 'My page 1', value: 'https://www.tiny.cloud'},
+            {title: 'My page 2', value: 'http://www.moxiecode.com'}
         ],
         image_class_list: [
-            { title: 'None', value: '' },
-            { title: 'Some class', value: 'class-name' }
+            {title: 'None', value: ''},
+            {title: 'Some class', value: 'class-name'}
         ],
         importcss_append: true,
         file_picker_callback: (callback, value, meta) => {
             /* Provide file and text for the link dialog */
             if (meta.filetype === 'file') {
-                callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                callback('https://www.google.com/logos/google.jpg', {text: 'My text'});
             }
 
             /* Provide image and alt text for the image dialog */
             if (meta.filetype === 'image') {
-                callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                callback('https://www.google.com/logos/google.jpg', {alt: 'My alt text'});
             }
 
             /* Provide alternative source and posted for the media dialog */
             if (meta.filetype === 'media') {
-                callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                callback('movie.mp4', {source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg'});
             }
         },
         templates: [
-            { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
-            { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
-            { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+            {
+                title: 'New Table',
+                description: 'creates a new table',
+                content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
+            },
+            {title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...'},
+            {
+                title: 'New list with dates',
+                description: 'New List with dates',
+                content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'
+            }
         ],
         template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
         template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
@@ -1084,38 +1385,46 @@ if(typeof(tinymce) === "undefined") return;
             autosave_retention: '2m',
             image_advtab: true,
             link_list: [
-                { title: 'My page 1', value: 'https://www.tiny.cloud' },
-                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                {title: 'My page 1', value: 'https://www.tiny.cloud'},
+                {title: 'My page 2', value: 'http://www.moxiecode.com'}
             ],
             image_list: [
-                { title: 'My page 1', value: 'https://www.tiny.cloud' },
-                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                {title: 'My page 1', value: 'https://www.tiny.cloud'},
+                {title: 'My page 2', value: 'http://www.moxiecode.com'}
             ],
             image_class_list: [
-                { title: 'None', value: '' },
-                { title: 'Some class', value: 'class-name' }
+                {title: 'None', value: ''},
+                {title: 'Some class', value: 'class-name'}
             ],
             importcss_append: true,
             file_picker_callback: (callback, value, meta) => {
                 /* Provide file and text for the link dialog */
                 if (meta.filetype === 'file') {
-                    callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                    callback('https://www.google.com/logos/google.jpg', {text: 'My text'});
                 }
 
                 /* Provide image and alt text for the image dialog */
                 if (meta.filetype === 'image') {
-                    callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                    callback('https://www.google.com/logos/google.jpg', {alt: 'My alt text'});
                 }
 
                 /* Provide alternative source and posted for the media dialog */
                 if (meta.filetype === 'media') {
-                    callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                    callback('movie.mp4', {source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg'});
                 }
             },
             templates: [
-                { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
-                { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
-                { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                {
+                    title: 'New Table',
+                    description: 'creates a new table',
+                    content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
+                },
+                {title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...'},
+                {
+                    title: 'New list with dates',
+                    description: 'New List with dates',
+                    content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'
+                }
             ],
             template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
             template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
@@ -1139,7 +1448,9 @@ if(typeof(tinymce) === "undefined") return;
 function init_cropper() {
 
 
-    if (typeof ($.fn.cropper) === 'undefined') { return; }
+    if (typeof ($.fn.cropper) === 'undefined') {
+        return;
+    }
 
     var $image = $('#image');
     var $download = $('#download');
@@ -1372,7 +1683,9 @@ function init_cropper() {
 
 function init_knob() {
 
-    if (typeof ($.fn.knob) === 'undefined') { return; }
+    if (typeof ($.fn.knob) === 'undefined') {
+        return;
+    }
 
     $(".knob").knob({
         change: function (value) {
@@ -1475,7 +1788,9 @@ function init_knob() {
 
 function init_InputMask() {
 
-    if (typeof ($.fn.inputmask) === 'undefined') { return; }
+    if (typeof ($.fn.inputmask) === 'undefined') {
+        return;
+    }
 
     $(":input").inputmask();
 
@@ -1485,7 +1800,9 @@ function init_InputMask() {
 
 function init_ColorPicker() {
 
-    if (typeof ($.fn.colorpicker) === 'undefined') { return; }
+    if (typeof ($.fn.colorpicker) === 'undefined') {
+        return;
+    }
 
     $('.demo1').colorpicker();
     $('.demo2').colorpicker();
@@ -1508,7 +1825,9 @@ function init_ColorPicker() {
 
 function init_IonRangeSlider() {
 
-    if (typeof ($.fn.ionRangeSlider) === 'undefined') { return; }
+    if (typeof ($.fn.ionRangeSlider) === 'undefined') {
+        return;
+    }
 
     $("#range_27").ionRangeSlider({
         type: "double",
@@ -1578,7 +1897,9 @@ function init_IonRangeSlider() {
 
 function init_daterangepicker() {
 
-    if (typeof ($.fn.daterangepicker) === 'undefined') { return; }
+    if (typeof ($.fn.daterangepicker) === 'undefined') {
+        return;
+    }
 
     var cb = function (start, end, label) {
         console.log(start.toISOString(), end.toISOString(), label);
@@ -1649,7 +1970,9 @@ function init_daterangepicker() {
 
 function init_daterangepicker_right() {
 
-    if (typeof ($.fn.daterangepicker) === 'undefined') { return; }
+    if (typeof ($.fn.daterangepicker) === 'undefined') {
+        return;
+    }
     console.log('init_daterangepicker_right');
 
     var cb = function (start, end, label) {
@@ -1729,7 +2052,9 @@ function init_daterangepicker_right() {
 
 function init_daterangepicker_single_call() {
 
-    if (typeof ($.fn.daterangepicker) === 'undefined') { return; }
+    if (typeof ($.fn.daterangepicker) === 'undefined') {
+        return;
+    }
     console.log('init_daterangepicker_single_call');
 
     $('#single_cal1').daterangepicker({
@@ -1763,7 +2088,9 @@ function init_daterangepicker_single_call() {
 
 function init_daterangepicker_reservation() {
 
-    if (typeof ($.fn.daterangepicker) === 'undefined') { return; }
+    if (typeof ($.fn.daterangepicker) === 'undefined') {
+        return;
+    }
     console.log('init_daterangepicker_reservation');
 
     $('#reservation').daterangepicker(null, function (start, end, label) {
@@ -1784,7 +2111,9 @@ function init_daterangepicker_reservation() {
 
 function init_SmartWizard() {
 
-    if (typeof ($.fn.smartWizard) === 'undefined') { return; }
+    if (typeof ($.fn.smartWizard) === 'undefined') {
+        return;
+    }
     console.log('init_SmartWizard');
 
     $('#wizard').smartWizard();
@@ -1804,7 +2133,9 @@ function init_SmartWizard() {
 
 function init_validator() {
 
-    if (typeof (validator) === 'undefined') { return; }
+    if (typeof (validator) === 'undefined') {
+        return;
+    }
     console.log('init_validator');
 
     // initialize the validator function
@@ -1841,7 +2172,9 @@ function init_validator() {
 
 function init_PNotify() {
 
-    if (typeof (PNotify) === 'undefined') { return; }
+    if (typeof (PNotify) === 'undefined') {
+        return;
+    }
     console.log('init_PNotify');
 };
 
@@ -1852,7 +2185,9 @@ function init_CustomNotification() {
 
     console.log('run_customtabs');
 
-    if (typeof (CustomTabs) === 'undefined') { return; }
+    if (typeof (CustomTabs) === 'undefined') {
+        return;
+    }
     console.log('init_CustomTabs');
 
     var cnt = 10;
@@ -1907,7 +2242,9 @@ function init_CustomNotification() {
 
 function init_EasyPieChart() {
 
-    if (typeof ($.fn.easyPieChart) === 'undefined') { return; }
+    if (typeof ($.fn.easyPieChart) === 'undefined') {
+        return;
+    }
     console.log('init_EasyPieChart');
 
     $('.chart').easyPieChart({
@@ -1965,12 +2302,13 @@ function init_EasyPieChart() {
 
 function init_charts() {
 
-    if (typeof (Chart) === 'undefined') { return; }
+    if (typeof (Chart) === 'undefined') {
+        return;
+    }
 
     Chart.defaults.global.legend = {
         enabled: false
     };
-
 
 
     if ($('#canvas_line').length) {
@@ -2365,7 +2703,9 @@ function init_charts() {
 
 function init_compose() {
 
-    if (typeof ($.fn.slideToggle) === 'undefined') { return; }
+    if (typeof ($.fn.slideToggle) === 'undefined') {
+        return;
+    }
     $('#compose, .compose-close').click(function () {
         $('.compose').slideToggle();
     });
@@ -2376,7 +2716,9 @@ function init_compose() {
 
 function init_calendar() {
 
-    if (typeof ($.fn.fullCalendar) === 'undefined') { return; }
+    if (typeof ($.fn.fullCalendar) === 'undefined') {
+        return;
+    }
 
     var date = new Date(),
         d = date.getDate(),
@@ -2409,11 +2751,11 @@ function init_calendar() {
 
                 if (title) {
                     calendar.fullCalendar('renderEvent', {
-                        title: title,
-                        start: started,
-                        end: end,
-                        allDay: allDay
-                    },
+                            title: title,
+                            start: started,
+                            end: end,
+                            allDay: allDay
+                        },
                         true // make the event "stick"
                     );
                 }
@@ -2477,7 +2819,9 @@ function init_calendar() {
 /* DATA TABLES */
 
 function init_DataTables() {
-    if (typeof ($.fn.DataTable) === 'undefined') { return; }
+    if (typeof ($.fn.DataTable) === 'undefined') {
+        return;
+    }
 
     var handleDataTableButtons = function () {
         if ($("#datatable-buttons").length) {
@@ -2544,7 +2888,7 @@ function init_DataTables() {
     $datatable.dataTable({
         'order': [[1, 'asc']],
         'columnDefs': [
-            { orderable: false, targets: [0] }
+            {orderable: false, targets: [0]}
         ]
     });
     $datatable.on('draw.dt', function () {
@@ -2561,23 +2905,25 @@ function init_DataTables() {
 
 function init_morris_charts() {
 
-    if (typeof (Morris) === 'undefined') { return; }
+    if (typeof (Morris) === 'undefined') {
+        return;
+    }
 
     if ($('#graph_bar').length) {
 
         Morris.Bar({
             element: 'graph_bar',
             data: [
-                { device: 'iPhone 4', geekbench: 380 },
-                { device: 'iPhone 4S', geekbench: 655 },
-                { device: 'iPhone 3GS', geekbench: 275 },
-                { device: 'iPhone 5', geekbench: 1571 },
-                { device: 'iPhone 5S', geekbench: 655 },
-                { device: 'iPhone 6', geekbench: 2154 },
-                { device: 'iPhone 6 Plus', geekbench: 1144 },
-                { device: 'iPhone 6S', geekbench: 2371 },
-                { device: 'iPhone 6S Plus', geekbench: 1471 },
-                { device: 'Other', geekbench: 1371 }
+                {device: 'iPhone 4', geekbench: 380},
+                {device: 'iPhone 4S', geekbench: 655},
+                {device: 'iPhone 3GS', geekbench: 275},
+                {device: 'iPhone 5', geekbench: 1571},
+                {device: 'iPhone 5S', geekbench: 655},
+                {device: 'iPhone 6', geekbench: 2154},
+                {device: 'iPhone 6 Plus', geekbench: 1144},
+                {device: 'iPhone 6S', geekbench: 2371},
+                {device: 'iPhone 6S Plus', geekbench: 1471},
+                {device: 'Other', geekbench: 1371}
             ],
             xkey: 'device',
             ykeys: ['geekbench'],
@@ -2596,16 +2942,16 @@ function init_morris_charts() {
         Morris.Bar({
             element: 'graph_bar_group',
             data: [
-                { "period": "2016-10-01", "licensed": 807, "sorned": 660 },
-                { "period": "2016-09-30", "licensed": 1251, "sorned": 729 },
-                { "period": "2016-09-29", "licensed": 1769, "sorned": 1018 },
-                { "period": "2016-09-20", "licensed": 2246, "sorned": 1461 },
-                { "period": "2016-09-19", "licensed": 2657, "sorned": 1967 },
-                { "period": "2016-09-18", "licensed": 3148, "sorned": 2627 },
-                { "period": "2016-09-17", "licensed": 3471, "sorned": 3740 },
-                { "period": "2016-09-16", "licensed": 2871, "sorned": 2216 },
-                { "period": "2016-09-15", "licensed": 2401, "sorned": 1656 },
-                { "period": "2016-09-10", "licensed": 2115, "sorned": 1022 }
+                {"period": "2016-10-01", "licensed": 807, "sorned": 660},
+                {"period": "2016-09-30", "licensed": 1251, "sorned": 729},
+                {"period": "2016-09-29", "licensed": 1769, "sorned": 1018},
+                {"period": "2016-09-20", "licensed": 2246, "sorned": 1461},
+                {"period": "2016-09-19", "licensed": 2657, "sorned": 1967},
+                {"period": "2016-09-18", "licensed": 3148, "sorned": 2627},
+                {"period": "2016-09-17", "licensed": 3471, "sorned": 3740},
+                {"period": "2016-09-16", "licensed": 2871, "sorned": 2216},
+                {"period": "2016-09-15", "licensed": 2401, "sorned": 1656},
+                {"period": "2016-09-10", "licensed": 2115, "sorned": 1022}
             ],
             xkey: 'period',
             barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
@@ -2623,10 +2969,10 @@ function init_morris_charts() {
         Morris.Bar({
             element: 'graphx',
             data: [
-                { x: '2015 Q1', y: 2, z: 3, a: 4 },
-                { x: '2015 Q2', y: 3, z: 5, a: 6 },
-                { x: '2015 Q3', y: 4, z: 3, a: 2 },
-                { x: '2015 Q4', y: 2, z: 4, a: 5 }
+                {x: '2015 Q1', y: 2, z: 3, a: 4},
+                {x: '2015 Q2', y: 3, z: 5, a: 6},
+                {x: '2015 Q3', y: 4, z: 3, a: 2},
+                {x: '2015 Q4', y: 2, z: 4, a: 5}
             ],
             xkey: 'x',
             ykeys: ['y', 'z', 'a'],
@@ -2645,16 +2991,16 @@ function init_morris_charts() {
         Morris.Area({
             element: 'graph_area',
             data: [
-                { period: '2014 Q1', iphone: 2666, ipad: null, itouch: 2647 },
-                { period: '2014 Q2', iphone: 2778, ipad: 2294, itouch: 2441 },
-                { period: '2014 Q3', iphone: 4912, ipad: 1969, itouch: 2501 },
-                { period: '2014 Q4', iphone: 3767, ipad: 3597, itouch: 5689 },
-                { period: '2015 Q1', iphone: 6810, ipad: 1914, itouch: 2293 },
-                { period: '2015 Q2', iphone: 5670, ipad: 4293, itouch: 1881 },
-                { period: '2015 Q3', iphone: 4820, ipad: 3795, itouch: 1588 },
-                { period: '2015 Q4', iphone: 15073, ipad: 5967, itouch: 5175 },
-                { period: '2016 Q1', iphone: 10687, ipad: 4460, itouch: 2028 },
-                { period: '2016 Q2', iphone: 8432, ipad: 5713, itouch: 1791 }
+                {period: '2014 Q1', iphone: 2666, ipad: null, itouch: 2647},
+                {period: '2014 Q2', iphone: 2778, ipad: 2294, itouch: 2441},
+                {period: '2014 Q3', iphone: 4912, ipad: 1969, itouch: 2501},
+                {period: '2014 Q4', iphone: 3767, ipad: 3597, itouch: 5689},
+                {period: '2015 Q1', iphone: 6810, ipad: 1914, itouch: 2293},
+                {period: '2015 Q2', iphone: 5670, ipad: 4293, itouch: 1881},
+                {period: '2015 Q3', iphone: 4820, ipad: 3795, itouch: 1588},
+                {period: '2015 Q4', iphone: 15073, ipad: 5967, itouch: 5175},
+                {period: '2016 Q1', iphone: 10687, ipad: 4460, itouch: 2028},
+                {period: '2016 Q2', iphone: 8432, ipad: 5713, itouch: 1791}
             ],
             xkey: 'period',
             ykeys: ['iphone', 'ipad', 'itouch'],
@@ -2672,10 +3018,10 @@ function init_morris_charts() {
         Morris.Donut({
             element: 'graph_donut',
             data: [
-                { label: 'Jam', value: 25 },
-                { label: 'Frosted', value: 40 },
-                { label: 'Custard', value: 25 },
-                { label: 'Sugar', value: 10 }
+                {label: 'Jam', value: 25},
+                {label: 'Frosted', value: 40},
+                {label: 'Custard', value: 25},
+                {label: 'Sugar', value: 10}
             ],
             colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
             formatter: function (y) {
@@ -2696,11 +3042,11 @@ function init_morris_charts() {
             hideHover: 'auto',
             lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
             data: [
-                { year: '2012', value: 20 },
-                { year: '2013', value: 10 },
-                { year: '2014', value: 5 },
-                { year: '2015', value: 5 },
-                { year: '2016', value: 20 }
+                {year: '2012', value: 20},
+                {year: '2013', value: 10},
+                {year: '2014', value: 5},
+                {year: '2015', value: 5},
+                {year: '2016', value: 20}
             ],
             resize: true
         });
@@ -2714,13 +3060,14 @@ function init_morris_charts() {
 };
 
 
-
 /* ECHRTS */
 
 
 function init_echarts() {
 
-    if (typeof (echarts) === 'undefined') { return; }
+    if (typeof (echarts) === 'undefined') {
+        return;
+    }
 
 
     var theme = {
@@ -2807,8 +3154,8 @@ function init_echarts() {
                 color: '#408829'
             },
             controlStyle: {
-                normal: { color: '#408829' },
-                emphasis: { color: '#408829' }
+                normal: {color: '#408829'},
+                emphasis: {color: '#408829'}
             }
         },
 
@@ -3010,8 +3357,6 @@ function init_echarts() {
         });
 
     }
-
-
 
 
     //echart Radar
@@ -4991,7 +5336,7 @@ function init_echarts() {
 
 }
 
-function createSlugInInput(current_input, slug_input){
+function createSlugInInput(current_input, slug_input) {
     let string = $(`#${current_input}`).val();
     string = slugify(string);
     $(`#${slug_input}`).val(string)
@@ -5051,6 +5396,57 @@ $(document).ready(function () {
         });
         return false;
     })
+
+    $('.publish_item').on('click', function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want Publish (" + $(this).data("title") + ") ??!!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Publish It'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = $(this).attr("href");
+                return;
+            }
+        });
+        return false;
+    });
+    $('.unpublish_item').on('click', function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want UN-Publish (" + $(this).data("title") + ") ??!!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, UN-Publish It'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = $(this).attr("href");
+            }
+        });
+        return false;
+    });
+
+    $('.delete_item').on('click', function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want To delete (" + $(this).data("title") + ") ??!!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete It'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = $(this).attr("href");
+            }
+        });
+        return false;
+    });
 
     $('.feature_item').on('click', function () {
         Swal.fire({
@@ -5157,35 +5553,35 @@ $(document).ready(function () {
         });
     });
 
-    $(".number_input").on("keyup",function(){
+    $(".number_input").on("keyup", function () {
         let number = $(this).val();
         let min = parseFloat($(this).data("min") ? $(this).data("min") : 0);
         let max = parseFloat($(this).data("max"));
         let ignore_decimals = $(this).data("ignore-decimals");
-        if(ignore_decimals == "yes"){
-            number = number.replace(/[^0-9]+/g,'');
-        }else{
-            number = number.replace(/[^0-9\.]+/g,'');
+        if (ignore_decimals == "yes") {
+            number = number.replace(/[^0-9]+/g, '');
+        } else {
+            number = number.replace(/[^0-9\.]+/g, '');
         }
-        if(number == "" || number < min){
+        if (number == "" || number < min) {
             number = min;
         }
 
-        if(max && max > min && number > max){
+        if (max && max > min && number > max) {
             number = max;
         }
         $(this).val(number)
 
     });
 
-    $(".slug_input").on("keyup",function(){
+    $(".slug_input").on("keyup", function () {
         let string = $(this).val();
         string = slugify(string);
         $(this).val(string)
 
     })
 
-    $(".slug_source").on("keyup",function(){
+    $(".slug_source").on("keyup", function () {
         let string = $(this).val();
         string = slugify(string);
         let slugInput = $(this).attr("aria-slugFor")

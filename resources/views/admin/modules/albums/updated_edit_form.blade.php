@@ -6,12 +6,6 @@
             <i class="fa fa-angle-double-right"></i>
         </a>
         <div class="pull-right mt-2 mr-2">
-            <div class="">
-                <label>
-                    <input type="checkbox" class="js-switch" name='is_active' id='is_active' checked/> Active
-                    album
-                </label>
-            </div>
         </div>
         <div class="clearfix"></div>
     </div>

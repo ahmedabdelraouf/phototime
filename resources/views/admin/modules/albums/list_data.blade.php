@@ -16,13 +16,14 @@
     <div class="col-md-12 col-sm-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>List Album</h2>
+                <h2>List Album Total Albums: {{$albums->total()}} </h2>
                 <a class="btn btn-primary btn-round btn-xs pull-right" title="Add new album"
                    href="{{route("admin.albums.create")}}">
                     <i class="fa fa-plus-circle"></i>
                 </a>
                 <div class="clearfix"></div>
             </div>
+            {{--            @include('admin.layout.pagination', ['paginator' => $albums, 'elements' => []])--}}
             <div class="x_content" style="padding-top: 0.2rem !important;">
                 <form action="{{ route('admin.albums.list') }}" method="GET" class="row">
                     <div class="col-md-2 form-group">
@@ -76,10 +77,10 @@
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
-                            <th style="width: 5%">#</th>
+{{--                            <th style="width: 5%">#</th>--}}
                             {{--                            <th style='width: 25%'>Default Image</th>--}}
-                            <th style='width: 25%'>Title</th>
                             <th style='width: 25%'>Number</th>
+                            <th style='width: 25%'>Title</th>
                             {{--                            <th style='width: 25%'>Short Description</th>--}}
                             <th style='width: 25%'>Album Details</th>
                             <th style='width: 10%'>Views</th>
@@ -92,7 +93,7 @@
                         <tbody>
                         @forelse($albums as $album)
                             <tr>
-                                <td> {{ $loop->index +1 }} </td>
+{{--                                <td> {{ $loop->index +1 }} </td>--}}
                                 {{--                                <td>--}}
                                 {{--                                    @if(isset($album->default_image))--}}
                                 {{--                                        <img src="{{ images_path($album->default_image) }}"--}}
@@ -104,8 +105,8 @@
                                 {{--                                    @endif--}}
                                 {{--                                </td>--}}
 
-                                <td><a href="{{route('site.albumDetails',['id'=>$album->id])}}">{{ $album->title }}</a>
                                 <td>{{ $album->album_number }}</td>
+                                <td><a href="{{route('site.albumDetails',['id'=>$album->id])}}">{{ $album->title }}</a>
                                 </td>
                                 {{--                                <td>{{ $album->short_desc }}</td>--}}
                                 <td>
@@ -115,14 +116,14 @@
                                 <td>{{ $album->views_count }}</td>
                                 <td><a class="btn btn-primary"
                                        href='{{route("admin.albums.addImages", ["id" => $album->id])}}'>Images</a></td>
-                                <td>
+                                <td style="font-size: 1rem">
                                     @if(empty($album->is_featured))
                                         <span class="badge badge-danger">Not Featured</span>
                                     @else
                                         <span class="badge badge-success">Featured</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td style="font-size: 1rem">
                                     @if(empty($album->is_active))
                                         <span class="badge badge-danger">Not Published</span>
                                     @else
@@ -137,20 +138,20 @@
                                 {{--                                    @endif--}}
                                 {{--                                </td>--}}
                                 <td class='text-center'>
-                                    <div class="btn-group">
+                                    <div style="font-size: 22px" class="btn-group">
                                         @if(empty($album->is_active))
                                             <a href="{{route("admin.albums.update_status", ["type" => "activate", "id" => $album->id])}}"
-                                               class="mx-2 activate_item" data-bs-toggle="tooltip"
-                                               data-bs-original-title="Activate album"
-                                               title="Activate album"
+                                               class="mx-2 publish_item" data-bs-toggle="tooltip"
+                                               data-bs-original-title="Publish album"
+                                               title="Publish album"
                                                data-title="{{$album->title}}">
-                                                <i class="fa fa-check-circle text-secondary"></i>
+                                                <i class="fa fa-check-circle text-success"></i>
                                             </a>
                                         @else
                                             <a href="{{route("admin.albums.update_status", ["type" => "deactivate", "id" => $album->id])}}"
-                                               class="mx-2 deactivate_item" data-bs-toggle="tooltip"
-                                               data-bs-original-title="De-Activate album"
-                                               title="De-Activate album"
+                                               class="mx-2 unpublish_item" data-bs-toggle="tooltip"
+                                               data-bs-original-title="Un-Publish album"
+                                               title="un-publish album"
                                                data-title="{{$album->title}}">
                                                 <i class="fa fa-ban text-secondary"></i>
                                             </a>
@@ -177,7 +178,15 @@
                                         <a href="{{route("admin.albums.edit", ["id" => $album->id])}}" class="mx-2"
                                            data-bs-toggle="tooltip" data-bs-original-title="Edit album"
                                            title="Edit album">
-                                            <i class="fa fa-pencil text-secondary"></i>
+                                            <i class="fa fa-pencil text-primary"></i>
+                                        </a>
+
+                                        <a href="{{route("admin.albums.delete",["id" => $album->id])}}"
+                                           class="mx-2 delete_item" data-bs-toggle="tooltip"
+                                           data-bs-original-title="Delete album"
+                                           title="Delete album"
+                                           data-title="{{$album->title}}">
+                                            <i class="fa fa-trash-o text-danger"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -193,15 +202,7 @@
                 </div>
             </div>
         </div>
+        @include('admin.layout.pagination', ['paginator' => $albums])
     </div>
-
-    <!-- resources/views/your_view.blade.php -->
-
-    <!-- Your content goes here -->
-
-    <!-- Custom Pagination -->
-    {{--    @include('admin.layout.pagination', ['paginator' => $albums])--}}
-
-    {{$albums->links()}}
 
 @endsection

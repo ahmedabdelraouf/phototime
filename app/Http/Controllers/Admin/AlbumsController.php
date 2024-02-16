@@ -32,7 +32,7 @@ class AlbumsController extends AdminBaseController
             }
         }
         if (!empty($request->removeOldData) & $request->removeOldData) {
-            Album::where("id",">","4")->delete();
+            Album::where("id", ">", "4")->delete();
         }
         $query = Album::query();
 
@@ -56,7 +56,7 @@ class AlbumsController extends AdminBaseController
             $query->where('album_number', $request->input('album_number'));
         }
 
-        $albums = $query->paginate(100);
+        $albums = $query->paginate(50);
 
         // Pass only necessary variables to the view
         $data = [
@@ -134,6 +134,18 @@ class AlbumsController extends AdminBaseController
         }
         $album->save();
         return redirect()->back()->with("success", "Album Status updated successfully");
+    }
+
+    function deleteAlbum(int $id)
+    {
+        $album = Album::find($id);
+        if (empty($album)) {
+            return redirect()->back()->with("error", "Album not exist in system");
+        }
+        if ($album->delete()) {
+            return redirect()->back()->with("success", "Album Deleted successfully");
+        }
+        return redirect()->back()->with("error", "Something went wrong");
     }
 
     function updateFeaturedStatus(string $type, int $id): RedirectResponse
@@ -251,21 +263,9 @@ class AlbumsController extends AdminBaseController
         if (!empty($request->image)) {
             $album_data["image"] = store_image($request->image, "albums", $request->image_name);
         }
-        if (!empty($album_data['is_featured']) && $album_data['is_featured'] == "on") {
-            $album_data['is_featured'] = 1;
-        } else {
-            $album_data['is_featured'] = 0;
-        }
-        if (!empty($album_data['is_active']) && (($album_data['is_active'] == "on") || ($album_data['is_active'] == "1"))) {
-            $album_data['is_active'] = 1;
-        } else {
-            $album_data['is_active'] = 0;
-        }
-        if (!empty($album_data['is_blocked']) && $album_data['is_blocked'] == "on") {
-            $album_data['is_blocked'] = 1;
-        } else {
-            $album_data['is_blocked'] = 0;
-        }
+        $this->setCheckBoxValue($album_data, "is_featured");
+        $this->setCheckBoxValue($album_data, "is_active");
+        $this->setCheckBoxValue($album_data, "is_blocked");
         if (isset($request->default_image) && is_file($request->default_image)) {
             $default_image_path = store_image($request->default_image, "albums/$album->id");
             $album_data['default_image'] = $default_image_path;
@@ -304,8 +304,9 @@ class AlbumsController extends AdminBaseController
 
     private function oldDataLogic($request)
     {
-        if (empty($request->stop_debug))
+        if (empty($request->stop_debug)) {
             dd(NewsCmt::count(), NewsViews::count(), News::count());
+        }
         $news = News::all();
         foreach ($news as $newsDetails) {
             Album::create([
@@ -332,4 +333,10 @@ class AlbumsController extends AdminBaseController
         }
         dd("check db");
     }
+
+    public function setCheckBoxValue(array &$arr, $index)
+    {
+        $arr[$index] = !empty($arr[$index]) && in_array($arr[$index], ["on", "1"]) ? 1 : 0;
+    }
+
 }
