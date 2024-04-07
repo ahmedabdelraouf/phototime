@@ -14,8 +14,9 @@
             <div class="image-list">
                 @forelse($images as $image)
                     <div class="image-item">
-                        <img src="{{ images_path($image->image) }}" style="width: 200px; height: 200px">
+{{--                        <img src="{{ images_path($image->image) }}" style="width: 200px; height: 200px">--}}
 
+                        <img src="{{ $image->image }}" style="width: 200px; height: 200px">
                         <div class="image-details">
                             <label class="delete-label">
                                 <input type="checkbox" class="js-switch" name="delete_images[]" value="{{ $image->id }}">

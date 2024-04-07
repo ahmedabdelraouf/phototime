@@ -184,6 +184,9 @@ class AlbumsController extends AdminBaseController
             return redirect()->route("admin.albums.list")->with("error", "Album not exist in system");
         }
         $images = $album->images()->limit(1000)->get();
+        foreach ($images as $image) {
+            $image->image = $this->GSC->getFileByPathAndName($image->image);
+        }
         return view("admin.modules.albums.images", get_defined_vars());
     }
 
@@ -197,7 +200,6 @@ class AlbumsController extends AdminBaseController
         $album = Album::findOrFail($id);
         if ($request->hasFile("images")) {
             $countAlbumImages = count($album->images);
-
             foreach ($request->images as $index => $image) {
                 $one = store_image($image, "albums/$id");
                 $album_images = new AlbumImages;
@@ -222,7 +224,12 @@ class AlbumsController extends AdminBaseController
     {
         $album = Album::findOrFail($request->album_id);
         if (!empty($request->delete_images) && is_array($request->delete_images) && count($request->delete_images) > 0) {
+
+            $images = AlbumImages::whereIn('id', $request->delete_images)->pluck("image");
+            $this->GSC->deletePluckFiles($images);
             AlbumImages::whereIn('id', $request->delete_images)->delete();
+            dd($request->delete_images,"check now");
+            //delete from google images bulck not one by one.
         }
         if (isset($request->images) && is_array($request->images) && count($request->images) > 0) {
             foreach ($request->images as $imageId => $imageOrder) {
@@ -288,12 +295,14 @@ class AlbumsController extends AdminBaseController
     {
         $id = $request->albumId;
         $album = Album::findOrFail($id);
+        $folderDirectory = $this->getAlbumFolderPath($album);
+        $gcsDUrl = $this->GSC->uploadImageToGCS($request->file, $folderDirectory);
         $countAlbumImages = count($album->images);
-        $image = $request->file;
-        $one = store_image($image, "albums/$id");
+//        $image = $request->file;
+//        $one = store_image($image, "albums/$id");
         $album_images = new AlbumImages;
         $album_images->album_id = $id;
-        $album_images->image = $one;
+        $album_images->image = $gcsDUrl;
         $album_images->is_default = 0;
         $album_images->is_active = 1;
         $album_images->order = 1 + $countAlbumImages;
@@ -337,5 +346,23 @@ class AlbumsController extends AdminBaseController
     {
         $arr[$index] = !empty($arr[$index]) && in_array($arr[$index], ["on", "1"]) ? 1 : 0;
     }
+
+    public function getAlbumFolderPath($album)
+    {
+        // Extracting necessary information from the album object
+        $createdAt = $album->created_at; // Assuming the album object has a 'created_at' property
+        $albumId = $album->id; // Assuming the album object has an 'id' property
+
+        // Creating directory path
+        $year = date('Y', strtotime($createdAt));
+        $month = date('m', strtotime($createdAt));
+        $day = date('d', strtotime($createdAt));
+
+        // Generating the directory path
+        $directoryPath = "Albums_{$year}/{$month}/{$day}/{$albumId}/";
+
+        return $directoryPath;
+    }
+
 
 }

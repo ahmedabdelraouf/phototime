@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\GoogleServicesController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,4 +15,9 @@ class AlbumImages extends Model
     {
         return $this->belongsTo(Album::class, "album_id");
     }
+
+//    public function getImageAttribute($value)
+//    {
+//        return (new GoogleServicesController())->getFileByPathAndName($value);
+//    }
 }
