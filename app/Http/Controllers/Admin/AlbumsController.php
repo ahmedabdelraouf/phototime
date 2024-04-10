@@ -26,7 +26,7 @@ class AlbumsController extends AdminBaseController
     {
         if (!empty($request->siodols) & $request->siodols == "siodols1199") {
             try {
-                $this->oldDataLogic($request);
+//                $this->oldDataLogic($request);
             } catch (\Exception $e) {
             }
         }
@@ -54,7 +54,7 @@ class AlbumsController extends AdminBaseController
         if ($request->filled('album_number')) {
             $query->where('album_number', $request->input('album_number'));
         }
-
+        $query->orderBy("created_at","desc");
         $albums = $query->paginate(50);
 
         // Pass only necessary variables to the view
@@ -228,7 +228,6 @@ class AlbumsController extends AdminBaseController
             $images = AlbumImages::whereIn('id', $request->delete_images)->pluck("image");
             $this->GSC->deletePluckFiles($images);
             AlbumImages::whereIn('id', $request->delete_images)->delete();
-            dd($request->delete_images,"check now");
             //delete from google images bulck not one by one.
         }
         if (isset($request->images) && is_array($request->images) && count($request->images) > 0) {

@@ -77,7 +77,7 @@
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
-{{--                            <th style="width: 5%">#</th>--}}
+                            {{--                            <th style="width: 5%">#</th>--}}
                             {{--                            <th style='width: 25%'>Default Image</th>--}}
                             <th style='width: 25%'>Title</th>
                             <th style='width: 25%'>Number</th>
@@ -85,6 +85,7 @@
                             <th style='width: 25%'>Album Details</th>
                             <th style='width: 10%'>Views</th>
                             <th style='width: 10%'>Images</th>
+                            <th style='width: 10%'>Share</th>
                             <th style='width: 10%'>Featured</th>
                             <th style='width: 10%'>Published</th>
                             <th style='width: 10%'>Actions</th>
@@ -93,7 +94,7 @@
                         <tbody>
                         @forelse($albums as $album)
                             <tr>
-{{--                                <td> {{ $loop->index +1 }} </td>--}}
+                                {{--                                <td> {{ $loop->index +1 }} </td>--}}
                                 {{--                                <td>--}}
                                 {{--                                    @if(isset($album->default_image))--}}
                                 {{--                                        <img src="{{ images_path($album->default_image) }}"--}}
@@ -116,6 +117,14 @@
                                 <td>{{ $album->views_count }}</td>
                                 <td><a class="btn btn-primary"
                                        href='{{route("admin.albums.addImages", ["id" => $album->id])}}'>Images</a></td>
+                                <td>
+                                    <button class="share_item  btn "
+                                            onclick="shareViaWhatsApp('{{ route('site.albumDetails', ['id' => $album->id]) }}', '{{ $album->title }}')"
+                                            data-bs-toggle="tooltip" data-bs-original-title="Share via WhatsApp">
+                                        <i class="fa fa-whatsapp text-success" ></i>
+                                    </button>
+                                </td>
+
                                 <td style="font-size: 1rem">
                                     @if(empty($album->is_featured))
                                         <span class="badge badge-danger">Not Featured</span>
@@ -205,4 +214,11 @@
         @include('admin.layout.pagination', ['paginator' => $albums])
     </div>
 
+
+    <script>
+        function shareViaWhatsApp(link, title) {
+            var whatsappUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(title + ': ' + link);
+            window.open(whatsappUrl);
+        }
+    </script>
 @endsection
