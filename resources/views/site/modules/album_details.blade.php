@@ -53,10 +53,10 @@
 
         <!-- album -->
         <div class="row" style="margin: 5rem;margin-top: -0.1rem;align-content: center" id="lightgallery">
-            @foreach ($album->images as $index => $image)
-                <a href="{{ images_path($image->image) }}" data-lg-size="1600-2400">
+            @foreach ($images as $index => $image)
+                <a href="{{ $image->image }}" data-lg-size="1600-2400">
                     <img
-                        src="{{ images_path($image->image) }}"
+                        src="{{ $image->image }}"
                         alt="Image {{ $album->title }}"
                         class="img-fluid"
                         loading="lazy"
