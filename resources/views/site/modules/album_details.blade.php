@@ -51,20 +51,19 @@
             <p style="color: #0b2e13;width: 70%">{!! $album->short_desc !!}</p>
         </div>
 
-        <!-- album -->
-        <div class="row" style="margin: 5rem;margin-top: -0.1rem;align-content: center" id="lightgallery">
-            @foreach ($images as $index => $image)
-                <a href="{{ $image->image }}" data-lg-size="1600-2400">
-                    <img
-                        src="{{ $image->image }}"
-                        alt="Image {{ $album->title }}"
-                        class="img-fluid"
-                        loading="lazy"
-                        style="width: 300px; height: 250px;margin: 0.2rem"
-                    />
-                </a>
-            @endforeach
-        </div>
+<div class="row" style="margin: 5rem; margin-top: -0.1rem; align-content: center; display: flex; justify-content: center; flex-wrap: wrap;" id="lightgallery">
+    @foreach ($images as $index => $image)
+        <a href="{{ $image->image }}" data-lg-size="1600-2400">
+            <img
+                src="{{ $image->image }}"
+                alt="Image {{ $album->title }}"
+                class="img-fluid"
+                loading="lazy"
+                style="max-width: 100%; height: auto; margin: 0.5rem;"
+            />
+        </a>
+    @endforeach
+</div>
     </div>
     <br>
     <br>
