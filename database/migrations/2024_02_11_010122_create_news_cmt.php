@@ -13,18 +13,18 @@ class CreateNewsCmt extends Migration
      */
     public function up()
     {
-        Schema::create('news_cmt', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 500)->nullable();
-            $table->string('email', 500)->nullable();
-            $table->string('phone', 200)->nullable();
-            $table->text('body')->nullable();
-            $table->integer('flag')->nullable();
-            $table->dateTime('date')->nullable();
-            $table->integer('news_id')->nullable();
-            $table->integer('parent_id')->nullable();
-            $table->timestamps();
-        });
+//        Schema::create('news_cmt', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('name', 500)->nullable();
+//            $table->string('email', 500)->nullable();
+//            $table->string('phone', 200)->nullable();
+//            $table->text('body')->nullable();
+//            $table->integer('flag')->nullable();
+//            $table->dateTime('date')->nullable();
+//            $table->integer('news_id')->nullable();
+//            $table->integer('parent_id')->nullable();
+//            $table->timestamps();
+//        });
     }
 
     /**

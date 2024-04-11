@@ -13,12 +13,12 @@ class CreateNewsviews extends Migration
      */
     public function up()
     {
-        Schema::create('newsviews', function (Blueprint $table) {
-            $table->id();
-            $table->string('views', 200)->nullable();
-            $table->text('newsid')->nullable();
-            $table->timestamps();
-        });
+//        Schema::create('newsviews', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('views', 200)->nullable();
+//            $table->text('newsid')->nullable();
+//            $table->timestamps();
+//        });
     }
 
     /**

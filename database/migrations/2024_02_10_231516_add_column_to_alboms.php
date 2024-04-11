@@ -14,7 +14,7 @@ class AddColumnToAlboms extends Migration
     public function up()
     {
         Schema::table('albums', function (Blueprint $table) {
-            $table->text("album_number")->nullable();
+//            $table->text("album_number")->nullable();
         });
     }
 
