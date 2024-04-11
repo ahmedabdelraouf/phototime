@@ -49,8 +49,8 @@ class CreateBlogImagesTable extends Migration
 
         $data = array_map('str_getcsv', file($file));
 
-        foreach ($data as $index=>$row) {
-            if ($index==0)
+        foreach ($data as $index => $row) {
+            if ($index == 0)
                 continue;
             // Assuming the CSV columns are in the order: id, path, blog_id, order
             DB::table('blog_images2')->insert([
@@ -59,6 +59,11 @@ class CreateBlogImagesTable extends Migration
                 'blog_id' => $row[2],
                 'order' => $row[3]
             ]);
+            if ($index % 5000 == 0) {
+                $count = DB::table('blog_images2')->count();
+                print_r('Data imported successfully till now latest count is => ' . $count);
+
+            }
         }
         print_r('Data imported successfully from CSV file.');
     }
