@@ -15,11 +15,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\Admin;
-use Hash;
 
 class AlbumsController extends AdminBaseController
 {
+
+    use SyncOldAlbumImages;
+
     /**
      * @param Request $request
      * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -56,7 +57,7 @@ class AlbumsController extends AdminBaseController
         if ($request->filled('album_number')) {
             $query->where('album_number', $request->input('album_number'));
         }
-        $query->orderBy("created_at","desc");
+        $query->orderBy("created_at", "desc");
         $albums = $query->paginate(50);
 
         // Pass only necessary variables to the view
@@ -313,7 +314,7 @@ class AlbumsController extends AdminBaseController
     private function oldDataLogic($request)
     {
         if (empty($request->stop_debug)) {
-            dd(NewsCmt::count(), NewsViews::count(), News::count());
+//            dd(NewsCmt::count(), NewsViews::count(), News::count());
         }
         $news = News::all();
         foreach ($news as $newsDetails) {
@@ -336,7 +337,8 @@ class AlbumsController extends AdminBaseController
                 "views_count" => NewsViews::where("newsid", $newsDetails->id)->first()->views ?? 0,
                 "is_blocked" => 0,
                 "album_number" => $newsDetails->order,
-                "created_at" => $newsDetails->date
+                "created_at" => $newsDetails->date,
+                "is_old" => $newsDetails->date,
             ]);
         }
         dd("check db");
@@ -346,23 +348,5 @@ class AlbumsController extends AdminBaseController
     {
         $arr[$index] = !empty($arr[$index]) && in_array($arr[$index], ["on", "1"]) ? 1 : 0;
     }
-
-    public function getAlbumFolderPath($album)
-    {
-        // Extracting necessary information from the album object
-        $createdAt = $album->created_at; // Assuming the album object has a 'created_at' property
-        $albumId = $album->id; // Assuming the album object has an 'id' property
-
-        // Creating directory path
-        $year = date('Y', strtotime($createdAt));
-        $month = date('m', strtotime($createdAt));
-        $day = date('d', strtotime($createdAt));
-
-        // Generating the directory path
-        $directoryPath = "Albums_{$year}/{$month}/{$day}/{$albumId}/";
-
-        return $directoryPath;
-    }
-
 
 }
