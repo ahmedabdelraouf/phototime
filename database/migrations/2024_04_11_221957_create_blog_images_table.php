@@ -16,12 +16,12 @@ class CreateBlogImagesTable extends Migration
 
         // Call a function to import data after creating the table
 
-        Schema::create('blog_images', function (Blueprint $table) {
-            $table->id();
-            $table->string('path');
-            $table->integer('blog_id')->nullable();
-            $table->integer('order')->default(0);
-        });
+//        Schema::create('blog_images', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('path');
+//            $table->integer('blog_id')->nullable();
+//            $table->integer('order')->default(0);
+//        });
         $this->importData();
 //        dd("check table now");
 
@@ -53,14 +53,14 @@ class CreateBlogImagesTable extends Migration
             if ($index == 0)
                 continue;
             // Assuming the CSV columns are in the order: id, path, blog_id, order
-            DB::table('blog_images2')->insert([
+            DB::table('blog_images')->insert([
                 'id' => $row[0],
                 'path' => $row[1],
                 'blog_id' => $row[2],
                 'order' => $row[3]
             ]);
             if ($index % 5000 == 0) {
-                $count = DB::table('blog_images2')->count();
+                $count = DB::table('blog_images')->count();
                 print_r('Data imported successfully till now latest count is => ' . $count);
 
             }
