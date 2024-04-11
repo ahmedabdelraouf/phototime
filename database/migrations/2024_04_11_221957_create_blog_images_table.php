@@ -46,6 +46,7 @@ class CreateBlogImagesTable extends Migration
             print_r('CSV file not found: ' . $file);
             return;
         }
+        print_r('Start process at '.now());
 
         $data = array_map('str_getcsv', file($file));
 
@@ -66,6 +67,8 @@ class CreateBlogImagesTable extends Migration
             }
         }
         print_r('Data imported successfully from CSV file.');
+        print_r('finished process at '.now());
+
     }
 
 }
