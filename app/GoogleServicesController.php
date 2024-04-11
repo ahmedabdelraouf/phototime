@@ -141,7 +141,7 @@ class GoogleServicesController
         $day = date('d', strtotime($createdAt));
 
         // Generating the directory path
-        $directoryPath = "Albums_{$year}/{$month}/{$day}/{$albumId}_$album->id/";
+        $directoryPath = "Albums_{$year}/{$month}/{$day}/{$albumId}/";
 
         return $directoryPath;
     }
