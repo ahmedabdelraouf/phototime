@@ -33,7 +33,7 @@ trait SyncOldAlbumImages
 //        dd($allAlbums);
         //        $allAlbums = Album::where("id", 4)->get();
         foreach ($allAlbums as $album) {
-            print_r("Start import for album ID = $album->id ** Name = $album->title");
+            print_r(" \n Start import for album ID = $album->id \n");
             $resultArrayImages = $this->getAlbumOldImages($album->id);
             $folderDirectory = $this->GSC->getAlbumFolderPath($album, "photo_date");
             foreach ($resultArrayImages as $image) {
@@ -51,7 +51,7 @@ trait SyncOldAlbumImages
             }
             $album->is_synced = true;
             $album->save();
-            print_r("Data imported for album ID = $album->id ** Name = $album->title");
+            print_r("Data imported for album ID = $album->id ** ");
         }
     }
 
