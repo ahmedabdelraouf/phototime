@@ -28,7 +28,7 @@ trait SyncOldAlbumImages
 
     public function importOldNewsImagesToGoogle()
     {
-        $allAlbums = Album::limit(100)->where("is_synced", 0)->orderBy("photo_date", "ASC")->get();
+        $allAlbums = Album::limit(400)->where("is_synced", 0)->orderBy("photo_date", "ASC")->get();
 
 //        dd($allAlbums);
         //        $allAlbums = Album::where("id", 4)->get();
