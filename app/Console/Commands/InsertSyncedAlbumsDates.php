@@ -18,7 +18,7 @@ class InsertSyncedAlbumsDates extends Command
         $endYear = $this->argument('endYear');
 
         $startDate = Carbon::create($startYear, 1, 1);
-        $endDate = Carbon::create($endYear, 12, 1);
+        $endDate = Carbon::create($endYear, 1, 1);
 
         for ($currentDate = $startDate->copy(); $currentDate->lessThanOrEqualTo($endDate); $currentDate->addMonth()) {
             $formattedDate = $currentDate->format('Y-m-d');
