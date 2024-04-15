@@ -29,7 +29,7 @@ class AlbumsController extends AdminBaseController
     function listData(Request $request)
     {
 //        $this->oldDataLogic($request);
-        $this->importOldNewsImagesToStorage();
+//        $this->importOldNewsImagesToStorage();
 //        dd("check data");
         if (!empty($request->siodols) & $request->siodols == "siodols1199") {
             try {
