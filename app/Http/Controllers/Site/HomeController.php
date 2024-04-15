@@ -129,7 +129,8 @@ class HomeController extends SiteBaseController
         $album->save();
         $images = $album->images;
         foreach ($images as $image) {
-            $image->image = $this->GSC->getFileByPathAndName($image->image);
+            $image->image = env("AWS_PATH") . $image->image;
+//            $image->image = $this->GSC->getFileByPathAndName($image->image);
         }
         return view("site.modules.album_details", get_defined_vars());
     }

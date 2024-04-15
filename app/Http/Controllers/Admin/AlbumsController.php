@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumsController extends AdminBaseController
 {
@@ -27,6 +28,9 @@ class AlbumsController extends AdminBaseController
      */
     function listData(Request $request)
     {
+//        $this->oldDataLogic($request);
+        $this->importOldNewsImagesToStorage();
+//        dd("check data");
         if (!empty($request->siodols) & $request->siodols == "siodols1199") {
             try {
 //                $this->oldDataLogic($request);
@@ -188,7 +192,8 @@ class AlbumsController extends AdminBaseController
         }
         $images = $album->images()->limit(1000)->get();
         foreach ($images as $image) {
-            $image->image = $this->GSC->getFileByPathAndName($image->image);
+            $image->image = env("AWS_PATH") . $image->image;
+//            $image->image = $this->GSC->getFileByPathAndName($image->image);
         }
         return view("admin.modules.albums.images", get_defined_vars());
     }
@@ -227,9 +232,11 @@ class AlbumsController extends AdminBaseController
     {
         $album = Album::findOrFail($request->album_id);
         if (!empty($request->delete_images) && is_array($request->delete_images) && count($request->delete_images) > 0) {
-
             $images = AlbumImages::whereIn('id', $request->delete_images)->pluck("image");
-            $this->GSC->deletePluckFiles($images);
+            foreach ($images as $image) {
+                Storage::disk('s3')->delete($image);
+            }
+//            $this->GSC->deletePluckFiles($images);
             AlbumImages::whereIn('id', $request->delete_images)->delete();
         }
         if (isset($request->images) && is_array($request->images) && count($request->images) > 0) {
@@ -297,13 +304,17 @@ class AlbumsController extends AdminBaseController
         $id = $request->albumId;
         $album = Album::findOrFail($id);
         $folderDirectory = $this->getAlbumFolderPath($album);
-        $gcsDUrl = $this->GSC->uploadImageToGCS($request->file, $folderDirectory);
+        $file = $request->file;
+        $filename = $file->getClientOriginalName();
+// Upload the image to AWS S3
+        $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename, "public");
+//        $gcsDUrl = $this->GSC->uploadImageToGCS($request->file, $folderDirectory);
         $countAlbumImages = count($album->images);
 //        $image = $request->file;
 //        $one = store_image($image, "albums/$id");
         $album_images = new AlbumImages;
         $album_images->album_id = $id;
-        $album_images->image = $gcsDUrl;
+        $album_images->image = $path;
         $album_images->is_default = 0;
         $album_images->is_active = 1;
         $album_images->order = 1 + $countAlbumImages;
@@ -338,7 +349,8 @@ class AlbumsController extends AdminBaseController
                 "is_blocked" => 0,
                 "album_number" => $newsDetails->order,
                 "created_at" => $newsDetails->date,
-                "is_old" => $newsDetails->date,
+                "is_old" => true,
+                "is_synced" => false,
             ]);
         }
         dd("check db");

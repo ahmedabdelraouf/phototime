@@ -39,7 +39,24 @@ class SyncOldImages extends Command
     public function handle()
     {
         $AlbumsController = new AlbumsController();
-        $AlbumsController->importOldNewsImagesToGoogle();
+        $date = $this->getDate();
+        $AlbumsController->importOldNewsImagesToStorage($date);
         return 0;
     }
+
+    public function getDate()
+    {
+        $date = \DB::table('synced_albums_dates')
+            ->where('synced', 0)
+            ->orderBy('date', 'asc')
+            ->first();
+
+        if ($date) {
+            return $date->date;
+        } else {
+            print_r("no dates to be synced");
+            die;
+        }
+    }
+
 }

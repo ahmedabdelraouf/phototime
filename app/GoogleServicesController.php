@@ -3,6 +3,7 @@
 namespace App;
 
 use Google\Cloud\Storage\StorageClient;
+use Illuminate\Support\Facades\Storage;
 
 class GoogleServicesController
 {
@@ -40,9 +41,15 @@ class GoogleServicesController
     {
         $objectName = $folderDirectory . $file->getClientOriginalName();
         $fileContents = file_get_contents($file->path());
-        $uploadedObject = $this->bucket->upload($fileContents, [
-            'name' => $objectName,
-        ]);
+        $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $objectName, "public");
+        // If successful, return the URL of the uploaded image
+        if ($path) {
+            return Storage::disk('s3')->url($path);
+        }
+//        ..tish block of code to upload to google storege
+        //        $uploadedObject = $this->bucket->upload($fileContents, [
+//            'name' => $objectName,
+//        ]);
         return $uploadedObject->name();
 //        return ['object_id' => $objectId, 'public_url' => $this->getFileByPathAndName($objectId)];
 //        $bucket->upload($fileContents, [
@@ -127,23 +134,6 @@ class GoogleServicesController
 //
 //        dd($publicUrl);
 //        // Return response...
-    }
-
-    public function getAlbumFolderPath($album, $column = "created_at")
-    {
-        // Extracting necessary information from the album object
-        $createdAt = $album->$column; // Assuming the album object has a 'created_at' property
-        $albumId = $album->id; // Assuming the album object has an 'id' property
-
-        // Creating directory path
-        $year = date('Y', strtotime($createdAt));
-        $month = date('m', strtotime($createdAt));
-        $day = date('d', strtotime($createdAt));
-
-        // Generating the directory path
-        $directoryPath = "Albums_{$year}/{$month}/{$day}/{$albumId}/";
-
-        return $directoryPath;
     }
 
 }
