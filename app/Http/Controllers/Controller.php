@@ -28,10 +28,13 @@ class Controller extends BaseController
         // Creating directory path
         $year = date('Y', strtotime($createdAt));
         $month = date('m', strtotime($createdAt));
-        $day = date('d', strtotime($createdAt));
+
+//        $day = date('d', strtotime($createdAt));
+        // Generating the directory path with day
+//        $directoryPath = "Albums_{$year}/{$month}/{$day}/{$albumId}";
 
         // Generating the directory path
-        $directoryPath = "Albums_{$year}/{$month}/{$day}/{$albumId}";
+        $directoryPath = "Albums_{$year}/{$month}/{$albumId}";
 
         return $directoryPath;
     }
