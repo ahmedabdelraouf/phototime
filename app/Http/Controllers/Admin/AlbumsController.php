@@ -7,9 +7,6 @@ use App\Http\Requests\Admin\Albums\UpdateRequest;
 use App\Models\Album;
 use App\Models\AlbumImages;
 use App\Models\Category;
-use App\Models\News;
-use App\Models\NewsCmt;
-use App\Models\NewsViews;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -22,12 +19,22 @@ class AlbumsController extends AdminBaseController
 
     use SyncOldAlbumImages;
 
+    public function deleteOldImages()
+    {
+        $albums = Album::where("is_old", 1)->get();
+        foreach ($albums as $album) {
+            AlbumImages::where("album_id", $album->id)->delete();
+        }
+    }
+
     /**
      * @param Request $request
      * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      */
     function listData(Request $request)
     {
+        $this->deleteOldImages();
+        dd("done date updated");
 //        $this->oldDataLogic($request);
 //        $this->importOldNewsImagesToStorage();
 //        dd("check data");

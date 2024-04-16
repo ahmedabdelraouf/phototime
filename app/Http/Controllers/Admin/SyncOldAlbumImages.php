@@ -86,6 +86,7 @@ trait SyncOldAlbumImages
 
         $allAlbums = Album::whereYear('photo_date', substr($date, 0, 4))
             ->whereMonth('photo_date', substr($date, 5, 2)) // Month 1 represents January
+            ->where('is_old', 1)
             ->where('is_synced', 0)
 //            ->where('id', 4)
             ->limit(2)
@@ -102,9 +103,6 @@ trait SyncOldAlbumImages
             $resultArrayImages = $this->getAlbumOldImages($album->id);
             $folderDirectory = $this->getAlbumFolderPath($album, "photo_date");
             $countAlbumImages = count($album->images);
-            if (count($resultArrayImages) > 0) {
-                AlbumImages::where("album_id", $album->id)->delete();
-            }
             foreach ($resultArrayImages as $index => $image) {
                 $imageName = $image['name'];
 //                $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename, "public");
