@@ -42,6 +42,7 @@ class AlbumsController extends AdminBaseController
         }
         $query = Album::query();
 
+
         if ($request->filled('title')) {
             $query->where('title', 'like', '%' . $request->input('title') . '%');
         }

@@ -88,7 +88,7 @@ trait SyncOldAlbumImages
             ->whereMonth('photo_date', substr($date, 5, 2)) // Month 1 represents January
             ->where('is_synced', 0)
 //            ->where('id', 4)
-            ->limit(1)
+            ->limit(10)
             ->orderBy('photo_date', 'ASC')
             ->get();
 
