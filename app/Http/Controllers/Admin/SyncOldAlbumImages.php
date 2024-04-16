@@ -111,7 +111,8 @@ trait SyncOldAlbumImages
                 $s3Path = $this->uploadImageToS3FromURL($image["url"], $imageName, $folderDirectory);
                 $num = $index + 1;
                 $ndt = now();
-                print_r(" Import for Number $num Image $imageName DateTime is $ndt \n");
+                $val = $ndt->format("Y-m-d H:i:s");
+                print_r(" Import for Number $num Image $imageName DateTime is $val  \n");
                 if (!empty($s3Path)) {
                     $album_images = new AlbumImages();
                     $album_images->album_id = $album->id;
