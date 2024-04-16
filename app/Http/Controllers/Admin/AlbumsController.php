@@ -33,8 +33,12 @@ class AlbumsController extends AdminBaseController
      */
     function listData(Request $request)
     {
+<<<<<<< HEAD
         $this->deleteOldImages();
         dd("done date updated");
+=======
+//        Album::where("is_synced",1)->update(["is_synced"=>0]);
+>>>>>>> d9b9d57 (server edits)
 //        $this->oldDataLogic($request);
         $this->importOldNewsImagesToStorage("2020-01-01");
 //        dd("check data");
