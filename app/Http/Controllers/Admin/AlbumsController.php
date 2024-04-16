@@ -328,33 +328,33 @@ class AlbumsController extends AdminBaseController
         if (empty($request->stop_debug)) {
 //            dd(NewsCmt::count(), NewsViews::count(), News::count());
         }
-        $news = News::all();
-        foreach ($news as $newsDetails) {
-            Album::create([
-                "id" => $newsDetails->id,
-                "title" => $newsDetails->title,
-                "short_desc" => $newsDetails->body,
-                "meta_title" => "",
-                "photo_date" => $newsDetails->date,
-                "photo_owner_name" => NewsCmt::where("news_id", $newsDetails->id)->first()->name ?? null,
-                "photo_place" => "",
-                "owner_email" => NewsCmt::where("news_id", $newsDetails->id)->first()->email ?? null,
-                "meta_description" => "",
-                "meta_keywords" => "",
-                "default_image" => $newsDetails->newspic,
-                "is_active" => $newsDetails->publish,
-                "youtube_url" => null,
-                "is_featured" => 0,
-                "owner_phone" => NewsCmt::where("news_id", $newsDetails->id)->first()->phone ?? null,
-                "views_count" => NewsViews::where("newsid", $newsDetails->id)->first()->views ?? 0,
-                "is_blocked" => 0,
-                "album_number" => $newsDetails->order,
-                "created_at" => $newsDetails->date,
-                "is_old" => true,
-                "is_synced" => false,
-            ]);
-        }
-        dd("check db");
+//        $news = News::all();
+//        foreach ($news as $newsDetails) {
+//            Album::create([
+//                "id" => $newsDetails->id,
+//                "title" => $newsDetails->title,
+//                "short_desc" => $newsDetails->body,
+//                "meta_title" => "",
+//                "photo_date" => $newsDetails->date,
+//                "photo_owner_name" => NewsCmt::where("news_id", $newsDetails->id)->first()->name ?? null,
+//                "photo_place" => "",
+//                "owner_email" => NewsCmt::where("news_id", $newsDetails->id)->first()->email ?? null,
+//                "meta_description" => "",
+//                "meta_keywords" => "",
+//                "default_image" => $newsDetails->newspic,
+//                "is_active" => $newsDetails->publish,
+//                "youtube_url" => null,
+//                "is_featured" => 0,
+//                "owner_phone" => NewsCmt::where("news_id", $newsDetails->id)->first()->phone ?? null,
+//                "views_count" => NewsViews::where("newsid", $newsDetails->id)->first()->views ?? 0,
+//                "is_blocked" => 0,
+//                "album_number" => $newsDetails->order,
+//                "created_at" => $newsDetails->date,
+//                "is_old" => true,
+//                "is_synced" => false,
+//            ]);
+//        }
+//        dd("check db");
     }
 
     public function setCheckBoxValue(array &$arr, $index)
