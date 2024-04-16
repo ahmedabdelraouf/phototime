@@ -13,9 +13,9 @@ class Album extends Model
     use SoftDeletes;
 
     protected $table = "albums";
-    protected $fillable = ["menu_title", "menu_title", "title", "short_desc", "meta_title", "photo_date",
-        "photo_owner_name", "photo_place", "meta_description", "meta_keywords","default_image","is_old","is_synced",
-        "is_active", "image", "youtube_url", "is_featured", "owner_phone", "views_count","is_blocked","album_number"];
+    protected $fillable = ["id", "menu_title", "menu_title", "title", "short_desc", "meta_title", "photo_date",
+        "photo_owner_name", "photo_place", "meta_description", "meta_keywords", "default_image", "is_old", "is_synced",
+        "is_active", "image", "youtube_url", "is_featured", "owner_phone", "views_count", "is_blocked", "album_number"];
 
     const MODULE_NAME = "album";
 
