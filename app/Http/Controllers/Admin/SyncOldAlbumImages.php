@@ -88,7 +88,7 @@ trait SyncOldAlbumImages
             ->whereMonth('photo_date', substr($date, 5, 2)) // Month 1 represents January
             ->where('is_synced', 0)
 //            ->where('id', 4)
-            ->limit(10)
+            ->limit(1)
             ->orderBy('photo_date', 'ASC')
             ->get();
 
@@ -126,10 +126,10 @@ trait SyncOldAlbumImages
             }
             $countNotSynced = BlogImage::where("blog_id", $album->id)->where("is_synced", 0)->count();
             if ($countNotSynced == 0) {
+                print_r(" Data imported for album ID = $album->id ** \n");
                 $album->is_synced = true;
                 $album->save();
             }
-            print_r(" Data imported for album ID = $album->id ** \n");
         }
 
         $remainingALbumsForMonth = Album::whereYear('photo_date', substr($date, 0, 4))
