@@ -111,7 +111,7 @@ trait SyncOldAlbumImages
                 $newImageName = $uniqueID . '.' . $extension;
 //                dd($newImageName);
 //                $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename, "public");
-                $s3Path = $this->uploadImageToS3FromURL($image["url"], $imageName, $folderDirectory);
+                $s3Path = $this->uploadImageToS3FromURL($image["url"], $newImageName, $folderDirectory);
                 $num = $index + 1;
                 $ndt = now();
                 $val = $ndt->format("Y-m-d H:i:s");
