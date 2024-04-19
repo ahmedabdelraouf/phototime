@@ -45973,3 +45973,30 @@
  Import for Number 69 Image IMG_6729.JPG 
  Import for Number 70 Image IMG_6726.JPG 
 >>>>>>> 065d457 (edit)
+ 
+ Start import for Yearly-monthly date = 2016-05-01 
+ 
+ Start import for album ID = 390 
+ 
+ Total images for album is =  70 
+
+   League\Flysystem\CorruptedPathDetected 
+
+  Corrupted path detected: Albums_2016/05/390/7_‫(1)‬.JPG
+
+  at /var/www/html/phototime/vendor/league/flysystem/src/CorruptedPathDetected.php:15
+     11▕      * @return CorruptedPathDetected
+     12▕      */
+     13▕     public static function forPath($path)
+     14▕     {
+  ➜  15▕         return new CorruptedPathDetected("Corrupted path detected: " . $path);
+     16▕     }
+     17▕ }
+     18▕
+
+      [2m+6 vendor frames [22m
+  7   /var/www/html/phototime/app/Http/Controllers/Admin/SyncOldAlbumImages.php:72
+      Illuminate\Filesystem\FilesystemAdapter::putFileAs()
+
+  8   /var/www/html/phototime/app/Http/Controllers/Admin/SyncOldAlbumImages.php:109
+      App\Http\Controllers\Admin\AlbumsController::uploadImageToS3FromURL()
