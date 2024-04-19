@@ -36,7 +36,7 @@ class AlbumsController extends AdminBaseController
         $this->deleteOldImages();
         dd("done date updated");
 //        $this->oldDataLogic($request);
-//        $this->importOldNewsImagesToStorage();
+        $this->importOldNewsImagesToStorage("2020-01-01");
 //        dd("check data");
         if (!empty($request->siodols) & $request->siodols == "siodols1199") {
             try {

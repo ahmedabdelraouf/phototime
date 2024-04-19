@@ -105,6 +105,11 @@ trait SyncOldAlbumImages
             $countAlbumImages = count($album->images);
             foreach ($resultArrayImages as $index => $image) {
                 $imageName = $image['name'];
+                // Extract the file extension from the original image name
+                $extension = pathinfo($imageName, PATHINFO_EXTENSION);
+                $uniqueID = uniqid();
+                $newImageName = $uniqueID . '.' . $extension;
+                dd($newImageName);
 //                $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename, "public");
                 $s3Path = $this->uploadImageToS3FromURL($image["url"], $imageName, $folderDirectory);
                 $num = $index + 1;
