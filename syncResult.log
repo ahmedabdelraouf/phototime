@@ -4,6 +4,7 @@
  Start import for album ID = 24 
  
  Total images for album is =  70 
+<<<<<<< HEAD
  Import for Number 1 Image IMG_50911.JPG DateTime is 2024-04-16 22:16:03  
  Import for Number 2 Image IMG_5090.JPG DateTime is 2024-04-16 22:16:05  
  Import for Number 3 Image IMG_5086.JPG DateTime is 2024-04-16 22:16:06  
@@ -45900,3 +45901,75 @@
 
   8   /var/www/html/phototime/app/Http/Controllers/Admin/SyncOldAlbumImages.php:109
       App\Http\Controllers\Admin\AlbumsController::uploadImageToS3FromURL()
+=======
+ Import for Number 1 Image IMG_7183.JPG 
+ Import for Number 2 Image IMG_7181.JPG 
+ Import for Number 3 Image IMG_7179.JPG 
+ Import for Number 4 Image IMG_7177.JPG 
+ Import for Number 5 Image IMG_7172.JPG 
+ Import for Number 6 Image IMG_7171.JPG 
+ Import for Number 7 Image IMG_7168.JPG 
+ Import for Number 8 Image IMG_7167.JPG 
+ Import for Number 9 Image IMG_7164.JPG 
+ Import for Number 10 Image IMG_7161.JPG 
+ Import for Number 11 Image IMG_7160.JPG 
+ Import for Number 12 Image IMG_7158.JPG 
+ Import for Number 13 Image IMG_7151.JPG 
+ Import for Number 14 Image IMG_7146.JPG 
+ Import for Number 15 Image IMG_7143.JPG 
+ Import for Number 16 Image IMG_7140.JPG 
+ Import for Number 17 Image IMG_7137.JPG 
+ Import for Number 18 Image IMG_7135.JPG 
+ Import for Number 19 Image IMG_7133.JPG 
+ Import for Number 20 Image IMG_7128.JPG 
+ Import for Number 21 Image IMG_7126.JPG 
+ Import for Number 22 Image IMG_7124.JPG 
+ Import for Number 23 Image IMG_7122.JPG 
+ Import for Number 24 Image IMG_7121.JPG 
+ Import for Number 25 Image IMG_7120.JPG 
+ Import for Number 26 Image IMG_7119.JPG 
+ Import for Number 27 Image IMG_7118.JPG 
+ Import for Number 28 Image IMG_7115.JPG 
+ Import for Number 29 Image IMG_7114.JPG 
+ Import for Number 30 Image IMG_7110.JPG 
+ Import for Number 31 Image IMG_7109.JPG 
+ Import for Number 32 Image IMG_7107.JPG 
+ Import for Number 33 Image IMG_7105.JPG 
+ Import for Number 34 Image IMG_7104.JPG 
+ Import for Number 35 Image IMG_7102.JPG 
+ Import for Number 36 Image IMG_7096.JPG 
+ Import for Number 37 Image IMG_7089.JPG 
+ Import for Number 38 Image IMG_7081.JPG 
+ Import for Number 39 Image IMG_7074.JPG 
+ Import for Number 40 Image IMG_7072.JPG 
+ Import for Number 41 Image IMG_7069.JPG 
+ Import for Number 42 Image IMG_7066.JPG 
+ Import for Number 43 Image IMG_7064.JPG 
+ Import for Number 44 Image IMG_7061.JPG 
+ Import for Number 45 Image IMG_7059.JPG 
+ Import for Number 46 Image IMG_7056.JPG 
+ Import for Number 47 Image IMG_7053.JPG 
+ Import for Number 48 Image IMG_7052.JPG 
+ Import for Number 49 Image IMG_7050.JPG 
+ Import for Number 50 Image IMG_7046.JPG 
+ Import for Number 51 Image IMG_7042.JPG 
+ Import for Number 52 Image IMG_7038.JPG 
+ Import for Number 53 Image IMG_7035.JPG 
+ Import for Number 54 Image IMG_7034.JPG 
+ Import for Number 55 Image IMG_7030.JPG 
+ Import for Number 56 Image IMG_7028.JPG 
+ Import for Number 57 Image IMG_7026.JPG 
+ Import for Number 58 Image IMG_7025.JPG 
+ Import for Number 59 Image IMG_7022.JPG 
+ Import for Number 60 Image IMG_6759.JPG 
+ Import for Number 61 Image IMG_6755.JPG 
+ Import for Number 62 Image IMG_6753.JPG 
+ Import for Number 63 Image IMG_6751.JPG 
+ Import for Number 64 Image IMG_6750.JPG 
+ Import for Number 65 Image IMG_6748.JPG 
+ Import for Number 66 Image IMG_6742.JPG 
+ Import for Number 67 Image IMG_6740.JPG 
+ Import for Number 68 Image IMG_6734.JPG 
+ Import for Number 69 Image IMG_6729.JPG 
+ Import for Number 70 Image IMG_6726.JPG 
+>>>>>>> 065d457 (edit)
