@@ -48,13 +48,14 @@ class SyncOldImages extends Command
     {
         $date = \DB::table('synced_albums_dates')
             ->where('synced', 0)
+            ->whereBetween('date', ["2024-01-01", "2024-12-01"])
             ->orderBy('date', 'asc')
             ->first();
 
         if ($date) {
             return $date->date;
         } else {
-            print_r("no dates to be synced");
+            print_r("no dates to be synced 24 \n");
             die;
         }
     }

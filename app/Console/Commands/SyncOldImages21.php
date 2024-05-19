@@ -48,7 +48,7 @@ class SyncOldImages21 extends Command
     {
         $date = \DB::table('synced_albums_dates')
             ->where('synced', 0)
-            ->whereBetween('date', ["2021-01-01", "2021-12-01"])
+            ->whereBetween('date', ["2019-01-01", "2019-12-01"])
             ->orderBy('date', 'asc')
             ->first();
 
