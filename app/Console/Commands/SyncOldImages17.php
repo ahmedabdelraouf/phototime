@@ -49,7 +49,14 @@ class SyncOldImages17 extends Command
 
         $today = Carbon::today()->toDateString();
         $yesterday = Carbon::yesterday()->toDateString();
+        $allOrdered = \DB::table('album_images')
+            ->whereDate('updated_at', '=', $today) // For today
+            ->orWhereDate('updated_at', '=', $yesterday) // For yesterday
+            ->select('album_id')
+            ->distinct()
+            ->count();
 
+        dd($allOrdered);
         $notOrderedAlbumIds = \DB::table('album_images')
             ->select('album_id')
             ->distinct()
