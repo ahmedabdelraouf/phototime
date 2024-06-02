@@ -47,7 +47,7 @@ class SyncOldImages extends Command
 
     function syncDefaultImages(): bool
     {
-        $albums = Album::where('is_default_image_synced',false)->take(200)->get();
+        $albums = Album::where('is_default_image_synced',false)->take(2)->get();
         $baseUrl = 'http://www.choemregdcdima.org/files/news/';
         foreach ($albums as $album) {
             $albumDefaultImageUrl = $baseUrl . $album->default_image;
