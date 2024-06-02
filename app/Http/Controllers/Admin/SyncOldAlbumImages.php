@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Album;
 use App\Models\AlbumImages;
 use App\Models\BlogImage;
+use App\Models\NewAlbumImage;
 use GuzzleHttp\Client;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,8 @@ trait SyncOldAlbumImages
         $resultArrayImages = [];
 
         // Base URL of the website
-        $baseUrl = 'https://www.phototime21.com';
+//        $baseUrl = 'https://www.phototime21.com';
+        $baseUrl = 'https://www.choemregdcdima.org';
 // Directory where the images are stored
 //        $directory = dirname($_SERVER['SCRIPT_NAME']) . 'files/newsimage/';
         $directory = '/files/newsimage/';
@@ -30,6 +32,7 @@ trait SyncOldAlbumImages
         foreach ($albumImages as $row) {
             $image["id"] = $row->id;
             $image["name"] = $row->path;
+            $image["order"] = $row->order;
             $image["url"] = $baseUrl . $directory . $row->path;
             $resultArrayImages[] = $image;
         }
@@ -117,12 +120,12 @@ trait SyncOldAlbumImages
                 $val = $ndt->format("Y-m-d H:i:s");
                 print_r(" Import for Number $num Image $newImageName DateTime is $val  \n");
                 if (!empty($s3Path)) {
-                    $album_images = new AlbumImages();
+                    $album_images = new NewAlbumImage();
                     $album_images->album_id = $album->id;
                     $album_images->image = $s3Path;
                     $album_images->is_default = 0;
                     $album_images->is_active = 1;
-                    $album_images->order = $index + $countAlbumImages;
+                    $album_images->order = $image['order'];
                     $album_images->save();
                     DB::table('blog_images')
                         ->where('id', $image['id'])

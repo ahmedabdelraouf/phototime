@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 use App\Http\Controllers\Admin\AlbumsController;
 use Illuminate\Console\Command;
 
-class SyncOldImages21 extends Command
+class SyncOldImages18 extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sync:old-images21';
+    protected $signature = 'sync:old-images18';
 
     /**
      * The console command description.
@@ -48,7 +48,7 @@ class SyncOldImages21 extends Command
     {
         $date = \DB::table('synced_albums_dates')
             ->where('synced', 0)
-            ->whereBetween('date', ["2021-01-01", "2021-12-01"])
+            ->whereBetween('date', ["2018-01-01", "2018-12-01"])
             ->orderBy('date', 'asc')
             ->first();
 

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get("/", [MeController::class, "homepage"])->middleware("should_login")->name("home");
+Route::get("/syncDefaultImages", [MeController::class, "syncDefaultImages"])->name("syncDefaultImages");
 
 Route::as("auth.")->group(function () {
     Route::get("logout", [AuthenticationController::class, "logout"])

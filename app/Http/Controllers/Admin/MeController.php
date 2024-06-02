@@ -14,4 +14,8 @@ class MeController extends AdminBaseController
     {
         return view("admin.modules.me.homepage", get_defined_vars());
     }
+    function syncDefaultImages(Request $request): View
+    {
+        dd("syncDefaultImages");
+    }
 }
