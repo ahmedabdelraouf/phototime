@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Album;
 use App\Http\Controllers\Admin\AlbumsController;
 use App\Models\AlbumImages;
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
 class SyncOldImages17 extends Command
 {
@@ -39,20 +41,52 @@ class SyncOldImages17 extends Command
      */
     public function handle()
     {
+  $dateThreshold = Carbon::createFromFormat('Y-m-d', '2024-05-31')->subDays(3);
+
+    // Count rows before the specified date
+  //  $countBefore = AlbumImages::where('updated_at', '<', $dateThreshold)->distinct()
+    //                      ->pluck("album_id");
+
+    // Count rows within the last 3 days before the specified date
+//    $countAfter = AlbumImages::where('updated_at', '>=', $dateThreshold)->distinct()->pluck("album_id");
+//   dd( [
+  //    'countBefore' => count($countBefore),
+    //   'countAfter' => count($countAfter),
+//    ]);
+
         $this->reorderAlbumImages();
         return 0;
     }
 
     function reorderAlbumImages()
     {
-        // Retrieve all unique album IDs from album_images
-        $albumIds = AlbumImages::where("album_id",4)->distinct()->pluck('album_id');
 
+    $today = Carbon::today()->toDateString();
+
+    $albumIds1 = \DB::table('album_images')
+                  ->select('album_id')
+                  ->distinct()
+                  ->whereDate('updated_at', '!=', $today)
+                  ->pluck('album_id');
+
+    $albumIds2 = \DB::table('album_images')
+                  ->select('album_id')
+                  ->distinct()
+                  ->whereDate('updated_at', '=', $today)
+                  ->pluck('album_id');
+
+
+ $dateThreshold = Carbon::createFromFormat('Y-m-d', '2024-05-31')->subDays(3);
+ $albumIds = AlbumImages::where('updated_at', '<', $dateThreshold)->distinct()
+                          ->pluck("album_id");
+
+dd(count($albumIds),count($albumIds1),count($albumIds2),Album::count());
         // Iterate through each album
         foreach ($albumIds as $albumId) {
             // Retrieve images for the current album ordered by 'order'
             $images = AlbumImages::where('album_id', $albumId)->orderBy('order')->get();
 
+//dd($images[22]);
             // Calculate the new order for each image
             $imageCount = $images->count();
             foreach ($images as $image) {
@@ -60,6 +94,7 @@ class SyncOldImages17 extends Command
                 $image->order = $newOrder;
                 $image->save();
             }
+print_r("albumId is $albumId \n");
         }
         return 1;
     }
