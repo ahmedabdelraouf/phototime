@@ -63,7 +63,12 @@ class SyncOldImages17 extends Command
             ->whereDate('updated_at', '=', $today)
             ->orWhereDate('updated_at', '=', $yesterday)
             ->pluck('album_id');
-        $newArr = array_diff($orderedAlbumIds,$notOrderedAlbumIds);
+
+// Find the repeated album IDs
+        $repeatedAlbumIds = array_intersect($orderedAlbumIds->toArray(), $notOrderedAlbumIds->toArray());
+
+// Remove the repeated album IDs from the ordered album IDs
+        $newArr = array_diff($orderedAlbumIds->toArray(), $repeatedAlbumIds);
         dd('notOrderedAlbumIds',count($notOrderedAlbumIds), 'orderedAlbumIds',count($orderedAlbumIds),'total', Album::count(),
         "diff", count($newArr ));
 
