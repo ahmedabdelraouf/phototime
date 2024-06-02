@@ -70,7 +70,6 @@ class SyncOldImages17 extends Command
 // Remove the repeated album IDs from the ordered album IDs
         $albumIds = array_diff($notOrderedAlbumIds->toArray(), $repeatedAlbumIds);
 
-        dd(        $albumIds);
 //        dd('notOrderedAlbumIds',count($notOrderedAlbumIds), 'orderedAlbumIds',count($orderedAlbumIds),'total', Album::count(),
 //        "diff", count($newArr ));
 
