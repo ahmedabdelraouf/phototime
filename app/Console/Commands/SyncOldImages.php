@@ -42,9 +42,10 @@ class SyncOldImages extends Command
     public function handle()
     {
         $this->syncDefaultImages();
+        return 0;
     }
 
-    function syncDefaultImages(): View
+    function syncDefaultImages(): bool
     {
         $albums = Album::where('is_default_image_synced',false)->take(200)->get();
         $baseUrl = 'http://www.choemregdcdima.org/files/news/';
@@ -71,6 +72,7 @@ class SyncOldImages extends Command
             }
 
         }
+        return true;
     }
 
     public function getDate()
