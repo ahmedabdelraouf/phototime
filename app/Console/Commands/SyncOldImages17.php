@@ -70,20 +70,10 @@ class SyncOldImages17 extends Command
 // Remove the repeated album IDs from the ordered album IDs
         $albumIds = array_diff($notOrderedAlbumIds->toArray(), $repeatedAlbumIds);
 
-//        dd('notOrderedAlbumIds',count($notOrderedAlbumIds), 'orderedAlbumIds',count($orderedAlbumIds),'total', Album::count(),
-//        "diff", count($newArr ));
-
-
-//        $dateThreshold = Carbon::createFromFormat('Y-m-d', '2024-05-31')->subDays(3);
-        $albumIds = AlbumImages::where('updated_at', '<', $dateThreshold)->distinct()
-            ->pluck("album_id");
-
         // Iterate through each album
         foreach ($albumIds as $albumId) {
             // Retrieve images for the current album ordered by 'order'
             $images = AlbumImages::where('album_id', $albumId)->orderBy('order')->get();
-
-//dd($images[22]);
             // Calculate the new order for each image
             $imageCount = $images->count();
             foreach ($images as $image) {
