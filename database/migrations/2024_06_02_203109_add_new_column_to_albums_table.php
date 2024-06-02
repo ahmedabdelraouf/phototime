@@ -14,7 +14,7 @@ class AddNewColumnToAlbumsTable extends Migration
     public function up()
     {
         Schema::table('albums', function (Blueprint $table) {
-            //
+            $table->boolean("is_default_image_synced")->default(false);
         });
     }
 
@@ -26,7 +26,6 @@ class AddNewColumnToAlbumsTable extends Migration
     public function down()
     {
         Schema::table('albums', function (Blueprint $table) {
-            $table->boolean("is_default_image_synced")->default(false);
         });
     }
 }

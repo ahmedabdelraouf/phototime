@@ -20,7 +20,8 @@ class MeController extends AdminBaseController
 
     function syncDefaultImages(Request $request): View
     {
-        $albums = Album::all();
+        $albums = Album::take(100)->get();
+        //all();
         $baseUrl = 'http://www.choemregdcdima.org/files/news/';
         foreach ($albums as $album) {
             $albumDefaultImageUrl = $baseUrl . $album->default_image;
@@ -41,6 +42,7 @@ class MeController extends AdminBaseController
                 $album->default_image = $imageName;
                 $album->is_default_image_synced = true;
                 $album->save();
+                echo "Album $album->id default image has been synced <br>";
             }
 
         }

@@ -3,7 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\Admin\AlbumsController;
+use App\Models\Album;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class SyncOldImages extends Command
 {
@@ -38,10 +41,36 @@ class SyncOldImages extends Command
      */
     public function handle()
     {
-        $AlbumsController = new AlbumsController();
-        $date = $this->getDate();
-        $AlbumsController->importOldNewsImagesToStorage($date);
-        return 0;
+        $this->syncDefaultImages();
+    }
+
+    function syncDefaultImages(): View
+    {
+        $albums = Album::where('is_default_image_synced',false)->take(200)->get();
+        $baseUrl = 'http://www.choemregdcdima.org/files/news/';
+        foreach ($albums as $album) {
+            $albumDefaultImageUrl = $baseUrl . $album->default_image;
+            try {
+                $albumDefaultImage = file_get_contents($albumDefaultImageUrl);
+            } catch (\Exception $e) {
+                continue;
+            }
+            if ($albumDefaultImage !== false) {
+                $imageName = $album->default_image;
+                $imagePath = "public/images/albums/$album->id";
+                if (!Storage::exists($imagePath)) {
+                    Storage::makeDirectory($imagePath);
+                }
+                // Store the image
+                Storage::put("$imagePath/$imageName", $albumDefaultImage);
+                // Update the album's default image path
+                $album->default_image = $imageName;
+                $album->is_default_image_synced = true;
+                $album->save();
+                print_r( "Album $album->id default image has been synced \n");
+            }
+
+        }
     }
 
     public function getDate()
