@@ -56,7 +56,7 @@ class SyncOldImages17 extends Command
             ->orWhereDate('updated_at', '=', $yesterday) // For yesterday
             ->pluck('album_id');
 
-        dd($allOrdered);
+        dd(count($allOrdered));
         $notOrderedAlbumIds = \DB::table('album_images')
             ->select('album_id')
             ->distinct()
