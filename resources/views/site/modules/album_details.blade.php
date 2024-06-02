@@ -24,7 +24,7 @@
     <div class="mt-1">
         <div class="container">
             <img
-                    src="{{ images_path($album->default_image) }}"
+                    src="{{ images_path("albums/$album->id/$album->default_image") }}"
                     alt="Image {{ $album->title }}"
                     class="img-fluid"
                     loading="lazy"
