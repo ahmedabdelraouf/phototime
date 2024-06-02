@@ -2,7 +2,7 @@
     <a style="width: 10%;height: 10%" href="{{route('site.albumDetails',['id'=>$album->id])}}">
         <div class="lastwork-img">
             @if(isset($album->default_image))
-                <img src="{{ images_path($album->default_image) }}" class="img-fluid"
+                <img src="{{ images_path("albums/$album->id/$album->default_image") }}" class="img-fluid"
                      style="width: 30rem;height: 12rem"
                      alt="{{$album->title}}">
             @elseif(!empty($album->images)&&count($album->images)>0)
