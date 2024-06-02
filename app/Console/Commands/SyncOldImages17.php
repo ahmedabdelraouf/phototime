@@ -63,8 +63,10 @@ class SyncOldImages17 extends Command
             ->whereDate('updated_at', '=', $today)
             ->orWhereDate('updated_at', '=', $yesterday)
             ->pluck('album_id');
-
-        dd('notOrderedAlbumIds',count($notOrderedAlbumIds), 'orderedAlbumIds',count($orderedAlbumIds),'total', Album::count());
+        $newArr = array_diff($orderedAlbumIds,$notOrderedAlbumIds);
+        dd('notOrderedAlbumIds',count($notOrderedAlbumIds), 'orderedAlbumIds',count($orderedAlbumIds),'total', Album::count()
+        "diff", count($newArr );
+        );
 
 
         $dateThreshold = Carbon::createFromFormat('Y-m-d', '2024-05-31')->subDays(3);
