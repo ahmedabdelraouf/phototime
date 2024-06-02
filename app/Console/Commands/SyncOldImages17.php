@@ -48,20 +48,23 @@ class SyncOldImages17 extends Command
     {
 
         $today = Carbon::today()->toDateString();
+        $yesterday = Carbon::yesterday()->toDateString();
 
-        $albumIds1 = \DB::table('album_images')
+        $notOrderedAlbumIds = \DB::table('album_images')
             ->select('album_id')
             ->distinct()
-            ->whereDate('updated_at', '!=', $today)
+            ->whereDate('updated_at', '!=', $today) // For today
+            ->WhereDate('updated_at', '!=', $yesterday) // For yesterday
             ->pluck('album_id');
 
-        $albumIds2 = \DB::table('album_images')
+        $orderedAlbumIds = \DB::table('album_images')
             ->select('album_id')
             ->distinct()
             ->whereDate('updated_at', '=', $today)
+            ->orWhereDate('updated_at', '=', $yesterday)
             ->pluck('album_id');
 
-        dd(count($albumIds1), count($albumIds2), Album::count());
+        dd('notOrderedAlbumIds',count($notOrderedAlbumIds), 'orderedAlbumIds',count($orderedAlbumIds),'total', Album::count());
 
 
         $dateThreshold = Carbon::createFromFormat('Y-m-d', '2024-05-31')->subDays(3);
