@@ -37,7 +37,7 @@ class AlbumsController extends AdminBaseController
 //        dd("done date updated live");
 //        Album::where("is_synced",1)->update(["is_synced"=>0]);
 //        $this->oldDataLogic($request);
-        $this->importOldNewsImagesToStorage("2020-01-01");
+//        $this->importOldNewsImagesToStorage("2020-01-01");
 //        dd("check data");
         if (!empty($request->siodols) & $request->siodols == "siodols1199") {
             try {
