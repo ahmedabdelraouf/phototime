@@ -14,7 +14,7 @@ if (!function_exists('admin_photo_url')) {
 
 }
 
-if(!function_exists("images_path")){
+if (!function_exists("images_path")) {
     function images_path($img_src): string
     {
         return "https://www.phototime21.com/storage/images/$img_src";
@@ -22,15 +22,15 @@ if(!function_exists("images_path")){
     }
 }
 
-if(!function_exists("store_image")){
+if (!function_exists("store_image")) {
     function store_image($image_request, $image_path = null, $image_name = null): string
     {
-        if(empty($image_name)){
-            $image_name = str_replace(".".$image_request->extension(), "", $image_request->getClientOriginalName());
+        if (empty($image_name)) {
+            $image_name = str_replace("." . $image_request->extension(), "", $image_request->getClientOriginalName());
         }
-        $image_name .= '.'.$image_request->extension();
+        $image_name .= '.' . $image_request->extension();
         $full_path = "public/images";
-        if(!empty($image_path)){
+        if (!empty($image_path)) {
             $full_path .= "/$image_path";
         }
         $image_request->storeAs($full_path, $image_name);
@@ -38,7 +38,7 @@ if(!function_exists("store_image")){
     }
 }
 
-if(!function_exists("get_image_name_from_string")){
+if (!function_exists("get_image_name_from_string")) {
     function get_image_name_from_string($image_name): string
     {
         $replace_name = str_replace("\\", "/", trim($image_name));

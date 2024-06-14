@@ -164,9 +164,9 @@ class HomeController extends SiteBaseController
         if (isset($filters['photo_date']) && $filters['photo_date'] != null) {
             $albums->where("photo_date", $filters['photo_date']);
         }
-        if (isset($filters['category_id']) && $filters['category_id'] != null) {
-            $albums->where("category_id", $filters['category_id']);
-        }
+//        if (isset($filters['category_id']) && $filters['category_id'] != null) {
+//            $albums->where("category_id", $filters['category_id']);
+//        }
         return $albums->paginate(27);
     }
 
