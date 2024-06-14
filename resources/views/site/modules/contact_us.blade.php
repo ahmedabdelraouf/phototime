@@ -16,9 +16,6 @@
     class="text-right" dir="rtl"
 @endsection
 
-@section("footer")
-    @include("site.partials.footer")
-@endsection
 
 @section("content")
     <div class="mt-5">
@@ -38,7 +35,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="user_phone_number">رقم الجوال</label>
-                        <input id="user_phone_number" name="user_phone_number" type="text" class="form-control"
+                        <input id="user_phone_number" name="user_phone_number" type="number" class="form-control"
                                placeholder=" " required>
                     </div>
                     <div class="col-12">
@@ -65,3 +62,7 @@
 @push("styles")
     <link rel="stylesheet" href="{{asset("resources/site/css/contact-us.css")}}">
 @endpush
+
+@section("footer")
+    @include("site.partials.footer")
+@endsection

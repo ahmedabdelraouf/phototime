@@ -183,10 +183,7 @@ class HomeController extends SiteBaseController
     function blogs(): View
     {
         $slug_data = SlugAlias::where("slug", "categories")->first();
-        $blogs = Blog::where("is_active", 1)->with("slugData")->get();
-        for ($i = 1; $i < 30; $i++) {
-            $blogs[] = $blogs[0];
-        }
+        $blogs = Blog::where("is_active", 1)->with("slugData")->paginate(30);
         return view("site.modules.blogs", get_defined_vars());
     }
 

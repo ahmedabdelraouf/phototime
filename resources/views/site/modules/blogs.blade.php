@@ -47,8 +47,8 @@
             <div class="row">
                 @forelse($blogs as $blog)
                     <div class="col-md-4 col-sm-6 col-12">
-                        <a href="{{route("site.blogDetails", $blog->id)}}">                        <div class="blog" style="background-image: url('{{images_path($blog->image)}}')">
-                            </div>
+                        <a href="{{route("site.blogDetails", $blog->id)}}">
+                            <img class="blog" src="{{images_path($blog->image)}}">
                         </a>
                         <h3 class="blog-title">{{$blog->title}}</h3>
                         <p class="blog-description">{{$blog->short_desc}}</p>
