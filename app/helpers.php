@@ -17,7 +17,8 @@ if (!function_exists('admin_photo_url')) {
 if(!function_exists("images_path")){
     function images_path($img_src): string
     {
-        return asset("storage/images/$img_src");
+        return "https://www.phototime21.com/storage/images/$img_src";
+//        return asset("storage/images/$img_src");
     }
 }
 

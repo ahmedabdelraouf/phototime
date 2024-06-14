@@ -19,8 +19,6 @@ class RedirectOldUrls
         $currentUrl = url()->current();
         if (str_contains($currentUrl, "/index.php/welcome/view_news/")) {
             $arr = explode("/", $currentUrl);
-//            dd(end($arr));
-//            dd("here we are",$id);
             return redirect()->route('site.albumDetails', ['id' => end($arr)]);
         }
 

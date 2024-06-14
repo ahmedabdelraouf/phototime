@@ -104,6 +104,7 @@ class AlbumsController extends AdminBaseController
         $validatedInputs = $request->validated();
         $validatedInputs["photo_date"] = date("Y-m-d");
         unset($validatedInputs["default_image"]);
+        $validatedInputs["is_old"]=false;
         $album = Album::create($validatedInputs);
         if (!empty($album->id)) {
 //            SlugAlias::create(["module_id" => $album->id, "slug" => $request->slug, "module" => Album::MODULE_NAME]);

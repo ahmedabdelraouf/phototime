@@ -16,9 +16,6 @@ use App\Models\YoutubeChannel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use Spatie\Permission\Models\Role;
 
 class HomeController extends SiteBaseController
 {
@@ -41,7 +38,7 @@ class HomeController extends SiteBaseController
         $successPartners = SuccessPartner::where("is_active", 1)->get();
         $settingsDB = Setting::select("key", "value")->get();
         $settings = $this->getSettings();
-        $featuredAlbums = Album::take(6)->where("is_featured",1)->get();
+        $featuredAlbums = Album::take(6)->inRandomOrder()->where("is_featured", 1)->get();
         $youtubeLinks = YoutubeChannel::take(4)->get();
         return view("site.modules.homepage", get_defined_vars());
     }
@@ -49,7 +46,7 @@ class HomeController extends SiteBaseController
     public function getGroupedCategories()
     {
         $categoriesCount = Category::count();
-        if ($categoriesCount > 12) {
+        if ($categoriesCount > 2) {
             $categories = Category::where("is_active", 1)->orderBy("order", "ASC")->take(11)->get()->toArray();
             $categories[] = [
                 "title" => "...المزيد",
@@ -134,6 +131,7 @@ class HomeController extends SiteBaseController
         }
         return view("site.modules.album_details", get_defined_vars());
     }
+
     /**
      * @param ContactUsRequest $request
      * @return RedirectResponse
@@ -144,14 +142,32 @@ class HomeController extends SiteBaseController
         return view("site.modules.youtube_channel_details", get_defined_vars());
     }
 
-    function albums(): View
+    function albums(Request $request): View
     {
         $slug_data = SlugAlias::where("slug", "albums")->first();
         if (!empty($slug_data)) {
             $page = Page::where("is_active", 1)->find($slug_data->module_id);
         }
-        $albums = Album::where("is_active", 1)->with("slugData")->get();
+        $albums = $this->getAlbums($request->all());
+        $categories = Category::where("is_active", 1)->orderBy("order", "ASC")->get()->toArray();
         return view("site.modules.albums", get_defined_vars());
+    }
+
+    public function getAlbums($filters)
+    {
+        $albums = Album::where("is_active", 1)->with("slugData")
+            ->orderBy('photo_date', 'DESC');
+        if (isset($filters['album_title']) && $filters['album_title'] != null) {
+            $title = $filters['album_title'];
+            $albums->where("title", "like", "%{$title}%");
+        }
+        if (isset($filters['photo_date']) && $filters['photo_date'] != null) {
+            $albums->where("photo_date", $filters['photo_date']);
+        }
+        if (isset($filters['category_id']) && $filters['category_id'] != null) {
+            $albums->where("category_id", $filters['category_id']);
+        }
+        return $albums->paginate(27);
     }
 
     function youtubeChannel(): View
@@ -168,7 +184,7 @@ class HomeController extends SiteBaseController
     {
         $slug_data = SlugAlias::where("slug", "categories")->first();
         $blogs = Blog::where("is_active", 1)->with("slugData")->get();
-        for($i=1;$i<30;$i++){
+        for ($i = 1; $i < 30; $i++) {
             $blogs[] = $blogs[0];
         }
         return view("site.modules.blogs", get_defined_vars());

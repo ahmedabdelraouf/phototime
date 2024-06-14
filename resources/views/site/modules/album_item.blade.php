@@ -1,6 +1,6 @@
 <div class="col-lg-4 col-md-6 col-sm-6 col-6">
     <a style="width: 10%;height: 10%" href="{{route('site.albumDetails',['id'=>$album->id])}}">
-        <div class="lastwork-img">
+        <div class="lastwork-img" style="border: 1rem">
             @if(isset($album->default_image))
                 <img src="{{ images_path("albums/$album->id/$album->default_image") }}" class="img-fluid"
                      style="width: 30rem;height: 12rem"
