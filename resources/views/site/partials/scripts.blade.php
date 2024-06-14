@@ -14,7 +14,7 @@
         coverflowEffect: {
             rotate: 0,
             stretch: 0,
-            depth: 100,
+            depth: 50,
             modifier: 3,
             slideShadows: true,
         },
@@ -26,7 +26,7 @@
         },
         loop: true,
         autoplay: {
-            delay: 3000,
+            delay: 6000,
             disableOnInteraction: true,
         },
         pagination: {

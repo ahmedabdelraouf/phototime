@@ -40,20 +40,19 @@
     @include("site.partials.footer")
 @endsection
 
-
 @section("content")
     <div class="all-blogs mt-5">
         <div class="container">
             <div class="row">
                 @forelse($blogs as $blog)
                     <div class="col-md-4 col-sm-6 col-12">
-                        <a href="{{route("site.blogDetails", $blog->id)}}">
-                            <img class="blog" src="{{images_path($blog->image)}}">
+                        <a href="{{ route('site.blogDetails', $blog->id) }}">
+                            <img class="blog img-fluid" src="{{ images_path($blog->image) }}" alt="{{ $blog->title }}">
                         </a>
-                        <h3 class="blog-title">{{$blog->title}}</h3>
-                        <p class="blog-description">{{$blog->short_desc}}</p>
+                        <h3 class="blog-title">{{ $blog->title }}</h3>
+                        <p class="blog-description">{{ $blog->short_desc }}</p>
                         <p class="show-more text-end">
-                            <a href="{{route("site.blogDetails", $blog->id)}}">عرض المزيد</a>
+                            <a href="{{ route('site.blogDetails', $blog->id) }}">عرض المزيد</a>
                         </p>
                     </div>
                 @empty
@@ -64,7 +63,16 @@
     </div>
 @endsection
 
+
 @push("styles")
+    <style>
+        .blog {
+            width: 100%;
+            height: auto; /* Ensures the image scales correctly */
+            display: block;
+            object-fit: cover; /* Adjust this property if you need the image to cover a specific aspect ratio */
+        }
+    </style>
     <link rel="stylesheet" href="{{asset("resources/site/css/blog.css")}}">
     <style>
         #blog .home-main {
