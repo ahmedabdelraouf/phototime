@@ -318,7 +318,7 @@ class AlbumsController extends AdminBaseController
         $file = $request->file;
         $filename = $file->getClientOriginalName();
 // Upload the image to AWS S3
-        $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename, "public");
+        $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename);
 //        $gcsDUrl = $this->GSC->uploadImageToGCS($request->file, $folderDirectory);
         $countAlbumImages = count($album->images);
 //        $image = $request->file;
