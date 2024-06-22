@@ -70,7 +70,7 @@ class AlbumsController extends AdminBaseController
         if ($request->filled('album_number')) {
             $query->where('album_number', $request->input('album_number'));
         }
-        $query->orderBy("created_at", "desc");
+        $query->orderBy("album_number", "DESC");
         $albums = $query->paginate(50);
 
         // Pass only necessary variables to the view

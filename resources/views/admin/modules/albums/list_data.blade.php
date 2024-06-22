@@ -81,11 +81,11 @@
                             {{--                            <th style='width: 25%'>Default Image</th>--}}
                             <th style='width: 25%'>Title</th>
                             <th style='width: 25%'>Number</th>
+                            <th style='width: 10%'>Share</th>
                             {{--                            <th style='width: 25%'>Short Description</th>--}}
                             <th style='width: 25%'>Album Details</th>
                             <th style='width: 10%'>Views</th>
                             <th style='width: 10%'>Images</th>
-                            <th style='width: 10%'>Share</th>
                             <th style='width: 10%'>Featured</th>
                             <th style='width: 10%'>Published</th>
                             <th style='width: 10%'>Actions</th>
@@ -107,7 +107,13 @@
                                 {{--                                </td>--}}
 
                                 <td><a href="{{route('site.albumDetails',['id'=>$album->id])}}">{{ $album->title }}</a>
-                                <td>{{ $album->album_number }}</td>
+                                <td>{{ $album->album_number }}</td>    <td>
+                                    <button class="share_item  btn "
+                                            onclick="shareViaWhatsApp('{{ route('site.albumDetails', ['id' => $album->id]) }}', '{{ $album->title }}')"
+                                            data-bs-toggle="tooltip" data-bs-original-title="Share via WhatsApp">
+                                        <i class="fa fa-whatsapp text-success" ></i>
+                                    </button>
+                                </td>
                                 </td>
                                 {{--                                <td>{{ $album->short_desc }}</td>--}}
                                 <td>
@@ -117,13 +123,7 @@
                                 <td>{{ $album->views_count }}</td>
                                 <td><a class="btn btn-primary"
                                        href='{{route("admin.albums.addImages", ["id" => $album->id])}}'>Images</a></td>
-                                <td>
-                                    <button class="share_item  btn "
-                                            onclick="shareViaWhatsApp('{{ route('site.albumDetails', ['id' => $album->id]) }}', '{{ $album->title }}')"
-                                            data-bs-toggle="tooltip" data-bs-original-title="Share via WhatsApp">
-                                        <i class="fa fa-whatsapp text-success" ></i>
-                                    </button>
-                                </td>
+
 
                                 <td style="font-size: 1rem">
                                     @if(empty($album->is_featured))
