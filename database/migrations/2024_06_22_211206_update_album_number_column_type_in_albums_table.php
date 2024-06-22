@@ -16,7 +16,7 @@ class UpdateAlbumNumberColumnTypeInAlbumsTable extends Migration
 
         Schema::table('albums', function (Blueprint $table) {
             // Add a temporary column
-            $table->integer('temp_album_number')->nullable();
+//            $table->integer('temp_album_number')->nullable();
         });
 
         // Update the temporary column with the converted values only for valid integers
@@ -44,7 +44,7 @@ class UpdateAlbumNumberColumnTypeInAlbumsTable extends Migration
     {
         Schema::table('albums', function (Blueprint $table) {
             // Add the original column back
-//            $table->text('album_number')->nullable();
+            $table->text('album_number')->nullable();
         });
 
         // Optionally reverse the data conversion if necessary
