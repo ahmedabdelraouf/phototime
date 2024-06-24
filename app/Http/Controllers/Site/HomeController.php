@@ -121,7 +121,7 @@ class HomeController extends SiteBaseController
      */
     function albumDetails($id)
     {
-        $album = Album::where("is_blocked",false)->find($id);
+        $album = Album::where("is_blocked",false)->findOrFail($id);
         $album->views_count += 1;
         $album->save();
         $images = $album->images;
