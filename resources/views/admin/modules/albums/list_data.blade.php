@@ -139,20 +139,13 @@
                                         <span class="badge badge-success">Published</span>
                                     @endif
                                 </td>
-                                <td style="font-size: 1rem">
-                                    @if(empty($album->is_blocked))
-                                        <span class="badge badge-success">Not Blocked</span>
-                                    @else
+                                <td>
+                                    @if($album->is_blocked)
                                         <span class="badge badge-danger">Blocked</span>
+                                    @else
+                                        <span class="badge badge-success">Not Blocked</span>
                                     @endif
                                 </td>
-                                {{--                                <td>--}}
-                                {{--                                    @if($album->is_blocked)--}}
-                                {{--                                        <span class="badge badge-danger">Blocked</span>--}}
-                                {{--                                    @else--}}
-                                {{--                                        <span class="badge badge-success">Not Blocked</span>--}}
-                                {{--                                    @endif--}}
-                                {{--                                </td>--}}
                                 <td class='text-center'>
                                     <div style="font-size: 22px" class="btn-group">
                                         @if(empty($album->is_active))
