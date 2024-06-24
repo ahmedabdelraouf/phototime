@@ -106,8 +106,8 @@
                                 {{--                                    @endif--}}
                                 {{--                                </td>--}}
 
-                                <td><a href="{{route('site.albumDetails',['id'=>$album->album_number])}}">{{ $album->title }}</a>
-                                <td>{{ $album->album_number }}</td>    <td>
+                                <td><a href="{{route('site.albumDetails',['id'=>$album->id])}}">{{ $album->title }}</a>
+                                <td>{{ $album->id }}</td>    <td>
                                     <button class="share_item  btn "
                                             onclick="shareViaWhatsApp('{{ route('site.albumDetails', ['id' => $album->id]) }}', '{{ $album->title }}')"
                                             data-bs-toggle="tooltip" data-bs-original-title="Share via WhatsApp">

@@ -121,7 +121,7 @@ class HomeController extends SiteBaseController
      */
     function albumDetails($id)
     {
-        $album = Album::where("album_number",$id)->first();
+        $album = Album::find($id);
         $album->views_count += 1;
         $album->save();
         $images = $album->images;
