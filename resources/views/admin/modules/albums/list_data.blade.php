@@ -88,6 +88,7 @@
                             <th style='width: 10%'>Images</th>
                             <th style='width: 10%'>Featured</th>
                             <th style='width: 10%'>Published</th>
+                            <th style='width: 10%'>Blocked</th>
                             <th style='width: 10%'>Actions</th>
                         </tr>
                         </thead>
