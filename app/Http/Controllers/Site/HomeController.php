@@ -155,6 +155,7 @@ class HomeController extends SiteBaseController
     public function getAlbums($filters)
     {
         $albums = Album::where("is_active", 1)->with("slugData")
+            ->where("is_blocked", 0)
             ->orderBy('photo_date', 'DESC');
         if (isset($filters['album_title']) && $filters['album_title'] != null) {
             $title = $filters['album_title'];
