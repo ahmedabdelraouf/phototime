@@ -121,13 +121,12 @@ class HomeController extends SiteBaseController
      */
     function albumDetails($id)
     {
-        $album = Album::find($id);
+        $album = Album::where("is_blocked",false)->find($id);
         $album->views_count += 1;
         $album->save();
         $images = $album->images;
         foreach ($images as $image) {
             $image->image = env("AWS_PATH") . $image->image;
-//            $image->image = $this->GSC->getFileByPathAndName($image->image);
         }
         return view("site.modules.album_details", get_defined_vars());
     }
