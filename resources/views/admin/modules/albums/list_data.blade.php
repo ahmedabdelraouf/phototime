@@ -80,7 +80,7 @@
                             {{--                            <th style="width: 5%">#</th>--}}
                             {{--                            <th style='width: 25%'>Default Image</th>--}}
                             <th style='width: 25%'>Title</th>
-                            <th style='width: 25%'>Number</th>
+                            <th style='width: 10%'>Number</th>
                             <th style='width: 10%'>Share</th>
                             {{--                            <th style='width: 25%'>Short Description</th>--}}
                             <th style='width: 25%'>Album Details</th>
@@ -112,7 +112,7 @@
 
                                 <td>
                                     <button class="share_item btn" onclick="shareViaWhatsApp('{{ route('site.albumDetails', ['id' => $album->id]) }}', '{{ $album->title }}')" data-bs-toggle="tooltip" data-bs-original-title="Share via WhatsApp">
-                                        <span class="fa fa-whatsapp text-success" style="font-size: 24px;"></span>
+                                        <span class="fa fa-whatsapp text-success" style="font-size: 34px;"></span>
                                     </button>
                                 </td>
 
