@@ -107,7 +107,7 @@
                                 {{--                                    @endif--}}
                                 {{--                                </td>--}}
 
-                                <td><a href="{{route('site.albumDetails',['id'=>$album->id])}}">{{ $album->title }}</a>
+                                <td><a href="{{route('site.albumDetails',['id'=>$album->id])}}"><strong>{{ $album->title }}</strong></a>
                                 <td><strong style="color: #1325c5;font-size: 18px;">{{ $album->id }}</strong></td>
 
                                 <td>
