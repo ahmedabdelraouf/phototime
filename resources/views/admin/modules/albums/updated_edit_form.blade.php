@@ -100,22 +100,22 @@
 {{--                    @endif--}}
 {{--                </div>--}}
 {{--            </div>--}}
-            <div class="col-12 col-md-6 col-lg-6 mb-3">
-                <div class="form-group">
-                    <label for="album_number"
-                           class="form-label @if ($errors->has("album_number")) is-invalid @endif">Album number</label>
-                    <input type='text' accept="image/x-png,image/gif,image/jpeg" name='album_number'
-                           id='album_number'
-                           value="{{old("album_number")??$album->album_number}}"
-                           placeholder="album number"
-                           class='form-control @if ($errors->has("album_number")) is-invalid @endif' required
-                           @if ($errors->has("album_number"))
-                               aria-describedby="album_number-error"
-                           aria-invalid="true"
-                            @endif
-                    />
-                </div>
-            </div>
+{{--            <div class="col-12 col-md-6 col-lg-6 mb-3">--}}
+{{--                <div class="form-group">--}}
+{{--                    <label for="album_number"--}}
+{{--                           class="form-label @if ($errors->has("album_number")) is-invalid @endif">Album number</label>--}}
+{{--                    <input type='text' accept="image/x-png,image/gif,image/jpeg" name='album_number'--}}
+{{--                           id='album_number'--}}
+{{--                           value="{{old("album_number")??$album->album_number}}"--}}
+{{--                           placeholder="album number"--}}
+{{--                           class='form-control @if ($errors->has("album_number")) is-invalid @endif' required--}}
+{{--                           @if ($errors->has("album_number"))--}}
+{{--                               aria-describedby="album_number-error"--}}
+{{--                           aria-invalid="true"--}}
+{{--                            @endif--}}
+{{--                    />--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
 
 
