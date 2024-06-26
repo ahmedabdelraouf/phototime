@@ -112,7 +112,7 @@
                                     <button class="share_item  btn "
                                             onclick="shareViaWhatsApp('{{ route('site.albumDetails', ['id' => $album->id]) }}', '{{ $album->title }}')"
                                             data-bs-toggle="tooltip" data-bs-original-title="Share via WhatsApp">
-                                        <i class="fa fa-whatsapp text-success" ></i>
+                                        <span class="fa fa-whatsapp text-success" ></span>
                                     </button>
                                 </td>
                                 </td>
