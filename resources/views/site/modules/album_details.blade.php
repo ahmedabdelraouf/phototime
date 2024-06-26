@@ -52,7 +52,12 @@
         </div>
 
         <div class="row"
-             style="margin: 5rem; margin-top: -0.1rem; align-content: center; display: flex; justify-content: center; flex-wrap: wrap;"
+             style="margin: 1rem;
+             margin-top: -0.1rem;
+              align-content: center;
+              display: flex;
+             justify-content: center;
+             flex-wrap: wrap;"
              id="lightgallery">
             @foreach ($images as $index => $image)
                 <a href="{{ $image->image }}" data-lg-size="1600-2400">
@@ -61,7 +66,7 @@
                             alt="Image {{ $album->title }}"
                             class="img-fluid"
                             loading="lazy"
-                            style="width: 100%; height: auto;"
+                            style="width: 100%; height: auto; margin-top: 1rem"
                     />
                 </a>
             @endforeach
