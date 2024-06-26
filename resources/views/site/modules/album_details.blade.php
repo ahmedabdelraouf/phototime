@@ -4,7 +4,7 @@
     <div class="overlay"></div>
     <div class="content">
         <div class="head">
-            <h3  class="pb-3">{{$album->title}}</h3>
+            <h3 class="pb-3">{{$album->title}}</h3>
         </div>
     </div>
 @endsection
@@ -46,24 +46,26 @@
                 <span class="views-icon">👁️</span>
                 <span class="view-count">{{ $album->views_count }}</span>
             </div>
-{{--            <h3 style="color: #0000FF;">{{$album->title}}</h3>--}}
+            {{--            <h3 style="color: #0000FF;">{{$album->title}}</h3>--}}
             <br>
             <p style="color: #0b2e13;width: 70%">{!! $album->short_desc !!}</p>
         </div>
 
-<div class="row" style="margin: 5rem; margin-top: -0.1rem; align-content: center; display: flex; justify-content: center; flex-wrap: wrap;" id="lightgallery">
-    @foreach ($images as $index => $image)
-        <a href="{{ $image->image }}" data-lg-size="1600-2400">
-            <img
-                src="{{ $image->image }}"
-                alt="Image {{ $album->title }}"
-                class="img-fluid"
-                loading="lazy"
-                style="max-width: 100%; height: auto; margin: 0.5rem;"
-            />
-        </a>
-    @endforeach
-</div>
+        <div class="row"
+             style="margin: 5rem; margin-top: -0.1rem; align-content: center; display: flex; justify-content: center; flex-wrap: wrap;"
+             id="lightgallery">
+            @foreach ($images as $index => $image)
+                <a href="{{ $image->image }}" data-lg-size="1600-2400">
+                    <img
+                            src="{{ $image->image }}"
+                            alt="Image {{ $album->title }}"
+                            class="img-fluid"
+                            loading="lazy"
+                            style="width: 100%; height: auto;"
+                    />
+                </a>
+            @endforeach
+        </div>
     </div>
     <br>
     <br>
