@@ -114,9 +114,12 @@ class AlbumsController extends AdminBaseController
             }
             if (is_file($request->default_image)) {
                 $default_image_path = store_image($request->default_image, "albums/$album->id");
+//                dd(($default_image_path));
                 $album->default_image = $default_image_path;
                 $album->save();
+//                dd(images_path($default_image_path));
             }
+//            dd($album);
             return redirect()->route("admin.albums.addImages", ["id" => $album->id])->with("success", "Album Created successfully");
         }
         return redirect()->route("admin.albums.create")->with("error", "No data saved please try again")->withInput();
