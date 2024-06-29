@@ -70,7 +70,7 @@ class AlbumsController extends AdminBaseController
         if ($request->filled('album_number')) {
             $query->where('album_number', $request->input('album_number'));
         }
-        $query->orderBy("album_number", "DESC");
+        $query->orderBy("id", "DESC");
         $albums = $query->paginate(50);
 
         // Pass only necessary variables to the view
@@ -113,10 +113,11 @@ class AlbumsController extends AdminBaseController
                 $album->categories()->sync($request->categories);
             }
             if (is_file($request->default_image)) {
-                $default_image_path = store_image($request->default_image, "albums/$album->id");
+                $default_image_path = store_image($request->default_image, "albums/$album->id",null,true);
 //                dd(($default_image_path));
                 $album->default_image = $default_image_path;
                 $album->save();
+//                dd(images_path("albums/$album->id/$album->default_image"));
 //                dd(images_path($default_image_path));
             }
 //            dd($album);
@@ -289,13 +290,13 @@ class AlbumsController extends AdminBaseController
         }
         $album_data = $request->validated();
         if (!empty($request->image)) {
-            $album_data["image"] = store_image($request->image, "albums", $request->image_name);
+            $album_data["image"] = store_image($request->image, "albums", $request->image_name,true);
         }
         $this->setCheckBoxValue($album_data, "is_featured");
         $this->setCheckBoxValue($album_data, "is_active");
         $this->setCheckBoxValue($album_data, "is_blocked");
         if (isset($request->default_image) && is_file($request->default_image)) {
-            $default_image_path = store_image($request->default_image, "albums/$album->id");
+            $default_image_path = store_image($request->default_image, "albums/$album->id",null,true);
             $album_data['default_image'] = $default_image_path;
             if (isset($default_image_path) && is_file($album->default_image)) {
                 unlink($album->default_image);

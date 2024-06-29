@@ -23,7 +23,7 @@ if (!function_exists("images_path")) {
 }
 
 if (!function_exists("store_image")) {
-    function store_image($image_request, $image_path = null, $image_name = null): string
+    function store_image($image_request, $image_path = null, $image_name = null,$isAlbums = false): string
     {
         if (empty($image_name)) {
             $image_name = str_replace("." . $image_request->extension(), "", $image_request->getClientOriginalName());
@@ -34,6 +34,9 @@ if (!function_exists("store_image")) {
             $full_path .= "/$image_path";
         }
         $image_request->storeAs($full_path, $image_name);
+        if ($isAlbums) {
+            return $image_name;
+        }
         return !empty($image_path) ? "$image_path/$image_name" : $image_name;
     }
 }
