@@ -56,6 +56,9 @@
         Dropzone.options.myDropzone = {
             maxFilesize: 50, // Set the maximum file size in MB
             acceptedFiles: ".jpeg,.jpg,.png,.gif", // Specify accepted file types
+            uploadMultiple: false,
+            parallelUploads: 1, // Process only one file at a time
+            autoProcessQueue: true, // Disable auto processing to control it manually
             success: function (file, response) {
                 // Handle success
                 console.log(response);
