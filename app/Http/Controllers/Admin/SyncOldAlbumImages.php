@@ -84,17 +84,17 @@ trait SyncOldAlbumImages
     public function importOldNewsImagesToStorage($date)
     {
         print_r(" \n Start import for Yearly-monthly date = $date \n");
-        ini_set('memory_limit', '1024M');// Set memory limit to 256M
+        ini_set('memory_limit', '5000M');// Set memory limit to 256M
         ini_set('max_execution_time', 300);// Set max execution time to 300 seconds (5 minutes)
 //       print_r(" No pending data for this date \n");
         $allAlbums = Album::whereYear('photo_date', substr($date, 0, 4))
             ->whereMonth('photo_date', substr($date, 5, 2)) // Month 1 represents January
             ->where('is_old', 1)
             ->where('is_synced', 0)
-//            ->where('id', 4)
             ->limit(2)
             ->orderBy('photo_date', 'ASC')
             ->get();
+        Album::where('is_synced', 0)->update('is_synced', 1);
 
         if (count($allAlbums) == 0) {
             $this->updateSyncedYearMonth($date);

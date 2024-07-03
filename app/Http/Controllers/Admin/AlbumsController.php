@@ -113,7 +113,7 @@ class AlbumsController extends AdminBaseController
                 $album->categories()->sync($request->categories);
             }
             if (is_file($request->default_image)) {
-                $default_image_path = store_image($request->default_image, "albums/$album->id",null,true);
+                $default_image_path = store_image($request->default_image, "albums/$album->id", null, true);
 //                dd(($default_image_path));
                 $album->default_image = $default_image_path;
                 $album->save();
@@ -207,7 +207,8 @@ class AlbumsController extends AdminBaseController
         }
         $images = $album->images()->limit(1000)->get();
         foreach ($images as $image) {
-            $image->image = env("AWS_PATH") . $image->image;
+            $image->image = asset($image->image);
+//            $image->image = env("AWS_PATH") . $image->image;
 //            $image->image = $this->GSC->getFileByPathAndName($image->image);
         }
         return view("admin.modules.albums.images", get_defined_vars());
@@ -290,13 +291,13 @@ class AlbumsController extends AdminBaseController
         }
         $album_data = $request->validated();
         if (!empty($request->image)) {
-            $album_data["image"] = store_image($request->image, "albums", $request->image_name,true);
+            $album_data["image"] = store_image($request->image, "albums", $request->image_name, true);
         }
         $this->setCheckBoxValue($album_data, "is_featured");
         $this->setCheckBoxValue($album_data, "is_active");
         $this->setCheckBoxValue($album_data, "is_blocked");
         if (isset($request->default_image) && is_file($request->default_image)) {
-            $default_image_path = store_image($request->default_image, "albums/$album->id",null,true);
+            $default_image_path = store_image($request->default_image, "albums/$album->id", null, true);
             $album_data['default_image'] = $default_image_path;
             if (isset($default_image_path) && is_file($album->default_image)) {
                 unlink($album->default_image);
@@ -318,11 +319,41 @@ class AlbumsController extends AdminBaseController
     {
         $id = $request->albumId;
         $album = Album::findOrFail($id);
+        $folderDirectory = 'album_images/'.$this->getAlbumFolderPath($album);
+
+        // Validate and store the file
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $file = $request->file('file');
+            $filename = $file->getClientOriginalName();
+
+            // Store the file in the specified directory
+            $file->move($folderDirectory, $filename);
+
+            // Save image information to database
+            $countAlbumImages = count($album->images);
+            $album_images = new AlbumImages;
+            $album_images->album_id = $id;
+            $album_images->image = $folderDirectory."/$filename";
+            $album_images->is_default = 0;
+            $album_images->is_active = 1;
+            $album_images->order = 1 + $countAlbumImages;
+            $album_images->save();
+
+            return response()->json(['message' => 'Image uploaded successfully.', 'image' => $album_images]);
+        }
+
+        return response()->json(['message' => 'File upload failed.']);
+
+        $id = $request->albumId;
+        $album = Album::findOrFail($id);
         $folderDirectory = $this->getAlbumFolderPath($album);
         $file = $request->file;
         $filename = $file->getClientOriginalName();
-// Upload the image to AWS S3
-        $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename);
+        // Store the file in the specified directory
+        $path = $file->storeAs($folderDirectory, $filename);
+
+//// Upload the image to AWS S3
+//        $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename);
 //        $gcsDUrl = $this->GSC->uploadImageToGCS($request->file, $folderDirectory);
         $countAlbumImages = count($album->images);
 //        $image = $request->file;
