@@ -58,7 +58,8 @@
               display: flex;
              justify-content: center;
              flex-wrap: wrap;"
-             id="lightgallery">
+{{--             id="lightgallery"--}}
+        >
             @foreach ($images as $index => $image)
                 <a href="{{ $image->image }}" data-lg-size="1600-2400">
                     <img
