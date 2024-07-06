@@ -12,7 +12,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AlbumsController extends AdminBaseController
 {
@@ -250,7 +249,13 @@ class AlbumsController extends AdminBaseController
         if (!empty($request->delete_images) && is_array($request->delete_images) && count($request->delete_images) > 0) {
             $images = AlbumImages::whereIn('id', $request->delete_images)->pluck("image");
             foreach ($images as $image) {
-                Storage::disk('s3')->delete($image);
+                // Convert the relative path to an absolute path
+                $absoluteImagePath = public_path($image);
+                // Check if the file exists
+                if (\File::exists($absoluteImagePath)) {
+                    \File::delete($absoluteImagePath);
+                }
+//                Storage::disk('s3')->delete($image);
             }
 //            $this->GSC->deletePluckFiles($images);
             AlbumImages::whereIn('id', $request->delete_images)->delete();
@@ -317,9 +322,20 @@ class AlbumsController extends AdminBaseController
 
     public function uploadDropzone(Request $request)
     {
+        /*
+         *         $id = $request->albumId;
+        $album = Album::findOrFail($id);
+        $folderDirectory = $this->getAlbumFolderPath($album);
+        $file = $request->file;
+        $filename = $file->getClientOriginalName();
+// Upload the image to AWS S3
+        $path = Storage::disk('s3')->putFileAs($folderDirectory, $file, $filename, "public");
+//        $gcsDUrl = $this->GSC->uploadImageToGCS($request->file, $folderDirectory);
+        $countAlbumImages = count($album->images);
+*/
         $id = $request->albumId;
         $album = Album::findOrFail($id);
-        $folderDirectory = 'album_images/'.$this->getAlbumFolderPath($album);
+        $folderDirectory = 'album_images/' . $this->getAlbumFolderPath($album);
 
         // Validate and store the file
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
@@ -333,7 +349,7 @@ class AlbumsController extends AdminBaseController
             $countAlbumImages = count($album->images);
             $album_images = new AlbumImages;
             $album_images->album_id = $id;
-            $album_images->image = $folderDirectory."/$filename";
+            $album_images->image = $folderDirectory . "/$filename";
             $album_images->is_default = 0;
             $album_images->is_active = 1;
             $album_images->order = 1 + $countAlbumImages;
