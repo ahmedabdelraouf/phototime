@@ -33,6 +33,7 @@ class WebsiteController extends SiteBaseController
                 return view("site.modules.static_page", get_defined_vars());
         }
     }
+
     /**
      * @param Request $request
      * @param SlugAlias $slug_data
@@ -41,11 +42,10 @@ class WebsiteController extends SiteBaseController
     private function staticPages(Request $request, SlugAlias $slug_data): View
     {
         $page = Page::where("is_active", 1)->find($slug_data->module_id);
-        if(is_null($page))
-        {
+        if (is_null($page)) {
             abort(404);
         }
-        return view("site.modules.static_page", ['page'=>$page]);
+        return view("site.modules.static_page", ['page' => $page]);
     }
 
     /**
@@ -68,6 +68,17 @@ class WebsiteController extends SiteBaseController
     {
         $category = Category::where("is_active", 1)->findOrFail($slug_data->module_id);
         $albums = $category->albums;
+        return view("site.modules.show_category", get_defined_vars());
+    }
+
+    /**
+     * @param Request $request
+     * @param SlugAlias $slug_data
+     * @return View
+     */
+    private function categoryDetails(Category $category): View
+    {
+        dd('web categoryDetails');
         return view("site.modules.show_category", get_defined_vars());
     }
 }

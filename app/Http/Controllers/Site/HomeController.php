@@ -196,5 +196,15 @@ class HomeController extends SiteBaseController
         return view("site.modules.blog_details", get_defined_vars());
     }
 
+    /**
+     * @param Request $request
+     * @param SlugAlias $slug_data
+     * @return View
+     */
+    private function categoryDetails(Category $categpry): View
+    {
+        dd('categoryDetails');
+        return view("site.modules.show_category", get_defined_vars());
+    }
 
 }

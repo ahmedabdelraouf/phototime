@@ -12,16 +12,20 @@
             <div class="all-card">
                 @foreach($allCategories as $category)
                     <div class="category-col">
-                        <div class="card category-card">
-                            @if(empty($category['is_more']))
-                                <img src="{{ images_path($category['image']) }}" class="img-fluid"/>
-                            @else
-                                <a style="padding-top: 10px" href="{{ route('site.categories') }}">
-                                    <img src="{{ asset('resources/site/images/moresvg.svg') }}" class="img-fluid"/>
-                                </a>
-                            @endif
-                            <p>{{ $category['title'] }}</p>
-                        </div>
+                        <a href="{{route("site.webCategoryDetails",$category['id'])}}">
+                            <div class="card category-card">
+                                @if(empty($category['is_more']))
+                                    <img src="{{ images_path($category['image']) }}" class="img-fluid"/>
+                                @else
+                                    <a style="padding-top: 10px" href="{{ route('site.categories') }}">
+                                        <img src="{{ asset('resources/site/images/moresvg.svg') }}" class="img-fluid"/>
+                                    </a>
+                                @endif
+                                <p>{{ $category['title'] }}</p>
+                            </div>
+
+                        </a>
+
                     </div>
                 @endforeach
             </div>

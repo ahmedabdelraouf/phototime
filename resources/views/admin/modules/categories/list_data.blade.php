@@ -31,7 +31,7 @@
                             <th style="width: 5%">#</th>
                             <th style='width: 20%'>Image</th>
                             <th style='width: 20%'>Title</th>
-                            <th style='width: 20%'>Short Description</th>
+{{--                            <th style='width: 20%'>Short Description</th>--}}
                             <th style='width: 20%'>Slug</th>
                             <th style='width: 20%'>Total Albums</th>
                             <th style='width: 10%'>Status</th>
@@ -42,9 +42,9 @@
                         @forelse($categories as $category)
                             <tr>
                                 <td> {{ $loop->index +1 }} </td>
-                                <td style="width: 5rem;height: 5rem"><img src=" {{ images_path($category->image) }}"> </td>
+                                <td style="width: 5rem;height: 5rem"><img style="width: 5rem;height: 5rem" src=" {{ images_path($category->image) }}"> </td>
                                 <td> {{ $category->title }} </td>
-                                <td>{{ $category->short_desc }}</td>
+{{--                                <td>{{ $category->short_desc }}</td>--}}
                                 <td>{{!empty($category->slugData) ? $category->slugData->slug : ""}}</td>
                                 <td>{{!empty($category->albums) ? $category->albums->count() : "0"}}</td>
                                 <td>

@@ -47,7 +47,7 @@
                 <div class="col-md-4 col-sm-12 d-flex align-items-center justify-content-center order-lg-3" dir="rtl">
                     <img src="{{ asset("resources/site/images/logo.svg") }}" alt="" class="order-1">
                 </div>
-
+{{--{{dd("fffffffffffffff")}}--}}
                 @include("site.partials.social_contact")
             </div>
         </div>
