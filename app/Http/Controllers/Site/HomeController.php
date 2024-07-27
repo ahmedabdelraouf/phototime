@@ -34,11 +34,12 @@ class HomeController extends SiteBaseController
     {
         $sliders = SliderBanner::where("language", app()->getLocale())
             ->where("is_active", 1)->orderBy("order", "ASC")->get();
+        $allCategories = Category::where("is_active", 1)->orderBy("order", "ASC")->get()->toArray();
         $groupedCategories = $this->getGroupedCategories();
         $successPartners = SuccessPartner::where("is_active", 1)->get();
         $settingsDB = Setting::select("key", "value")->get();
         $settings = $this->getSettings();
-        $featuredAlbums = Album::take(6)->inRandomOrder()->where("is_featured", 1)->get();
+        $featuredAlbums = Album::take(8)->inRandomOrder()->where("is_featured", 1)->get();
         $youtubeLinks = YoutubeChannel::take(4)->get();
         return view("site.modules.homepage", get_defined_vars());
     }
@@ -46,7 +47,7 @@ class HomeController extends SiteBaseController
     public function getGroupedCategories()
     {
         $categoriesCount = Category::count();
-        if ($categoriesCount > 2) {
+        if ($categoriesCount > 10) {
             $categories = Category::where("is_active", 1)->orderBy("order", "ASC")->take(11)->get()->toArray();
             $categories[] = [
                 "title" => "...المزيد",
