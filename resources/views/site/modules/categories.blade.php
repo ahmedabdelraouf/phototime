@@ -67,9 +67,5 @@
 
 @push("styles")
     <link rel="stylesheet" href="{{asset("resources/site/css/blog.css")}}">
-    <style>
-        #blog .home-main {
-            min-height: 300px !important;
-        }
-    </style>
+
 @endpush

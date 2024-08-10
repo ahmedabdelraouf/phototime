@@ -36,6 +36,10 @@ Route::prefix("categories")->as("categories.")->middleware("should_login")->grou
     Route::get("edit/{id}", [CategoriesController::class, "edit"])->name("edit");
     Route::post("edit/{id}", [CategoriesController::class, "update"])->name("do_edit");
     Route::get("update-status/{type}/{id}", [CategoriesController::class, "updateStatus"])->name("update_status");
+    Route::get("images/{id}", [CategoriesController::class, "addImages"])->name("addImages");
+    Route::post('/dropzone/upload', [CategoriesController::class, 'uploadDropzone'])->name("uploadDropzone");;
+    Route::post("update-images-settings", [CategoriesController::class, "updateImagesSettings"])->name("update_images_settings");
+
 });
 
 Route::prefix("albums")->as("albums.")->middleware("should_login")->group(function () {

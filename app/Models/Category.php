@@ -22,4 +22,16 @@ class Category extends Model
     {
         return $this->hasMany(CategoryAlbum::class, "category_id", "id");
     }
+
+
+    /**
+     * Retrieve the images associated with this album.
+     *
+     * @return HasMany The relationship between the current album and its images.
+     */
+    function images(): HasMany
+    {
+        return $this->hasMany(CategoryImage::class, "category_id");
+    }
+
 }

@@ -116,7 +116,7 @@
                                               class="form-control editor @if ($errors->has("content")) is-invalid @endif"
                                               @if ($errors->has("short_desc"))
                                                   aria-describedby="content-error"
-                                              aria-invalid="true" @endif>{{old("short_desc")}}</textarea>
+                                              aria-invalid="true" @endif>{{old("short_desc")}}></textarea>
                                     @if ($errors->has("short_desc"))
                                         <div id="content-error"
                                              class="invalid-feedback animated fadeInDown">{{ $errors->first("short_desc") }}</div>
