@@ -73,6 +73,16 @@ class TopMenu extends Model
         }
         $return = array_reverse($return);
 
+        $categories = self::getCategories();
+        $categoriesElement = [
+            "title" => "خدماتنا",
+            "a_title" => "خدماتنا",
+            "url" => "/",
+            "child" => $categories
+        ];
+
+        array_unshift($return, $categoriesElement);
+
 // Element to add at the start of the array
         $homeElement = [
             "title" => "الرئيسيه",
@@ -81,8 +91,21 @@ class TopMenu extends Model
             "child" => []
         ];
         array_unshift($return, $homeElement);
+        return $return;
+    }
 
-
+    static function getCategories()
+    {
+        $categories = Category::all();
+        $return = [];
+        foreach ($categories as $category) {
+            $return[] = [
+                "title" => $category->title,
+                "a_title" => $category->title,
+                "image" => $category->image,
+                "url" => "/category-info/$category->id",
+            ];
+        }
         return $return;
     }
 }

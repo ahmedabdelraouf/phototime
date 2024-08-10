@@ -14,31 +14,30 @@
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-{{--                        <li class="nav-item">--}}
-{{--                            <a class="nav-link"--}}
-{{--                               href="{{route("site.home")}}">{{__("site.top_menu.home")}} @yield('home-active')</a>--}}
-{{--                        </li>--}}
                         @foreach($menu_data as $one_menu)
-                            <li class="nav-item">
+                            <li class="nav-item dropdown">
                                 @if(!empty($one_menu["child"]))
-                                    <div class="nav-item dropdown">
-                                        <a href="{{$one_menu["url"]}}" title="{{$one_menu["a_title"]}}"
-                                           class="nav-link dropdown-toggle">{{$one_menu["title"]}}</a>
-                                        <div class="dropdown-menu m-0">
-                                            @foreach($one_menu["child"] as $child)
-                                                <a href="{{$child["url"]}}" title="{{$child["a_title"]}}"
-                                                   class="dropdown-item">{{$child["title"]}}</a>
-                                            @endforeach
-                                        </div>
+                                    <a href="{{$one_menu["url"]}}" title="{{$one_menu["a_title"]}}"
+                                       class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        {{$one_menu["title"]}}
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        @foreach($one_menu["child"] as $child)
+                                            @if(isset($child['image']))
+{{--                                                <img src="{{ images_path($child['image']) }}" class="img-fluid"/>--}}
+                                            @endif
+                                            <a style="font-weight: bold" href="{{$child["url"]}}" title="{{$child["a_title"]}}"
+                                               class="dropdown-item">{{$child["title"]}}</a>
+                                        @endforeach
                                     </div>
                                 @else
                                     <a href="{{$one_menu["url"]}}" title="{{$one_menu["a_title"]}}"
-                                       class="nav-item nav-link">{{$one_menu["title"]}}</a>
+                                       class="nav-link">{{$one_menu["title"]}}</a>
                                 @endif
                             </li>
                         @endforeach
-
                     </ul>
+
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item" id="call-number">
                             <?php $whatsPhoneNumber = \App\Models\Setting::where("key", "whatsapp_phone")->first()->value ?>
@@ -67,3 +66,30 @@
     </header>
     @yield("page-title")
 </section>
+
+<style>
+    .navbar-nav .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .navbar-nav .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        float: left;
+        min-width: 10rem;
+        padding: 0.5rem 0;
+        margin: 0;
+        font-size: 1rem;
+        color: #212529;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.25rem;
+    }
+
+</style>
