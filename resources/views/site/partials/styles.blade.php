@@ -8,4 +8,5 @@
 <link rel="stylesheet" href="{{asset("resources/site/css/header.css")}}">
 <link rel="stylesheet" href="{{asset("resources/site/css/footer.css")}}">
 <link href="{{url("resources/site/css/sweetalert/sweetalert.min.css")}}" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/sakkal-majalla-2" rel="stylesheet">
 @stack("styles")

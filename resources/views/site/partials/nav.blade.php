@@ -14,10 +14,10 @@
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="{{route("site.home")}}">{{__("site.top_menu.home")}} @yield('home-active')</a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link"--}}
+{{--                               href="{{route("site.home")}}">{{__("site.top_menu.home")}} @yield('home-active')</a>--}}
+{{--                        </li>--}}
                         @foreach($menu_data as $one_menu)
                             <li class="nav-item">
                                 @if(!empty($one_menu["child"]))
@@ -37,10 +37,7 @@
                                 @endif
                             </li>
                         @endforeach
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="{{route("site.blogs")}}">{{__("site.top_menu.blog")}} @yield('home-active')</a>
-                        </li>
+
                     </ul>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item" id="call-number">
@@ -62,10 +59,10 @@
 
         <div id="search">
             <button type="button" class="close">×</button>
-{{--            <form>--}}
-{{--                <input type="search" value="" placeholder="type keyword(s) here"/>--}}
-{{--                <button type="submit" class="btn btn-primary">Search</button>--}}
-{{--            </form>--}}
+            {{--            <form>--}}
+            {{--                <input type="search" value="" placeholder="type keyword(s) here"/>--}}
+            {{--                <button type="submit" class="btn btn-primary">Search</button>--}}
+            {{--            </form>--}}
         </div>
     </header>
     @yield("page-title")

@@ -34,37 +34,43 @@
 @section("content")
     <div class="all-blogs mt-5">
         <div class="container">
-            <img
-                    src="{{ images_path($category->image) }}"
-                    alt="Image {{ $category->title }}"
-                    class="img-fluid"
-                    loading="lazy"
-                    style="height: 10rem;direction: ltr"
-            />
+            <style>
+                .blog-content {
+                    margin-top: 1rem;
+                    max-width: 100%;
+                    word-wrap: break-word;
+                }
+                .blog-content img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            </style>
+            <div style="display: flex; justify-content: center;">
+                <img
+                        src="{{ images_path($category->image) }}"
+                        alt="Image {{ $category->title }}"
+                        class="img-fluid"
+                        loading="lazy"
+                        style="height: 10rem; direction: ltr;"
+                />
+            </div>
             <div class="blog-content">
                 {!! $category->short_desc !!}
-{{--                {{$category->short_desc}}--}}
             </div>
+{{--            <div class="blog-content" style="display: grid;--}}
+{{--    grid-template-columns: 1fr;--}}
+{{--    width: 100%;--}}
+{{--    max-width: 100%;--}}
+{{--    box-sizing: border-box;--}}
+{{--    padding: 15px; /* Optional: for some spacing */--}}
+{{--    margin: 0 auto;">--}}
+{{--                {{dd($category->short_desc)}}--}}
+{{--                {!! $category->short_desc !!}--}}
+{{--            </div>--}}
             <div class="row">
                 @if(isset($albums))
-
                     @forelse($albums as $album)
-                        <div class="col-md-4 col-sm-6 col-12">
-                            <div class="blog" style="background-image: url('{{images_path($category->image)}}')">
-
-                            </div>
-                            <h3 class="blog-title">
-                                فرحة الاطفال باليوم الوطني 93 في اشيقر
-                            </h3>
-                            <p class="blog-description">
-                                هي ليست مجموعة تضم أمهر المصورين والممنتجين وأكثرهم إبداعاً فحسب! بل هي أكثر من ذلك ..
-                                في عام 2013م اسست على يد شابين سعوديين تربطهما علاقة الأخوة والموهبة والطموح وخلال خمس
-                                سنوات وحتى الآن كونوا فريقاً من 15 شاباً يجمعهم نفس الطموح والشغف.
-                            </p>
-                            <p class="show-more text-end">
-                                <a href="{{route("site.view_any", $category->slugData->slug)}}">عرض المزيد</a>
-                            </p>
-                        </div>
+                        @include("site.modules.album_item",['album'=>$album])
                     @empty
                         <h3 style="width: 100%;color: red">تحت الانشاء</h3>
                     @endforelse

@@ -9,6 +9,6 @@
                 <img src="{{asset('resources/site/images/logo.svg')}}" class="img-fluid" alt="{{$album->title}}">
             @endif
         </div>
-        <p class="align-center text-center"><strong style="color: #0b2e13">{{$album->title}}</strong></p>
+        <p class="align-center text-center" style="margin-top: 1rem"><strong style="color: #0b2e13">{{$album->title}}</strong></p>
     </a>
 </div>

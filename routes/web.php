@@ -20,6 +20,7 @@ Route::group(['middleware' => 'redirect_old_urls'], function () {
     Route::get('/{slug}', [WebsiteController::class, "view"])->name("view_any");
 //    Route::get('category-info/{category}', [WebsiteController::class, "categoryDetails"])->name("webCategoryDetails");
     Route::get('category-info/{category}', function (\App\Models\Category  $category){
+//        $albums  = \App\Models\Album::inRandomOrder()->take(6)->get();
         return view("site.modules.show_category", get_defined_vars());
     })->name("webCategoryDetails");
 });

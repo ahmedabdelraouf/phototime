@@ -10,8 +10,8 @@
     <div class="row mx-0" dir="rtl">
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="content px-lg-5">
-                <h3>{{$settings->site_about_us_title_ar??""}}</h3>
-                <p style="width: 90%">{{$settings->site_about_us_desc_ar??""}}</p>
+{{--                <h3>{{$settings->site_about_us_title_ar??""}}</h3>--}}
+                <p style="width: 90%;font-size: 1.5rem;">{{$settings->site_about_us_desc_ar??""}}</p>
             </div>
         </div>
     </div>

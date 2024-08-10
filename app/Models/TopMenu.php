@@ -27,7 +27,7 @@ class TopMenu extends Model
     {
         $return = [];
         $parents = self::where("is_active", 1)->where("parent_id", 0)->get();
-        foreach ($parents as $one){
+        foreach ($parents as $one) {
             $child = $one->children()->where("is_active", "1")->get();
             $parent_data = [
                 "title" => $one->title,
@@ -35,9 +35,9 @@ class TopMenu extends Model
                 "url" => $one->url,
                 "child" => []
             ];
-            if($child->count() > 0){
+            if ($child->count() > 0) {
                 $child_data = [];
-                foreach ($child as $children){
+                foreach ($child as $children) {
                     $child_data[] = [
                         "title" => $children->title,
                         "a_title" => $children->a_title,
@@ -48,6 +48,41 @@ class TopMenu extends Model
             }
             $return[] = $parent_data;
         }
+
+
+// New element to be added
+        $newElement = [
+            "title" => "المدونة",
+            "a_title" => "المدونة",
+            "url" => "/blogs",
+            "child" => []
+        ];
+
+// Find the index of the first element with the url "/about-us"
+        $aboutUsIndex = null;
+        foreach ($return as $index => $item) {
+            if ($item['url'] === '/about-us') {
+                $aboutUsIndex = $index;
+                break;
+            }
+        }
+
+// Insert the new element before the "/about-us" element
+        if ($aboutUsIndex !== null) {
+            array_splice($return, $aboutUsIndex, 0, [$newElement]);
+        }
+        $return = array_reverse($return);
+
+// Element to add at the start of the array
+        $homeElement = [
+            "title" => "الرئيسيه",
+            "a_title" => "الرئيسيه",
+            "url" => "/home",
+            "child" => []
+        ];
+        array_unshift($return, $homeElement);
+
+
         return $return;
     }
 }
