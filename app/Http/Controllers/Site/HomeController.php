@@ -39,7 +39,26 @@ class HomeController extends SiteBaseController
         $successPartners = SuccessPartner::where("is_active", 1)->get();
         $settingsDB = Setting::select("key", "value")->get();
         $settings = $this->getSettings();
-        $featuredAlbums = Album::take(8)->inRandomOrder()->where("is_featured", 1)->get();
+
+        $featuredAlbums = Album::where('is_public', 1)
+            ->whereNotNull('default_image')
+            ->where('default_image', '!=', '')
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        $featuredAlbums2 = Album::where('is_featured', 1)
+            ->where('is_active', 1)
+            ->where('title', 'LIKE', '%حفل زواج%')
+            ->orWhere('title', 'LIKE', '%حفل واج%')
+            ->orWhere('title', 'LIKE', '%حفل زواح%')
+            ->whereNotNull('default_image')
+            ->where('default_image', '!=', '')
+            ->orderBy("created_at", "desc")
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
         $youtubeLinks = YoutubeChannel::take(4)->get();
         return view("site.modules.homepage", get_defined_vars());
     }
@@ -122,7 +141,7 @@ class HomeController extends SiteBaseController
      */
     function albumDetails($id)
     {
-        $album = Album::where("is_blocked",false)->findOrFail($id);
+        $album = Album::where("is_blocked", false)->findOrFail($id);
         $album->views_count += 1;
         $album->save();
         $images = $album->images;

@@ -41,8 +41,17 @@
 @endsection
 
 @section("content")
+
     <div class="all-blogs mt-5">
         <div class="container">
+            <?php $youtubeChannleLink = \App\Models\SocialMediaLink::where('is_active', 1)
+                ->where("title","Youtube")->first()->url; ?>
+            <a href="{{$youtubeChannleLink}}" class="youtube-button" target="_blank">
+                <span class="youtube-logo"></span>
+                الإنتقال إلى قناة اليوتيوب للمزيد من الفيديوهات
+            </a>
+            <br>
+            <br>
             <div class="row">
                 @forelse($youtubeChannelLinks as $youtubeChannelLink)
                     @include("site.modules.youtube_item",['youtubeChannelLink'=>$youtubeChannelLink])
@@ -59,6 +68,31 @@
     <style>
         #blog .home-main {
             min-height: 300px !important;
+        }
+
+        .youtube-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ff0000; /* Red YouTube color */
+            color: #ffffff; /* White text */
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .youtube-button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+
+        .youtube-logo {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png') no-repeat center center;
+            background-size: contain;
+            margin-right: 10px;
         }
     </style>
 @endpush

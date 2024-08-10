@@ -54,6 +54,10 @@
                                     <input type="checkbox" class="js-switch" name='is_featured' id='is_featured'
                                            @if(old("is_featured")!=null) checked @endif
                                            value='1'/>Featured Album</label>
+                                <label>
+                                    <input type="checkbox" class="js-switch" name='is_public' id='is_public'
+                                           @if(old("is_public")!=null) checked @endif
+                                           value='1'/>Public Album</label>
 
                                 <label style="margin-left: 2.1rem">
                                     <input type="checkbox" class="js-switch" name='is_blocked' id='is_blocked'
@@ -93,40 +97,40 @@
                             @endif
                         </div>
                     </div>
-{{--                    <div class="col-12 col-md-6 col-lg-6">--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="slug" class="form-label @if ($errors->has("slug")) is-invalid @endif">Album--}}
-{{--                                slug</label>--}}
-{{--                            <input type='text' name='slug' id='slug' value='{{old("slug")}}'--}}
-{{--                                   placeholder="Album unique slug"--}}
-{{--                                   class='form-control slug_input @if ($errors->has("slug")) is-invalid @endif'--}}
-{{--                                   aria-slugedBy="title"--}}
-{{--                                   @if ($errors->has("slug"))--}}
-{{--                                       aria-describedby="slug-error"--}}
-{{--                                   aria-invalid="true"--}}
-{{--                                    @endif--}}
-{{--                            />--}}
-{{--                            @if ($errors->has("slug"))--}}
-{{--                                <div id="slug-error"--}}
-{{--                                     class="invalid-feedback animated fadeInDown">{{ $errors->first("slug") }}</div>--}}
-{{--                            @endif--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-12 col-md-6 col-lg-6 mb-3">--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="album_number"--}}
-{{--                                   class="form-label @if ($errors->has("album_number")) is-invalid @endif">Album number</label>--}}
-{{--                            <input type='text' accept="image/x-png,image/gif,image/jpeg" name='album_number'--}}
-{{--                                   id='album_number'--}}
-{{--                                   placeholder="album number"--}}
-{{--                                   class='form-control @if ($errors->has("album_number")) is-invalid @endif' required--}}
-{{--                                   @if ($errors->has("album_number"))--}}
-{{--                                       aria-describedby="album_number-error"--}}
-{{--                                   aria-invalid="true"--}}
-{{--                                    @endif--}}
-{{--                            />--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="col-12 col-md-6 col-lg-6">--}}
+                    {{--                        <div class="form-group">--}}
+                    {{--                            <label for="slug" class="form-label @if ($errors->has("slug")) is-invalid @endif">Album--}}
+                    {{--                                slug</label>--}}
+                    {{--                            <input type='text' name='slug' id='slug' value='{{old("slug")}}'--}}
+                    {{--                                   placeholder="Album unique slug"--}}
+                    {{--                                   class='form-control slug_input @if ($errors->has("slug")) is-invalid @endif'--}}
+                    {{--                                   aria-slugedBy="title"--}}
+                    {{--                                   @if ($errors->has("slug"))--}}
+                    {{--                                       aria-describedby="slug-error"--}}
+                    {{--                                   aria-invalid="true"--}}
+                    {{--                                    @endif--}}
+                    {{--                            />--}}
+                    {{--                            @if ($errors->has("slug"))--}}
+                    {{--                                <div id="slug-error"--}}
+                    {{--                                     class="invalid-feedback animated fadeInDown">{{ $errors->first("slug") }}</div>--}}
+                    {{--                            @endif--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
+                    {{--                    <div class="col-12 col-md-6 col-lg-6 mb-3">--}}
+                    {{--                        <div class="form-group">--}}
+                    {{--                            <label for="album_number"--}}
+                    {{--                                   class="form-label @if ($errors->has("album_number")) is-invalid @endif">Album number</label>--}}
+                    {{--                            <input type='text' accept="image/x-png,image/gif,image/jpeg" name='album_number'--}}
+                    {{--                                   id='album_number'--}}
+                    {{--                                   placeholder="album number"--}}
+                    {{--                                   class='form-control @if ($errors->has("album_number")) is-invalid @endif' required--}}
+                    {{--                                   @if ($errors->has("album_number"))--}}
+                    {{--                                       aria-describedby="album_number-error"--}}
+                    {{--                                   aria-invalid="true"--}}
+                    {{--                                    @endif--}}
+                    {{--                            />--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                 </div>
 
                 <div class="row mb-3">

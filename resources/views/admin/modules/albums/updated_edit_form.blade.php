@@ -42,6 +42,10 @@
                                    @if(old('is_featured')??$album->is_featured) checked @endif
                                    value='1'/>Featured Album</label>
 
+                            <input type="checkbox" class="js-switch" name='is_public' id='is_public'
+                                   @if(old('is_public')??$album->is_public) checked @endif
+                                   value='1'/>Public Album</label>
+
                         <label style="margin-left: 2.1rem">
                             <input type="checkbox" class="js-switch" name='is_blocked' id='is_blocked'
                                    @if(old('is_blocked')??$album->is_blocked) checked @endif

@@ -57,6 +57,9 @@ class AlbumsController extends AdminBaseController
         if ($request->filled('is_featured')) {
             $query->where('is_featured', $request->input('is_featured'));
         }
+        if ($request->filled('is_public')) {
+            $query->where('is_public', $request->input('is_public'));
+        }
 
         if ($request->filled('date')) {
             $query->whereDate('created_at', $request->input('date'));
@@ -78,6 +81,7 @@ class AlbumsController extends AdminBaseController
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'is_featured' => $request->input('is_featured'),
+            'is_public' => $request->input('is_public'),
             'is_active' => $request->input('is_active'),
             'album_number' => $request->input('album_number'),
         ];
@@ -194,6 +198,33 @@ class AlbumsController extends AdminBaseController
         return redirect()->back()->with("success", "Album Featured Status updated successfully");
     }
 
+
+    function updatePublicStatus(string $type, int $id): RedirectResponse
+    {
+        $album = Album::find($id);
+        if (empty($album)) {
+            return redirect()->back()->with("error", "Album not exist in system");
+        }
+        switch (strtolower($type)) {
+            case "public":
+                if ($album->is_public == 1) {
+                    return redirect()->back()->with("error", "Album Already public");
+                }
+                $album->is_public = 1;
+                break;
+            case "not_public":
+                if ($album->is_public == 0) {
+                    return redirect()->back()->with("error", "Album Already not public");
+                }
+                $album->is_public = 0;
+                break;
+            default:
+                return redirect()->back()->with("error", "Wrong type");
+        }
+        $album->save();
+        return redirect()->back()->with("success", "Album public Status updated successfully");
+    }
+
     /**
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application|RedirectResponse
@@ -301,6 +332,7 @@ class AlbumsController extends AdminBaseController
         $this->setCheckBoxValue($album_data, "is_featured");
         $this->setCheckBoxValue($album_data, "is_active");
         $this->setCheckBoxValue($album_data, "is_blocked");
+        $this->setCheckBoxValue($album_data, "is_public");
         if (isset($request->default_image) && is_file($request->default_image)) {
             $default_image_path = store_image($request->default_image, "albums/$album->id", null, true);
             $album_data['default_image'] = $default_image_path;
@@ -406,6 +438,7 @@ class AlbumsController extends AdminBaseController
 //                "is_active" => $newsDetails->publish,
 //                "youtube_url" => null,
 //                "is_featured" => 0,
+//                "is_public" => 0,
 //                "owner_phone" => NewsCmt::where("news_id", $newsDetails->id)->first()->phone ?? null,
 //                "views_count" => NewsViews::where("newsid", $newsDetails->id)->first()->views ?? 0,
 //                "is_blocked" => 0,

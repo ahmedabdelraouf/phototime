@@ -40,6 +40,7 @@ class UpdateRequest extends FormRequest
             "photo_place" => "nullable",
             "is_active" => "nullable",
             "is_featured" => "nullable",
+            "is_public" => "nullable",
             "is_blocked" => "nullable",
             "youtube_url" => "nullable",
             "categories" => "nullable",

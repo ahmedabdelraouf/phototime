@@ -69,6 +69,17 @@
                         </select>
                     </div>
 
+                    <div class="col-md-2 form-group">
+                        <label for="is_public">Public:</label>
+                        <select class="form-control" name="is_public" id="is_public">
+                            <option value="1" {{ ($is_public ?? old('is_public')) == 1 ? 'selected' : '' }}>Yes</option>
+                            <option value="0" {{ ($is_public ?? old('is_public')) == 0 ? 'selected' : '' }}>No</option>
+                            <option value="" {{ !isset($is_public) && old('is_public') === null ? 'selected' : '' }}>
+                                All
+                            </option>
+                        </select>
+                    </div>
+
                     <div class="col-md-1 form-group">
                         <button type="submit" class="btn btn-primary mt-4">Search</button>
                     </div>
@@ -87,6 +98,7 @@
                             <th style='width: 10%'>Views</th>
                             <th style='width: 10%'>Images</th>
                             <th style='width: 10%'>Featured</th>
+                            <th style='width: 10%'>public</th>
                             <th style='width: 10%'>Published</th>
                             <th style='width: 10%'>Blocked</th>
                             <th style='width: 10%'>Actions</th>
@@ -132,6 +144,14 @@
                                         <span class="badge badge-danger">Not Featured</span>
                                     @else
                                         <span class="badge badge-success">Featured</span>
+                                    @endif
+                                </td>
+
+                                <td style="font-size: 1rem">
+                                    @if(empty($album->is_public))
+                                        <span class="badge badge-danger">Not public</span>
+                                    @else
+                                        <span class="badge badge-success">Is public</span>
                                     @endif
                                 </td>
                                 <td style="font-size: 1rem">
@@ -183,6 +203,24 @@
                                                title="Disable Featured album"
                                                data-title="{{$album->title}}">
                                                 <i class="fa fa-star text-warning"></i>
+                                            </a>
+                                        @endif
+
+                                        @if(empty($album->is_public))
+                                            <a href="{{route("admin.albums.update_public_status", ["type" => "public", "id" => $album->id])}}"
+                                               class="mx-2 activate_item" data-bs-toggle="tooltip"
+                                               data-bs-original-title="public album"
+                                               title="public album"
+                                               data-title="{{$album->title}}">
+                                                <i class="fa fa-heart  text-secondary"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{route("admin.albums.update_public_status",["type" => "not_public", "id" => $album->id])}}"
+                                               class="mx-2 deactivate_item" data-bs-toggle="tooltip"
+                                               data-bs-original-title="Disable public album"
+                                               title="Disable public album"
+                                               data-title="{{$album->title}}">
+                                                <i class="fa fa-heart text-warning"></i>
                                             </a>
                                         @endif
 

@@ -46,13 +46,13 @@
                 }
             </style>
             <div style="display: flex; justify-content: center;">
-                <img
-                        src="{{ images_path($category->image) }}"
-                        alt="Image {{ $category->title }}"
-                        class="img-fluid"
-                        loading="lazy"
-                        style="height: 10rem; direction: ltr;"
-                />
+{{--                <img--}}
+{{--                        src="{{ images_path($category->image) }}"--}}
+{{--                        alt="Image {{ $category->title }}"--}}
+{{--                        class="img-fluid"--}}
+{{--                        loading="lazy"--}}
+{{--                        style="height: 10rem; direction: ltr;"--}}
+{{--                />--}}
             </div>
             <div class="blog-content">
                 {!! $category->short_desc !!}
