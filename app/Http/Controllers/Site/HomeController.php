@@ -47,15 +47,15 @@ class HomeController extends SiteBaseController
             ->take(4)
             ->get();
 
-        $featuredAlbums2 = Album::where('is_featured', 1)
-            ->where('is_active', 1)
-            ->where('title', 'LIKE', '%حفل زواج%')
-            ->orWhere('title', 'LIKE', '%حفل واج%')
-            ->orWhere('title', 'LIKE', '%حفل زواح%')
-            ->whereNotNull('default_image')
-            ->where('default_image', '!=', '')
-            ->orderBy("created_at", "desc")
-            ->inRandomOrder()
+        $featuredAlbums2 = Album::
+        where('title', 'LIKE', '%حفل زواج%')
+//            ->where('is_featured', 1)
+//            ->where('is_active', 1)
+//            ->orWhere('title', 'LIKE', '%حفل واج%')
+//            ->orWhere('title', 'LIKE', '%حفل زواح%')
+//            ->whereNotNull('default_image')
+//            ->where('default_image', '!=', '')
+            ->orderBy("id", "desc")
             ->take(4)
             ->get();
 
@@ -175,7 +175,9 @@ class HomeController extends SiteBaseController
 
     public function getAlbums($filters)
     {
-        $albums = Album::where("is_active", 1)->with("slugData")
+        $albums = Album::
+//        where("is_active", 1)
+            with("slugData")
             ->where("is_blocked", 0)
             ->orderBy('photo_date', 'DESC');
         if (isset($filters['album_title']) && $filters['album_title'] != null) {
@@ -188,6 +190,7 @@ class HomeController extends SiteBaseController
 //        if (isset($filters['category_id']) && $filters['category_id'] != null) {
 //            $albums->where("category_id", $filters['category_id']);
 //        }
+        $albums->orderBy("id","DESC");
         return $albums->paginate(27);
     }
 

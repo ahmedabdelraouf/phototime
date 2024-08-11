@@ -87,7 +87,7 @@ class TopMenu extends Model
         $homeElement = [
             "title" => "الرئيسيه",
             "a_title" => "الرئيسيه",
-            "url" => "/home",
+            "url" => "/",
             "child" => []
         ];
         array_unshift($return, $homeElement);
@@ -96,7 +96,7 @@ class TopMenu extends Model
 
     static function getCategories()
     {
-        $categories = Category::all();
+        $categories = Category::where("is_active",1)->get();
         $return = [];
         foreach ($categories as $category) {
             $return[] = [

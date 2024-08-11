@@ -38,7 +38,19 @@
 
 @section("content")
     <div class="mt-5">
-        <div class="container">
+        <style>
+            .the-content {
+                margin-top: 1rem;
+                max-width: 100%;
+                word-wrap: break-word;
+            }
+
+            .the-content img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
+        <div class="container the-content">
             {!! $page->content !!}
         </div>
     </div>
