@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
-class ShouldLoggedMiddleware {
+class ShouldLoggedMiddleware
+{
 
     /**
      * Handle an incoming request.
@@ -19,11 +20,13 @@ class ShouldLoggedMiddleware {
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function handle(Request $request, Closure $next) {
+    public function handle(Request $request, Closure $next)
+    {
 
         $session_id = session()->getId();
         $user_agent = $request->header("user-agent");
         $token = session()->get("token");
+
         if (empty($token) || !system_encryption_verify(json_encode(["agent" => $user_agent, 'id' => $session_id]), $token)) {
             session()->flush();
             return redirect()->route("admin.auth.login")->with("error", __("You should login first"));
@@ -39,6 +42,13 @@ class ShouldLoggedMiddleware {
             session()->flush();
             return redirect()->route("admin.auth.login")->with("error", "You should login first");
         }
+        $admin = $admin_session->admin;
+        $role = $this->checkAdminROleFirst();
+        if ($admin->id != 1) {
+            if (!$admin->hasRole($role)) {
+                dd("You donot have permission to access this page");
+            }
+        }
         $this->define_admin_const($admin_session);
         return $next($request);
     }
@@ -48,8 +58,23 @@ class ShouldLoggedMiddleware {
         $admin = $admin_session->admin;
         define("ADMIN_NAME", $admin->name);
         define("ADMIN_ID", $admin->id);
+        $SUPER_ADMIN = false;
+        if ($admin->id == 1) {
+            $SUPER_ADMIN = true;
+        }
+        define("SUPER_ADMIN", $SUPER_ADMIN);
         define("ADMIN_PHOTO", admin_photo_url((string)$admin->image));
         define("ADMIN_SESSION", $admin_session->id);
     }
 
+    private function checkAdminROleFirst()
+    {
+        // Get the current full URL
+        $currentUrl = url()->current();
+        // Use a regular expression to find and extract the part after 'private-access/'
+        if (preg_match('/private-access\/([^\/]*)/', $currentUrl, $matches)) {
+            return $matches[1]; // Return the captured group
+        }
+        return "home";
+    }
 }
