@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
-use Spatie\Permission\Models\Role;
 use App\Http\Requests\Admin\Admins\CreateRequest;
 use App\Http\Requests\Admin\Admins\UpdateRequest;
+use App\Models\Admin;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Hash;
+use Spatie\Permission\Models\Role;
+
 class AdminsController extends Controller
 {
-       /**
+    /**
      * @param Request $request
      * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      */
@@ -26,7 +26,7 @@ class AdminsController extends Controller
 
     }
 
-      /**
+    /**
      * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      */
     function create()
@@ -37,25 +37,27 @@ class AdminsController extends Controller
     }
 
 
-      /**
+    /**
      * @param CreateRequest $request
      * @return RedirectResponse
      */
     public function store(createRequest $request)
     {
-       $admin = Admin::create([
+        $admin = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => system_encryption($request->password),
         ]);
-        $admin->assignRole(Role::findOrFail($request->role_id));
+        if (!empty($request->role_id) && is_array($request->role_id)) {
+            $roles = Role::findMany($request->role_id);
+            $admin->assignRole($roles);
+        }
 
         return redirect()->route("admin.admins.list")->with("success", "Admin Created successfully");
 
     }
 
 
-    
     /**
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application|RedirectResponse
@@ -70,7 +72,7 @@ class AdminsController extends Controller
         return view("admin.modules.admins.edit", get_defined_vars());
     }
 
-   /**
+    /**
      * @param UpdateRequest $request
      * @param $id
      * @return RedirectResponse
@@ -81,16 +83,29 @@ class AdminsController extends Controller
         $admin->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => system_encryption($request->password),
         ]);
 
-        $admin->syncRoles(Role::findOrFail($request->role_id));
-
+        if (is_array($request->role_id) && count($request->role_id) > 0) {
+            // Retrieve the roles from the request
+            $newRoles = Role::findMany($request->role_id); // Get the current roles of the admin
+            $currentRoles = $admin->roles; // Find roles to remove (present in current but not in new)
+            $rolesToRemove = $currentRoles->diff($newRoles); // Find roles to add (present in new but not in current)
+            $rolesToAdd = $newRoles->diff($currentRoles);
+            // Remove the old roles
+            foreach ($rolesToRemove as $role) {
+                $admin->removeRole($role);
+            }
+            // Assign the new roles
+            foreach ($rolesToAdd as $role) {
+                $admin->assignRole($role);
+            }
+        }
         return redirect()->route("admin.admins.list")->with("success", "Admin Created successfully");
 
     }
 
-       /**
+    /**
      * @param string $type
      * @param int $id
      * @return RedirectResponse

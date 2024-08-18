@@ -13,9 +13,12 @@ use App\Models\SlugAlias;
 use App\Models\SuccessPartner;
 use App\Models\UserMessage;
 use App\Models\YoutubeChannel;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use stdClass;
 
 class HomeController extends SiteBaseController
 {
@@ -50,7 +53,7 @@ class HomeController extends SiteBaseController
         $featuredAlbums2 = Album::
         where('title', 'LIKE', '%حفل زواج%')
 //            ->where('is_featured', 1)
-//            ->where('is_active', 1)
+            ->where('is_active', 1)
 //            ->orWhere('title', 'LIKE', '%حفل واج%')
 //            ->orWhere('title', 'LIKE', '%حفل زواح%')
 //            ->whereNotNull('default_image')
@@ -82,7 +85,7 @@ class HomeController extends SiteBaseController
     public function getSettings()
     {
         $settingsDB = Setting::select("key", "value")->get();
-        $settings = new \stdClass();
+        $settings = new stdClass();
         foreach ($settingsDB as $setting) {
             $settings->{$setting['key']} = $setting['value'];
         }
@@ -137,7 +140,7 @@ class HomeController extends SiteBaseController
 
     /**
      * @param ContactUsRequest $request
-     * @return RedirectResponse
+     * @return Application|Factory|View|RedirectResponse
      */
     function albumDetails($id)
     {
@@ -153,8 +156,7 @@ class HomeController extends SiteBaseController
     }
 
     /**
-     * @param ContactUsRequest $request
-     * @return RedirectResponse
+     * @return Application|Factory|View
      */
     function youtubeChannelDetails($id)
     {
@@ -175,9 +177,8 @@ class HomeController extends SiteBaseController
 
     public function getAlbums($filters)
     {
-        $albums = Album::
-//        where("is_active", 1)
-            with("slugData")
+        $albums = Album::where("is_active", 1)
+            ->with("slugData")
             ->where("is_blocked", 0)
             ->orderBy('photo_date', 'DESC');
         if (isset($filters['album_title']) && $filters['album_title'] != null) {
@@ -186,6 +187,9 @@ class HomeController extends SiteBaseController
         }
         if (isset($filters['photo_date']) && $filters['photo_date'] != null) {
             $albums->where("photo_date", $filters['photo_date']);
+        }
+        if (isset($filters['is_public']) && $filters['is_public'] != null && $filters['is_public'] == 1) {
+            $albums->where("is_public", 1);
         }
 //        if (isset($filters['category_id']) && $filters['category_id'] != null) {
 //            $albums->where("category_id", $filters['category_id']);

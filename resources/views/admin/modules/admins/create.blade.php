@@ -96,14 +96,20 @@
                             @endif
                         </div>
                     </div>
-                    
+
 
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
-                            <label for="roles" class="form-label @if ($errors->has("role")) is-invalid @endif">Admin role</label>
-                           
-                            <select class="form-control" name="role_id" id="parent_role">
-                            <option value="">Select Parent Role</option>
+                            <label for="categories"
+                                   class="mt-4 form-label @if ($errors->has("categories[]")) is-invalid @endif">Admin role</label>
+                            <select class="form-control select2_multiple @if ($errors->has("categories[]")) is-invalid @endif"
+                                    id="roles" name="role_id[]" multiple data-placeholder="Choose one thing"
+                                    {{--required--}}
+                                    @if ($errors->has("role_id[]"))
+                                        aria-describedby="categories-error"
+                                    aria-invalid="true"
+                                    @endif >
+                                <option value="">Select Parent Role</option>
                             @foreach ($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
@@ -139,7 +145,7 @@
     <script>
         $(document).ready(function(){
             $(".select2_multiple").select2({
-                placeholder: "Select a posts",
+                placeholder: "Select a roles",
                 allowClear: true
             });
         })
