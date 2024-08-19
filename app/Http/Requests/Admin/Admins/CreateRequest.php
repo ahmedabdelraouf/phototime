@@ -24,8 +24,7 @@ class CreateRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:admins,email',
-            'password' => 'required|min:6|max:255|confirmed',
-            'role_id' =>'required|exists:roles,id'
+            'password' => 'required|min:6|max:255|confirmed'
         ];
     }
 

@@ -78,7 +78,6 @@
                             <input type='password' name='password' id='password' value='{{old("password")}}'
                                    placeholder="Admin password"
                                    class='form-control slug_source @if ($errors->has("password")) is-invalid @endif'
-                                   required
                                    aria-slugFor="slug"
                                    @if ($errors->has("password"))
                                        aria-describedby="password-error"
@@ -100,7 +99,6 @@
                             <input type='password' name='password_confirmation' id='password_confirmation'
                                    value='{{old("password_confirmation")}}' placeholder="Admin password_confirmation"
                                    class='form-control slug_source @if ($errors->has("password_confirmation")) is-invalid @endif'
-                                   required
                                    aria-slugFor="slug"
                                    @if ($errors->has("password_confirmation"))
                                        aria-describedby="password_confirmation-error"

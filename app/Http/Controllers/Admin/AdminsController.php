@@ -83,9 +83,10 @@ class AdminsController extends Controller
         $admin->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => system_encryption($request->password),
         ]);
-
+        if (isset($request->password) && $request->password != "") {
+            $admin->update(['password' => system_encryption($request->password)]);
+        }
         if (is_array($request->role_id) && count($request->role_id) > 0) {
             // Retrieve the roles from the request
             $newRoles = Role::findMany($request->role_id); // Get the current roles of the admin

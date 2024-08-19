@@ -44,7 +44,7 @@ class ShouldLoggedMiddleware
         }
         $admin = $admin_session->admin;
         $role = $this->checkAdminROleFirst();
-        if ($admin->id != 1) {
+        if ($admin->id != 1 && $role !="home") {
             if (!$admin->hasRole($role)) {
                 dd("You donot have permission to access this page");
             }
