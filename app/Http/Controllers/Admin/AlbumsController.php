@@ -105,11 +105,22 @@ class AlbumsController extends AdminBaseController
     function store(CreateRequest $request)
     {
         $validatedInputs = $request->validated();
-        $validatedInputs["photo_date"] = date("Y-m-d");
+        $updtateCreatedAt = false;
+        if (empty($validatedInputs["photo_date"]) || $validatedInputs["photo_date"] == "") {
+            $validatedInputs["photo_date"] = date("Y-m-d");
+        } else {
+            $updtateCreatedAt = true;
+            $validatedInputs["created_at"] = $validatedInputs["photo_date"] = $validatedInputs["photo_date"] . " 00:00:00";
+        }
         unset($validatedInputs["default_image"]);
         $validatedInputs["is_old"] = false;
         $validatedInputs["is_synced"] = true;
         $album = Album::create($validatedInputs);
+        if ($updtateCreatedAt) {
+            $album->created_at = $validatedInputs["created_at"];
+            $album->updated_at = $validatedInputs["created_at"];
+            $album->save();
+        }
         if (!empty($album->id)) {
 //            SlugAlias::create(["module_id" => $album->id, "slug" => $request->slug, "module" => Album::MODULE_NAME]);
             if (isset($request->categories) && is_array($request->categories) && count($request->categories) > 0) {
@@ -117,13 +128,9 @@ class AlbumsController extends AdminBaseController
             }
             if (is_file($request->default_image)) {
                 $default_image_path = store_image($request->default_image, "albums/$album->id", null, true);
-//                dd(($default_image_path));
                 $album->default_image = $default_image_path;
                 $album->save();
-//                dd(images_path("albums/$album->id/$album->default_image"));
-//                dd(images_path($default_image_path));
             }
-//            dd($album);
             return redirect()->route("admin.albums.addImages", ["id" => $album->id])->with("success", "Album Created successfully");
         }
         return redirect()->route("admin.albums.create")->with("error", "No data saved please try again")->withInput();

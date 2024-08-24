@@ -4,7 +4,14 @@
     <div class="overlay"></div>
     <div class="content">
         <div class="head">
-            <h1 class="pb-3"> أقسام الألبومات</h1>
+            {{--            <h1 class="pb-3"> أقسام الألبومات</h1>--}}
+            @if(!empty(request()->get('is_public')) && request()->get('is_public') ==1)
+                <h1 class="pb-3">تغطيات عامة</h1>
+            @elseif(!empty(request()->get('album_title')) && str_contains(request()->get('album_title'),"حفل"))
+                <h1 class="pb-3">ليلة العمر</h1>
+            @else
+                <h1 class="pb-3"> أقسام الألبومات</h1>
+            @endif
         </div>
     </div>
 @endsection
@@ -20,46 +27,35 @@
 @section("content")
     <div class="mt-5">
         <div class="container">
+            <div class="align-center">
+                <form action="{{ route('site.albums') }}" method="GET" class="form-container"
+                      style="direction: rtl; border: 1px solid #ccc; padding: 15px; border-radius: 5px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="form-row" style="display: flex; justify-content: center; width: 100%; gap: 15px;">
+                        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
+                            <strong for="album_title">الأسم:</strong>
+                            <input type="text" class="form-control" name="album_title" id="album_title"
+                                   value="{{ request()->get('album_title') }}"
+                                   style="border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+                        </div>
 
-            <div>
-                <form action="{{ route('site.albums') }}" method="GET" class="row"
-                      style="direction: rtl; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
-                    <div class="col-md-3 form-group">
-                        <strong for="album_title">الأسم:</strong>
-                        <input type="text" class="form-control" name="album_title" id="album_title"
-                               value="{{ request()->get('album_title') }}"
-                               style="border: 1px solid #ccc; border-radius: 5px;">
-                    </div>
+                        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
+                            <strong for="photo_date">التاريخ:</strong>
+                            <input type="date" class="form-control" name="photo_date" id="photo_date"
+                                   value="{{ request()->get('photo_date') }}"
+                                   style="border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+                        </div>
 
-                    <div class="col-md-3 form-group">
-                        <strong for="photo_date">التاريخ:</strong>
-                        <input type="date" class="form-control" name="photo_date" id="photo_date"
-                               value="{{ request()->get('photo_date') }}"
-                               style="border: 1px solid #ccc; border-radius: 5px;">
-                    </div>
-
-                    <div class="col-md-3 form-group">
-                        <strong for="category_id">القسم/الخدمة</strong>
-                        <select name="category_id" class="category_id form-control">
-                            <option value="0">اختار قسم المناسبه</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category['id']}}"
-                                        @if(request()->get('category_id') == $category['id'] ) selected @endif
-                                >{{$category['title']}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-3 form-group">
-                        <button type="submit" class="form-control btn btn-primary mt-4"
-                                style="border: 1px solid #ccc; border-radius: 5px;">بحث
-                        </button>
+                        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
+                            <button type="submit" class="btn btn-primary"
+                                    style="border: 1px solid #ccc; border-radius: 5px; width: 100%; margin-top: 32px;">بحث
+                            </button>
+                        </div>
                     </div>
                 </form>
 
                 <br>
             </div>
-            <div class="row">
+            <div class="row" style="direction: rtl">
                 @forelse($albums as $album)
                     @include("site.modules.album_item",['album'=>$album])
                 @empty

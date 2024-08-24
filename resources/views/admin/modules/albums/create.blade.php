@@ -134,24 +134,24 @@
                 </div>
 
                 <div class="row mb-3">
-                    {{--                    <div class="col-12 col-md-6 col-lg-6 mb-3">--}}
-                    {{--                        <div class="form-group">--}}
-                    {{--                            <label for="photo_date"--}}
-                    {{--                                   class="form-label @if ($errors->has("photo_date")) is-invalid @endif">Date</label>--}}
-                    {{--                            <input type='date' name='photo_date' id='photo_date' value='{{old("photo_date")}}'--}}
-                    {{--                                   placeholder="Date"--}}
-                    {{--                                   class='form-control @if ($errors->has("photo_date")) is-invalid @endif' required--}}
-                    {{--                                   @if ($errors->has("photo_date"))--}}
-                    {{--                                       aria-describedby="photo_date-error"--}}
-                    {{--                                   aria-invalid="true"--}}
-                    {{--                                    @endif--}}
-                    {{--                            />--}}
-                    {{--                            @if ($errors->has("photo_date"))--}}
-                    {{--                                <div id="photo_date-error"--}}
-                    {{--                                     class="invalid-feedback animated fadeInDown">{{ $errors->first("photo_date") }}</div>--}}
-                    {{--                            @endif--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
+                    <div class="col-12 col-md-6 col-lg-6 mb-3">
+                        <div class="form-group">
+                            <label for="photo_date"
+                                   class="form-label @if ($errors->has("photo_date")) is-invalid @endif">Date</label>
+                            <input type='date' name='photo_date' id='photo_date' value='{{old("photo_date")}}'
+                                   placeholder="Date"
+                                   class='form-control @if ($errors->has("photo_date")) is-invalid @endif' required
+                                   @if ($errors->has("photo_date"))
+                                       aria-describedby="photo_date-error"
+                                   aria-invalid="true"
+                                    @endif
+                            />
+                            @if ($errors->has("photo_date"))
+                                <div id="photo_date-error"
+                                     class="invalid-feedback animated fadeInDown">{{ $errors->first("photo_date") }}</div>
+                            @endif
+                        </div>
+                    </div>
 
 
                     <div class="col-12 col-md-6 col-lg-6 mb-3">

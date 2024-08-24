@@ -1,4 +1,4 @@
-<div id="last-work">
+<div id="last-work" style="direction: rtl">
     <div class="container">
         <div class="text-center">
             <h4 class="m-0 text-light pt-3">
@@ -26,7 +26,7 @@
             @endforeach
         </div>
         <div class="text-center show-more">
-            <button onclick="window.location.href='{{route('site.albums')}}'">عرض المزيد</button>
+            <button onclick="window.location.href='{{route('site.albums',["is_public"=>1])}}'">عرض المزيد</button>
         </div>
 
     </div>

@@ -21,11 +21,8 @@
     <div class="mt-5">
         <div class="container">
             <?php $youtubeChannleLink = \App\Models\SocialMediaLink::where('is_active', 1)
-                ->where("title","Youtube")->first()->url; ?>
-            <a href="{{$youtubeChannleLink}}" class="youtube-button" target="_blank">
-                <span class="youtube-logo"></span>
-                الإنتقال إلى قناة اليوتيوب للمزيد من الفيديوهات
-            </a>
+                ->where("title", "Youtube")->first()->url; ?>
+
             <br>
             <br>
             <div class="row">
@@ -35,7 +32,12 @@
                     <h3 style="width: 100%;color: red">تحت الانشاء</h3>
                 @endforelse
             </div>
-
+            <div class="button-container">
+                <a href="{{$youtubeChannleLink}}" class="youtube-button" style="align-content: center" target="_blank">
+                    <span class="youtube-logo"></span>
+                    الإنتقال إلى قناة اليوتيوب للمزيد من الفيديوهات
+                </a>
+            </div>
         </div>
     </div>
 @endsection
@@ -117,6 +119,13 @@
 @push("styles")
     <link rel="stylesheet" href="{{asset("resources/site/css/blog.css")}}">
     <style>
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .youtube-button {
             display: inline-flex;
             align-items: center;
@@ -128,6 +137,7 @@
             font-size: 16px;
             font-weight: bold;
         }
+
 
         .youtube-button:hover {
             background-color: #cc0000; /* Darker red on hover */

@@ -4,7 +4,7 @@ return [
     "site_title" => "فوتوتايم",
     "footer_about" => "مصور ابوت",
     "top_menu" => [
-        "home" => "الرئيسية",
+        "home" => "الرئيسيه",
         "blog" => "المدونة",
     ],
     "about_us" => "من نحن",

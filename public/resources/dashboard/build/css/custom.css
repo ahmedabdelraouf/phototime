@@ -1486,7 +1486,7 @@
 
 body {
     color: #73879c;
-    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-family: 'Sakkal Majalla', sans-serif;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.471
@@ -3750,7 +3750,7 @@ ul.social li {
 
 .social-body {
     border: 1px solid #ccc;
-    width: 78%
+    width: 78%;
 }
 
 .thumb img {
