@@ -46,22 +46,26 @@ class HomeController extends SiteBaseController
         $featuredAlbums = Album::where('is_featured', 1)
             ->whereNotNull('default_image')
             ->where('default_image', '!=', '')
-            ->inRandomOrder()
+            ->orderBy("id", "desc")
+//            ->inRandomOrder()
             ->take(4)
             ->get();
 
-        $featuredAlbums2 = Album::
-        where('is_active', 1)
-//            ->where('is_featured', 1)
-            ->where('title', 'LIKE', '%حفل زواج%')
-            ->orWhere('title', 'LIKE', '%حفل واج%')
-            ->orWhere('title', 'LIKE', '%حفل زواح%')
-            ->orWhere('title', 'LIKE', '%حفل زواج%')
+        $featuredAlbums2 = Album::where('is_active', 1)
+            ->where('is_blocked', 0)
+            ->where(function ($query) {
+                $query->where('title', 'LIKE', '%حفل زواج%')
+                    ->orWhere('title', 'LIKE', '%حفل واج%')
+                    ->orWhere('title', 'LIKE', '%حفل زواح%')
+                    ->orWhere('title', 'LIKE', '%حفل زواج%');
+            })
             ->whereNotNull('default_image')
             ->where('default_image', '!=', '')
             ->orderBy("id", "desc")
             ->take(4)
             ->get();
+
+//            dd($featuredAlbums2->toSql(),$featuredAlbums2->getBindings());
 
         $youtubeLinks = YoutubeChannel::take(4)->get();
         return view("site.modules.homepage", get_defined_vars());

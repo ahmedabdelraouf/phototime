@@ -30,24 +30,31 @@
             <div class="align-center">
                 <form action="{{ route('site.albums') }}" method="GET" class="form-container"
                       style="direction: rtl; border: 1px solid #ccc; padding: 15px; border-radius: 5px; display: flex; flex-direction: column; align-items: center;">
+                    @if(!empty(request()->get('is_public')) && request()->get('is_public') ==1)
+                        <input type="hidden" name="is_public" value="1">
+                    @endif
                     <div class="form-row" style="display: flex; justify-content: center; width: 100%; gap: 15px;">
-                        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
+                        <div class="form-group"
+                             style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
                             <strong for="album_title">الأسم:</strong>
                             <input type="text" class="form-control" name="album_title" id="album_title"
                                    value="{{ request()->get('album_title') }}"
                                    style="border: 1px solid #ccc; border-radius: 5px; width: 100%;">
                         </div>
 
-                        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
+                        <div class="form-group"
+                             style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
                             <strong for="photo_date">التاريخ:</strong>
                             <input type="date" class="form-control" name="photo_date" id="photo_date"
                                    value="{{ request()->get('photo_date') }}"
                                    style="border: 1px solid #ccc; border-radius: 5px; width: 100%;">
                         </div>
 
-                        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
+                        <div class="form-group"
+                             style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 200px;">
                             <button type="submit" class="btn btn-primary"
-                                    style="border: 1px solid #ccc; border-radius: 5px; width: 100%; margin-top: 32px;">بحث
+                                    style="border: 1px solid #ccc; border-radius: 5px; width: 100%; margin-top: 32px;">
+                                بحث
                             </button>
                         </div>
                     </div>
